@@ -1,0 +1,42 @@
+# Scan Configuration Example
+
+scanning:
+  roots:
+    - path: "C:\\Users\\Documents"
+      name: "user_docs"
+      recursive: true
+    - path: "C:\\Projects"
+      name: "projects"
+      recursive: true
+
+  exclusions:
+    patterns:
+      - "*.tmp"
+      - "*.temp"
+      - "~$*"
+      - "desktop.ini"
+      - "Thumbs.db"
+      - ".DS_Store"
+    folders:
+      - "node_modules"
+      - ".git"
+      - ".svn"
+      - "$RECYCLE.BIN"
+      - "System Volume Information"
+      - "__pycache__"
+      - ".venv"
+      - "venv"
+
+  performance:
+    threads: 8
+    batch_size: 1000
+    checkpoint_interval: 60
+
+  hashing:
+    quick_hash_enabled: true
+    quick_hash_size: 1048576
+    full_hash_on_duplicates: true
+    skip_files_larger_than: 10737418240
+
+  access_tracking:
+    enabled: false

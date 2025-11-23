@@ -1,0 +1,302 @@
+# Comprehensive File Categorization Taxonomy
+# Used by scanner to classify files into categories and subcategories
+
+categories:
+  # ============================================================================
+  # DOCUMENTS
+  # ============================================================================
+  documents:
+    description: "Text-based documents and office files"
+    subcategories:
+      text_documents:
+        extensions: [".txt", ".rtf", ".md", ".markdown", ".log", ".csv", ".tsv"]
+        description: "Plain text and formatted text files"
+
+      word_processing:
+        extensions: [".doc", ".docx", ".odt", ".pages", ".wpd", ".wps"]
+        description: "Word processor documents"
+
+      spreadsheets:
+        extensions: [".xls", ".xlsx", ".xlsm", ".xlsb", ".ods", ".numbers", ".gnumeric"]
+        description: "Spreadsheet files"
+
+      presentations:
+        extensions: [".ppt", ".pptx", ".pps", ".ppsx", ".odp", ".key"]
+        description: "Presentation files"
+
+      pdfs:
+        extensions: [".pdf"]
+        description: "Portable Document Format files"
+
+      ebooks:
+        extensions: [".epub", ".mobi", ".azw", ".azw3", ".fb2", ".lit", ".lrf", ".cbr", ".cbz"]
+        description: "Electronic book formats"
+
+      notes:
+        extensions: [".one", ".onenote", ".note", ".enex", ".nb"]
+        description: "Digital note files"
+
+  # ============================================================================
+  # MEDIA
+  # ============================================================================
+  media:
+    description: "Multimedia files including images, video, and audio"
+    subcategories:
+      photos:
+        extensions: [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".tif", ".webp", ".heic", ".heif", ".raw", ".cr2", ".nef", ".arw", ".dng"]
+        description: "Photo and image files"
+
+      vector_graphics:
+        extensions: [".svg", ".ai", ".eps", ".ps", ".cdr", ".emf", ".wmf"]
+        description: "Vector graphics and illustrations"
+
+      videos:
+        extensions: [".mp4", ".mkv", ".avi", ".mov", ".wmv", ".flv", ".webm", ".m4v", ".mpg", ".mpeg", ".3gp", ".ogv", ".vob", ".mts", ".m2ts"]
+        description: "Video files"
+
+      audio:
+        extensions: [".mp3", ".wav", ".flac", ".aac", ".m4a", ".ogg", ".wma", ".opus", ".ape", ".alac", ".aiff"]
+        description: "Audio and music files"
+
+      graphics_projects:
+        extensions: [".psd", ".xcf", ".kra", ".clip", ".sai", ".psb", ".sketch", ".fig", ".xd"]
+        description: "Graphics editor project files"
+
+  # ============================================================================
+  # CODE & DEVELOPMENT
+  # ============================================================================
+  code:
+    description: "Source code and development files"
+    subcategories:
+      source_code:
+        extensions: [".py", ".js", ".ts", ".jsx", ".tsx", ".java", ".cpp", ".c", ".h", ".hpp", ".cs", ".rb", ".go", ".rs", ".php", ".swift", ".kt", ".scala", ".r", ".m", ".mm"]
+        description: "Programming language source files"
+
+      web:
+        extensions: [".html", ".htm", ".css", ".scss", ".sass", ".less", ".vue", ".svelte", ".asp", ".aspx", ".jsp"]
+        description: "Web development files"
+
+      scripts:
+        extensions: [".sh", ".bash", ".zsh", ".fish", ".ps1", ".bat", ".cmd", ".vbs", ".ahk"]
+        description: "Shell and automation scripts"
+
+      config:
+        extensions: [".json", ".yaml", ".yml", ".toml", ".ini", ".conf", ".cfg", ".env", ".properties", ".xml"]
+        description: "Configuration files"
+
+      notebooks:
+        extensions: [".ipynb", ".rmd", ".qmd"]
+        description: "Interactive notebooks"
+
+      sql:
+        extensions: [".sql", ".sqlite", ".db", ".mdb", ".accdb"]
+        description: "SQL and database query files"
+
+  # ============================================================================
+  # ARCHIVES & COMPRESSED
+  # ============================================================================
+  archives:
+    description: "Compressed and archive files"
+    subcategories:
+      compressed:
+        extensions: [".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz", ".lz", ".lzma", ".z"]
+        description: "Compressed archives"
+
+      tar_archives:
+        extensions: [".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".tar.xz", ".txz"]
+        description: "Tar-based archives"
+
+      disk_images:
+        extensions: [".iso", ".img", ".dmg", ".vhd", ".vhdx", ".vmdk", ".qcow2"]
+        description: "Disk image files"
+
+  # ============================================================================
+  # EXECUTABLES & BINARIES
+  # ============================================================================
+  executables:
+    description: "Executable programs and binary files"
+    subcategories:
+      windows_executables:
+        extensions: [".exe", ".msi", ".dll", ".sys", ".bat", ".cmd", ".com", ".scr"]
+        description: "Windows executable files"
+
+      linux_binaries:
+        extensions: [".so", ".deb", ".rpm", ".appimage", ".snap", ".flatpak"]
+        description: "Linux binary and package files"
+
+      macos_binaries:
+        extensions: [".app", ".dmg", ".pkg", ".dylib", ".bundle"]
+        description: "macOS application bundles"
+
+      installers:
+        extensions: [".msi", ".exe", ".pkg", ".deb", ".rpm", ".run"]
+        description: "Software installers"
+
+  # ============================================================================
+  # DESIGN & CAD
+  # ============================================================================
+  design:
+    description: "Design and CAD files"
+    subcategories:
+      cad:
+        extensions: [".dwg", ".dxf", ".dgn", ".stl", ".step", ".stp", ".iges", ".igs", ".obj", ".fbx", ".3ds", ".blend", ".max", ".c4d"]
+        description: "CAD and 3D model files"
+
+      design_projects:
+        extensions: [".indd", ".idml", ".afdesign", ".afphoto", ".afpub"]
+        description: "Professional design project files"
+
+  # ============================================================================
+  # EMAIL & COMMUNICATION
+  # ============================================================================
+  email:
+    description: "Email and communication files"
+    subcategories:
+      email_messages:
+        extensions: [".eml", ".msg", ".emlx", ".mbox"]
+        description: "Email message files"
+
+      email_databases:
+        extensions: [".pst", ".ost", ".nsf", ".dbx"]
+        description: "Email database files"
+
+  # ============================================================================
+  # VIRTUAL MACHINES
+  # ============================================================================
+  virtual_machines:
+    description: "Virtual machine and container files"
+    subcategories:
+      vm_disks:
+        extensions: [".vmdk", ".vdi", ".vhd", ".vhdx", ".qcow2", ".hdd"]
+        description: "Virtual machine disk files"
+
+      vm_configs:
+        extensions: [".vmx", ".ovf", ".ova", ".vbox"]
+        description: "Virtual machine configuration files"
+
+      containers:
+        extensions: [".dockerfile", ".docker"]
+        description: "Container definition files"
+
+  # ============================================================================
+  # FONTS
+  # ============================================================================
+  fonts:
+    description: "Font files"
+    subcategories:
+      truetype:
+        extensions: [".ttf", ".ttc"]
+        description: "TrueType fonts"
+
+      opentype:
+        extensions: [".otf"]
+        description: "OpenType fonts"
+
+      web_fonts:
+        extensions: [".woff", ".woff2", ".eot"]
+        description: "Web font files"
+
+  # ============================================================================
+  # SYSTEM & TEMPORARY
+  # ============================================================================
+  system:
+    description: "System and temporary files"
+    subcategories:
+      temp_files:
+        extensions: [".tmp", ".temp", ".cache", ".bak", ".old", ".~*"]
+        description: "Temporary and backup files"
+
+      logs:
+        extensions: [".log", ".trace", ".out", ".err"]
+        description: "Log files"
+
+      system_files:
+        extensions: [".sys", ".ini", ".dat", ".dll", ".ico", ".lnk"]
+        description: "System configuration files"
+
+  # ============================================================================
+  # BACKUPS
+  # ============================================================================
+  backups:
+    description: "Backup and recovery files"
+    subcategories:
+      backup_archives:
+        extensions: [".bak", ".backup", ".old", ".save"]
+        description: "Backup copies"
+
+      time_machine:
+        extensions: [".sparsebundle", ".backupbundle"]
+        description: "Time Machine backups"
+
+  # ============================================================================
+  # DATABASES
+  # ============================================================================
+  databases:
+    description: "Database files"
+    subcategories:
+      sqlite:
+        extensions: [".db", ".sqlite", ".sqlite3", ".db3"]
+        description: "SQLite database files"
+
+      other_dbs:
+        extensions: [".mdb", ".accdb", ".fdb", ".gdb", ".nsf", ".dbf"]
+        description: "Other database formats"
+
+  # ============================================================================
+  # CERTIFICATES & SECURITY
+  # ============================================================================
+  security:
+    description: "Security certificates and keys"
+    subcategories:
+      certificates:
+        extensions: [".pem", ".crt", ".cer", ".der", ".p12", ".pfx", ".p7b", ".p7c"]
+        description: "Security certificates"
+
+      keys:
+        extensions: [".key", ".pub", ".ppk", ".pem"]
+        description: "Cryptographic keys"
+
+  # ============================================================================
+  # OTHER
+  # ============================================================================
+  other:
+    description: "Uncategorized files"
+    subcategories:
+      unknown:
+        extensions: []
+        description: "Files without recognized extension"
+
+# ============================================================================
+# SPECIAL PATTERNS (not extension-based)
+# ============================================================================
+special_patterns:
+  # Files to always mark as temporary
+  temp_patterns:
+    - "~$*"        # Office temp files
+    - "*.tmp"
+    - "*.temp"
+    - "Thumbs.db"
+    - ".DS_Store"
+    - "desktop.ini"
+
+  # Files to mark as low-value
+  low_value_patterns:
+    - "*.cache"
+    - "*.log"
+    - "*.trace"
+
+  # Hidden files (Unix-style)
+  hidden_patterns:
+    - ".*"
+
+# ============================================================================
+# MIME TYPE FALLBACKS
+# ============================================================================
+mime_type_fallbacks:
+  "text/": "documents"
+  "image/": "media"
+  "video/": "media"
+  "audio/": "media"
+  "application/pdf": "documents"
+  "application/zip": "archives"
+  "application/x-": "executables"

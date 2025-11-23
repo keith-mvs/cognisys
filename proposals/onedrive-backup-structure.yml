@@ -1,0 +1,89 @@
+# IFMOS Structure Proposal
+# Generated: 2025-11-20T06:03:41.253626
+# Based on session with 18515 files (75.93 GB)
+# REVIEW AND CUSTOMIZE before using for migration
+
+generated_at: '2025-11-20T06:03:41.253626'
+repository_root: C:\Repository
+structure:
+  top_level:
+  - Active
+  - Archive
+  - Media
+  - Documents
+  - Code
+  - Shared
+  - Quarantine
+classification:
+  media:
+    extensions:
+    - .jpg
+    - .heic
+    - .jpeg
+    - .dng
+    - .png
+    - .mov
+    - .webp
+    - .mp4
+    - .heif
+    - .bmp
+    target: Active/Media/{subcategory}/{YYYY-MM}
+    subcategories:
+    - photos
+    - videos
+  executables:
+    extensions:
+    - .exe
+    - .msi
+    target: Active/Executables/{YYYY}
+    subcategories:
+    - installers
+  documents:
+    extensions:
+    - .pdf
+    - .docx
+    - .xlsx
+    - .md
+    - .txt
+    - .csv
+    - .doc
+    - ''
+    - .rtf
+    - .pptx
+    target: Active/Documents/{subcategory}/{YYYY}
+    subcategories:
+    - pdfs
+    - text_documents
+    - spreadsheets
+    - word_processing
+    - presentations
+naming_conventions:
+  files:
+    pattern: '{YYYY-MM-DD}_{Name}_{Type}.{ext}'
+    rules:
+      date_format: YYYY-MM-DD
+      separator: _
+      case: PascalCase
+      version_format: v{NN}
+  folders:
+    case: PascalCase
+    separator: _
+    max_depth: 5
+lifecycle:
+  active_to_archive:
+    trigger:
+      not_modified_days: 591
+      access_count: 0
+    action: move
+    target: Archive/{original_category}/{YYYY}
+  quarantine_review:
+    trigger:
+      in_quarantine_days: 30
+    action: prompt
+    options:
+    - restore
+    - delete
+    - keep
+backward_compatibility:
+  create_symlinks: false
+  symlink_lifetime_days: 90

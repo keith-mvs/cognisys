@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(pip install:*)",
+      "Bash(ifmos --help:*)",
+      "Bash(ifmos list-sessions:*)",
+      "Bash(ifmos scan:*)",
+      "Bash(nul)",
+      "Bash(ifmos analyze:*)",
+      "Bash(ifmos report:*)",
+      "Bash(sqlite3:*)",
+      "Bash(python -c:*)",
+      "Bash(ifmos propose-structure:*)",
+      "Bash(ifmos plan:*)",
+      "Bash(ifmos dry-run:*)",
+      "Bash(git init:*)",
+      "Bash(git config:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "outputStyle": "Explanatory"
+}

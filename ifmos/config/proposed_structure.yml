@@ -1,0 +1,55 @@
+# IFMOS Structure Proposal
+# Generated: 2025-11-20T05:57:17.106335
+# Based on session with 20 files (0.0 GB)
+# REVIEW AND CUSTOMIZE before using for migration
+
+generated_at: '2025-11-20T05:57:17.106335'
+repository_root: C:\Repository
+structure:
+  top_level:
+  - Active
+  - Archive
+  - Shared
+  - Quarantine
+classification:
+  code:
+    extensions:
+    - .py
+    - .yml
+    - .html
+    target: Active/Projects/{project_name}/src
+    subcategories:
+    - source_code
+    - config
+    - web
+    preserve_structure: true
+naming_conventions:
+  files:
+    pattern: '{YYYY-MM-DD}_{Name}_{Type}.{ext}'
+    rules:
+      date_format: YYYY-MM-DD
+      separator: _
+      case: PascalCase
+      version_format: v{NN}
+  folders:
+    case: PascalCase
+    separator: _
+    max_depth: 5
+lifecycle:
+  active_to_archive:
+    trigger:
+      not_modified_days: 180
+      access_count: 0
+    action: move
+    target: Archive/{original_category}/{YYYY}
+  quarantine_review:
+    trigger:
+      in_quarantine_days: 30
+    action: prompt
+    options:
+    - restore
+    - delete
+    - keep
+backward_compatibility:
+  create_symlinks: false
+  symlink_lifetime_days: 90

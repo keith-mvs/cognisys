@@ -1,0 +1,80 @@
+# Target Repository Structure Configuration
+
+repository_root: "C:\\Repository"
+
+structure:
+  top_level:
+    - Active
+    - Archive
+    - Reference
+    - Shared
+    - System
+    - Quarantine
+
+classification:
+  documents:
+    extensions: [".docx", ".xlsx", ".pdf", ".txt", ".md", ".pptx", ".odt", ".rtf"]
+    target: "Active/Documents/{subcategory}/{YYYY}"
+    subcategories:
+      - Contracts
+      - Reports
+      - Correspondence
+      - Proposals
+
+  media:
+    extensions: [".jpg", ".jpeg", ".png", ".gif", ".mp4", ".mov", ".avi", ".bmp", ".svg", ".mp3", ".wav", ".flac"]
+    target: "Active/Media/{media_type}/{YYYY-MM}"
+    subcategories:
+      - Photos
+      - Videos
+      - Graphics
+      - Audio
+
+  code:
+    extensions: [".py", ".js", ".java", ".cpp", ".h", ".cs", ".rb", ".go", ".rs", ".php", ".html", ".css"]
+    target: "Active/Projects/{project_name}/src"
+    preserve_structure: true
+
+  archives:
+    extensions: [".zip", ".tar", ".gz", ".rar", ".7z", ".bz2", ".xz"]
+    target: "Archive/Compressed/{YYYY}"
+
+  binaries:
+    extensions: [".exe", ".dll", ".so", ".dylib", ".app", ".dmg", ".msi", ".deb", ".rpm"]
+    target: "System/Binaries/{category}"
+    categories:
+      - Installers
+      - Portable
+      - Libraries
+
+naming_conventions:
+  files:
+    pattern: "{YYYY-MM-DD}_{ProjectName}_{Type}_{Version}.{ext}"
+    rules:
+      date_format: "YYYY-MM-DD"
+      separator: "_"
+      case: "PascalCase"
+      version_format: "v{NN}"
+
+  folders:
+    case: "PascalCase"
+    separator: "_"
+    max_depth: 5
+
+lifecycle:
+  active_to_archive:
+    trigger:
+      not_modified_days: 180
+      access_count: 0
+    action: "move"
+    target: "Archive/{original_category}/{YYYY}"
+
+  quarantine_review:
+    trigger:
+      in_quarantine_days: 30
+    action: "prompt"
+    options: ["restore", "delete", "keep"]
+
+backward_compatibility:
+  create_symlinks: false
+  symlink_lifetime_days: 90

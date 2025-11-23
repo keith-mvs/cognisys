@@ -1,0 +1,77 @@
+# IFMOS Default Configuration
+
+scanning:
+  roots: []
+
+  exclusions:
+    patterns:
+      - "*.tmp"
+      - "*.temp"
+      - "~$*"
+      - "desktop.ini"
+      - "Thumbs.db"
+      - ".DS_Store"
+    folders:
+      - "node_modules"
+      - ".git"
+      - ".svn"
+      - "$RECYCLE.BIN"
+      - "System Volume Information"
+
+  performance:
+    threads: 8
+    batch_size: 1000
+    checkpoint_interval: 300
+
+  hashing:
+    quick_hash_enabled: true
+    quick_hash_size: 1048576
+    full_hash_on_duplicates: true
+    skip_files_larger_than: 10737418240
+
+  access_tracking:
+    enabled: false
+
+deduplication:
+  exact_match:
+    enabled: true
+    min_file_size: 1024
+    hash_algorithm: "sha256"
+
+  fuzzy_filename:
+    enabled: true
+    similarity_threshold: 0.85
+    same_folder_only: true
+
+  canonical_selection:
+    priorities:
+      - rule: "newest_modified"
+        weight: 10
+      - rule: "preferred_path"
+        weight: 20
+      - rule: "shorter_path"
+        weight: 10
+      - rule: "access_frequency"
+        weight: 15
+      - rule: "descriptive_name"
+        weight: 5
+    preferred_paths: []
+
+orphaned_files:
+  criteria:
+    - not_accessed_days: 365
+    - size_less_than_kb: 10
+  patterns:
+    - "**/*.tmp"
+    - "**/*.bak"
+    - "**/~$*"
+
+low_value_files:
+  cache_patterns:
+    - "**/cache/**"
+    - "**/.cache/**"
+    - "**/temp/**"
+  log_patterns:
+    - "**/*.log"
+    - "**/*.trace"
+  age_threshold_days: 90

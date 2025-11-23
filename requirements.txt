@@ -1,0 +1,13 @@
+# IFMOS Requirements
+
+# Core dependencies
+click>=8.0.0
+PyYAML>=6.0
+python-Levenshtein>=0.20.0
+
+# Optional dependencies for advanced features
+# Uncomment if needed:
+# imagehash>=4.3.0  # For image deduplication
+# Pillow>=10.0.0    # For image processing
+# matplotlib>=3.5.0 # For visualization
+# pandas>=2.0.0     # For data analysis
