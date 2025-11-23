@@ -49,8 +49,8 @@ A comprehensive, automation-friendly system for analyzing, deduplicating, and re
 ### Install from source
 
 ```bash
-git clone <repository-url>
-cd intelligent-file-management-system
+git clone https://github.com/FleithFeming/IFMOS.git
+cd IFMOS
 pip install -r requirements.txt
 pip install -e .
 ```

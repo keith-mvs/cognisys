@@ -5,8 +5,9 @@ Get started with IFMOS in 5 minutes!
 ## Installation
 
 ```bash
-# Navigate to project directory
-cd intelligent-file-management-system
+# Clone and navigate to project directory
+git clone https://github.com/FleithFeming/IFMOS.git
+cd IFMOS
 
 # Install dependencies
 pip install -r requirements.txt
