@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\kjfle\\Projects\\intelligent-file-management-system",
+        "C:\\Users\\kjfle\\00_Inbox",
+        "C:\\Users\\kjfle\\Documents"
+      ],
+      "description": "File system operations for IFMOS project and inbox directories"
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "--db-path",
+        "C:\\Users\\kjfle\\Projects\\intelligent-file-management-system\\ifmos\\data\\training\\ifmos_ml.db"
+      ],
+      "description": "Direct SQL access to IFMOS ML training database"
+    },
+    "ifmos": {
+      "command": "python",
+      "args": [
+        "C:\\Users\\kjfle\\Projects\\intelligent-file-management-system\\.claude\\mcp-servers\\ifmos_server.py"
+      ],
+      "description": "Custom IFMOS MCP server for document classification, querying, and feedback"
+    }
+  }
+}
