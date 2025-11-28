@@ -110,7 +110,7 @@ function Invoke-IFMOSMLProcess {
         [string]$FilePath
     )
 
-    if (-not (Test-Path $FilePath)) {
+    if (-not (Test-Path -LiteralPath $FilePath)) {
         Write-Error "File not found: $FilePath"
         return $null
     }

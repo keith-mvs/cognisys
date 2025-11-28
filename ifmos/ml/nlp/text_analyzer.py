@@ -63,12 +63,13 @@ class TextAnalyzer:
             self.logger.warning("NLTK not available. Using basic stopword list.")
             self.stop_words = set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for'])
 
-    def analyze_text(self, text: str) -> Dict:
+    def analyze_text(self, text: str, filename: str = "") -> Dict:
         """
         Perform comprehensive text analysis.
 
         Args:
             text: Input text to analyze
+            filename: Optional filename for context (helps with classification)
 
         Returns:
             {
@@ -94,8 +95,8 @@ class TextAnalyzer:
             # Extract keywords
             keywords = self._extract_keywords(doc)
 
-            # Infer document type
-            doc_type = self._infer_document_type(text, entities, keywords)
+            # Infer document type (now with filename context)
+            doc_type = self._infer_document_type(text, entities, keywords, filename)
 
             # Extract classification features
             features = self._extract_features(doc, entities, keywords)
@@ -168,57 +169,171 @@ class TextAnalyzer:
 
         return keywords
 
-    def _infer_document_type(self, text: str, entities: List[Dict], keywords: List[str]) -> str:
+    def _infer_document_type(self, text: str, entities: List[Dict], keywords: List[str], filename: str = "") -> str:
         """
-        Infer document type based on content patterns.
+        Infer document type using multi-signal classification with confidence scoring.
 
-        Types: invoice, contract, letter, report, form, resume, email, legal, financial, medical, other
+        Enhanced approach:
+        - Uses filename patterns (extension, naming conventions)
+        - Contextual keyword matching (not just presence)
+        - Confidence scoring (requires minimum threshold)
+        - More granular categories
+        - Hierarchical fallback logic
+
+        Types: invoice, contract, letter, report, form, resume, email, legal, financial, medical, technical, etc.
         """
         text_lower = text.lower()
         entity_labels = [e['label'] for e in entities]
+        filename_lower = filename.lower() if filename else ""
 
-        # Financial documents
-        if any(keyword in text_lower for keyword in ['invoice', 'payment', 'total', 'amount due', 'balance']):
-            if 'MONEY' in entity_labels:
-                return 'financial_invoice'
+        # Score-based classification (category -> confidence score)
+        scores = {}
 
-        if any(keyword in text_lower for keyword in ['statement', 'account', 'transaction', 'balance']):
-            return 'financial_statement'
+        # === FILENAME-BASED CLASSIFICATION (highest priority) ===
+        # Technical documents
+        if any(ext in filename_lower for ext in ['.json', '.xml', '.yaml', '.yml', '.toml', '.ini', '.cfg', '.conf']):
+            scores['technical_config'] = 95
 
-        # Legal documents
-        if any(keyword in text_lower for keyword in ['contract', 'agreement', 'party', 'hereby', 'whereas']):
-            return 'legal_contract'
+        if any(ext in filename_lower for ext in ['.py', '.js', '.java', '.cpp', '.c', '.h', '.cs', '.go', '.rs']):
+            scores['technical_code'] = 95
 
-        if any(keyword in text_lower for keyword in ['court', 'plaintiff', 'defendant', 'case', 'motion']):
-            return 'legal_court'
+        if any(ext in filename_lower for ext in ['.md', '.rst', '.txt']):
+            if any(pattern in filename_lower for pattern in ['readme', 'doc', 'guide', 'manual']):
+                scores['technical_documentation'] = 90
 
-        # Medical documents
-        if any(keyword in text_lower for keyword in ['patient', 'diagnosis', 'treatment', 'prescription', 'medical']):
-            return 'medical'
+        # Resume patterns in filename
+        if any(pattern in filename_lower for pattern in ['resume', 'cv', 'curriculum']):
+            scores['hr_resume'] = 85
 
-        # HR/Resume
-        if any(keyword in text_lower for keyword in ['resume', 'cv', 'experience', 'education', 'skills']):
-            return 'hr_resume'
+        # Invoice patterns in filename
+        if any(pattern in filename_lower for pattern in ['invoice', 'bill', 'receipt']):
+            scores['financial_invoice'] = 80
 
-        # Business correspondence
-        if any(keyword in text_lower for keyword in ['dear', 'sincerely', 're:', 'subject:']):
-            if 'email' in text_lower or '@' in text:
-                return 'communication_email'
-            return 'communication_letter'
+        # === CONTENT-BASED CLASSIFICATION ===
+        # Financial - Invoice (strict contextual matching)
+        invoice_score = 0
+        if self._contains_phrase(text_lower, ['invoice number', 'bill to', 'invoice date', 'due date']):
+            invoice_score += 40
+        if 'MONEY' in entity_labels and len([e for e in entities if e['label'] == 'MONEY']) >= 2:
+            invoice_score += 20
+        if self._contains_phrase(text_lower, ['amount due', 'total amount', 'subtotal', 'tax amount']):
+            invoice_score += 20
+        if self._contains_phrase(text_lower, ['payment terms', 'pay by', 'remit to']):
+            invoice_score += 10
+        if invoice_score >= 40:
+            scores['financial_invoice'] = invoice_score
+
+        # Financial - Bank Statement
+        statement_score = 0
+        if self._contains_phrase(text_lower, ['account number', 'statement period', 'beginning balance', 'ending balance']):
+            statement_score += 40
+        if self._contains_phrase(text_lower, ['transaction', 'deposit', 'withdrawal', 'debit', 'credit']):
+            statement_score += 20
+        if 'DATE' in entity_labels and len([e for e in entities if e['label'] == 'DATE']) >= 3:
+            statement_score += 10
+        if statement_score >= 40:
+            scores['financial_statement'] = statement_score
+
+        # Legal - Contract
+        contract_score = 0
+        if self._contains_phrase(text_lower, ['this agreement', 'parties agree', 'hereby', 'whereas']):
+            contract_score += 40
+        if self._contains_phrase(text_lower, ['terms and conditions', 'effective date', 'termination']):
+            contract_score += 20
+        if 'DATE' in entity_labels and 'PERSON' in entity_labels:
+            contract_score += 10
+        if contract_score >= 40:
+            scores['legal_contract'] = contract_score
+
+        # Legal - Court Document
+        court_score = 0
+        if self._contains_phrase(text_lower, ['plaintiff', 'defendant', 'case number', 'court']):
+            court_score += 40
+        if self._contains_phrase(text_lower, ['motion', 'hearing', 'order', 'judgment']):
+            court_score += 20
+        if court_score >= 40:
+            scores['legal_court'] = court_score
+
+        # Medical
+        medical_score = 0
+        if self._contains_phrase(text_lower, ['patient', 'diagnosis', 'treatment', 'prescription']):
+            medical_score += 40
+        if self._contains_phrase(text_lower, ['medical history', 'symptoms', 'medication', 'doctor']):
+            medical_score += 20
+        if 'DATE' in entity_labels:
+            medical_score += 5
+        if medical_score >= 40:
+            scores['medical'] = medical_score
+
+        # HR - Resume (strict matching to avoid false positives)
+        resume_score = 0
+        if self._contains_phrase(text_lower, ['professional experience', 'work experience', 'employment history']):
+            resume_score += 30
+        if self._contains_phrase(text_lower, ['education', 'degree', 'university', 'graduated']):
+            resume_score += 20
+        if self._contains_phrase(text_lower, ['skills', 'proficient', 'expertise']):
+            resume_score += 15
+        if self._contains_phrase(text_lower, ['resume', 'curriculum vitae', 'cv']):
+            resume_score += 15
+        if resume_score >= 40:
+            scores['hr_resume'] = resume_score
+
+        # Tax Documents
+        tax_score = 0
+        if self._contains_phrase(text_lower, ['1099', 'w-2', 'w2', '1040', 'tax return']):
+            tax_score += 50
+        if self._contains_phrase(text_lower, ['tax year', 'taxable income', 'withholding']):
+            tax_score += 20
+        if 'irs' in text_lower:
+            tax_score += 10
+        if tax_score >= 40:
+            scores['tax_document'] = tax_score
+
+        # Business Communication
+        if self._contains_phrase(text_lower, ['dear', 'sincerely', 'regards', 'best regards']):
+            if '@' in text and 'from:' in text_lower:
+                scores['communication_email'] = 60
+            else:
+                scores['communication_letter'] = 55
 
         # Forms
-        if any(keyword in text_lower for keyword in ['application', 'form', 'please fill', 'signature']):
-            return 'form'
+        form_score = 0
+        if self._contains_phrase(text_lower, ['application form', 'please fill', 'signature required']):
+            form_score += 30
+        if text_lower.count('☐') > 5 or text_lower.count('[ ]') > 5:  # Checkboxes
+            form_score += 20
+        if form_score >= 30:
+            scores['form'] = form_score
+
+        # Technical - User Manual
+        if self._contains_phrase(text_lower, ['user manual', 'installation guide', 'troubleshooting', 'specifications']):
+            scores['technical_manual'] = 60
+
+        # Technical - Research Paper
+        if self._contains_phrase(text_lower, ['abstract', 'introduction', 'methodology', 'conclusion', 'references']):
+            if len([e for e in entities if e['label'] == 'PERSON']) >= 3:  # Multiple authors
+                scores['technical_research'] = 65
 
         # Reports
-        if any(keyword in text_lower for keyword in ['report', 'analysis', 'findings', 'conclusion', 'summary']):
-            return 'report'
+        if self._contains_phrase(text_lower, ['executive summary', 'findings', 'recommendations', 'analysis']):
+            scores['report'] = 50
 
-        # Tax documents
-        if any(keyword in text_lower for keyword in ['tax', '1099', 'w-2', 'irs', 'return']):
-            return 'tax_document'
+        # === SELECT BEST CATEGORY ===
+        if scores:
+            # Return category with highest confidence
+            best_category = max(scores.items(), key=lambda x: x[1])
+            return best_category[0]
+
+        # === FALLBACK: Use simple keyword matching for uncategorized ===
+        # Only if nothing else matched above
+        if len(text) < 500:
+            return 'general_document_short'
 
         return 'general_document'
+
+    def _contains_phrase(self, text: str, phrases: List[str]) -> bool:
+        """Check if text contains any of the given phrases (as whole phrases, not just keywords)."""
+        return any(phrase in text for phrase in phrases)
 
     def _extract_features(self, doc: Doc, entities: List[Dict], keywords: List[str]) -> Dict:
         """
@@ -338,7 +453,7 @@ class TextAnalyzer:
 
             entities = self._extract_entities(doc)
             keywords = self._extract_keywords(doc)
-            doc_type = self._infer_document_type(original_text, entities, keywords)
+            doc_type = self._infer_document_type(original_text, entities, keywords, "")  # No filename in batch
             features = self._extract_features(doc, entities, keywords)
             sentiment = self._analyze_sentiment(doc)
             statistics = self._compute_statistics(original_text, doc)

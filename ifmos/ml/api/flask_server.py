@@ -225,9 +225,11 @@ def process_document():
                 'details': extraction
             }), 500
 
-        # Step 2: Analyze text
+        # Step 2: Analyze text (pass filename for better classification)
         analyzer = get_text_analyzer()
-        analysis = analyzer.analyze_text(extraction['text'])
+        import os
+        filename = os.path.basename(file_path)
+        analysis = analyzer.analyze_text(extraction['text'], filename=filename)
 
         # Step 3: Classify
         classifier = get_ml_classifier()
