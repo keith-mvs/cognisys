@@ -1,13 +1,27 @@
-# IFMOS Requirements
+# IFMOS - Intelligent File Management and Organization System
+# Core Dependencies (Base Installation)
 
-# Core dependencies
+# CLI Framework
 click>=8.0.0
+
+# Configuration
 PyYAML>=6.0
+
+# File Analysis
 python-Levenshtein>=0.20.0
 
-# Optional dependencies for advanced features
-# Uncomment if needed:
+# Database
+# SQLite is built-in to Python, no package needed
+
+# Data Analysis
+pandas>=2.1.0
+
+# Utilities
+tqdm>=4.66.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Optional: Uncomment for advanced features
 # imagehash>=4.3.0  # For image deduplication
 # Pillow>=10.0.0    # For image processing
 # matplotlib>=3.5.0 # For visualization
-# pandas>=2.0.0     # For data analysis

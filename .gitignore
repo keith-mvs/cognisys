@@ -1,7 +1,9 @@
+# IFMOS .gitignore
+
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
+*.class
 *.so
 .Python
 build/
@@ -19,6 +21,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual environments
 venv/
@@ -26,29 +29,40 @@ ENV/
 env/
 .venv
 
-# IDE
-.vscode/
+# IDEs
 .idea/
-*.swp
-*.swo
-*~
-.DS_Store
+.vscode/
+*.code-workspace
 
-# IFMOS specific
+# IFMOS Specific
 db/*.db
 db/*.db-journal
-logs/*.log
 reports/
+!reports/.gitkeep
+logs/
+*.log
 checkpoints/
-plans/
+tmp/
+temp/
 
-# Test files
-.pytest_cache/
-.coverage
-htmlcov/
+# ML Specific
+data/models/**/*.pkl
+data/models/**/*.pt
+data/training/**/*
+data/feedback/**/*
+mlruns/
+runs/
+cache/
+.EasyOCR/
+.paddleocr/
 
-# Temporary files
-*.tmp
-*.bak
-*.cache
-nul
+# OS
+Thumbs.db
+.DS_Store
+*~
+
+# Secrets
+.env
+.env.local
+secrets.yml
+credentials.json
