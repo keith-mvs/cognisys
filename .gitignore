@@ -70,3 +70,5 @@ Thumbs.db
 .env.local
 secrets.yml
 credentials.json
+*.nul
+nul

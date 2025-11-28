@@ -1,0 +1,266 @@
+# IFMOS Domain-Based Organization Mapping
+# Maps ML classification types to organized folder structures
+
+# Repository root - all organized files go here
+repository_root: "C:\\Users\\kjfle\\Documents\\Organized"
+
+# Domain-based structure mapping
+domains:
+
+  # Financial Domain
+  financial:
+    types:
+      - financial_invoice
+      - financial_statement
+      - financial_receipt
+    structure: "Financial/{doc_type}/{YYYY}/{MM}"
+    naming: "{YYYY-MM-DD}_{vendor}_{invoice_id}_{original}"
+    metadata_extract:
+      - invoice_number
+      - date
+      - vendor
+      - amount
+
+  # Legal Domain
+  legal:
+    types:
+      - legal_contract
+      - legal_court
+      - legal_agreement
+    structure: "Legal/{doc_type}/{YYYY}"
+    naming: "{YYYY-MM-DD}_{party}_{contract_type}_{original}"
+    metadata_extract:
+      - contract_date
+      - parties
+      - case_number
+    retention_years: 7  # Legal retention requirement
+
+  # Tax Domain
+  tax:
+    types:
+      - tax_document
+      - tax_form
+      - tax_return
+    structure: "Tax/{tax_year}/{form_type}"
+    naming: "{tax_year}_{form_type}_{taxpayer}_{original}"
+    metadata_extract:
+      - tax_year
+      - form_type
+      - ssn_last4
+    retention_years: 7
+
+  # Medical Domain
+  medical:
+    types:
+      - medical
+      - medical_record
+      - medical_bill
+    structure: "Medical/{patient}/{YYYY}"
+    naming: "{YYYY-MM-DD}_{provider}_{visit_type}_{original}"
+    metadata_extract:
+      - visit_date
+      - provider
+      - patient_name
+    retention_years: 10
+    sensitive: true  # Extra encryption/access controls
+
+  # HR Domain
+  hr:
+    types:
+      - hr_resume
+      - hr_application
+      - hr_benefits
+    structure: "HR/{doc_type}/{YYYY}"
+    naming: "{YYYY-MM-DD}_{candidate_name}_{position}_{original}"
+    metadata_extract:
+      - application_date
+      - candidate_name
+      - position
+
+  # Automotive Domain
+  automotive:
+    types:
+      - automotive_technical
+      - automotive_service
+    structure: "Automotive/{vehicle_id}/{doc_type}"
+    naming: "{YYYY-MM-DD}_{vehicle}_{service_type}_{original}"
+    metadata_extract:
+      - vehicle_model
+      - vin
+      - service_date
+
+  # Real Estate Domain
+  realestate:
+    types:
+      - realestate_listing
+      - realestate_contract
+    structure: "RealEstate/{property_id}/{doc_type}"
+    naming: "{YYYY-MM-DD}_{address}_{property_type}_{original}"
+    metadata_extract:
+      - property_address
+      - listing_date
+      - price
+
+  # Business Domain
+  business:
+    types:
+      - business_marketing
+      - business_proposal
+    structure: "Business/{doc_type}/{client}/{YYYY}"
+    naming: "{YYYY-MM-DD}_{client}_{project}_{original}"
+    metadata_extract:
+      - client_name
+      - project_name
+      - proposal_date
+
+  # Technical Domain
+  technical:
+    types:
+      - technical_documentation
+      - technical_manual
+      - technical_research
+      - technical_config
+      - technical_code
+    structure: "Technical/{doc_type}/{project}"
+    naming: "{YYYY-MM-DD}_{product}_{version}_{original}"
+    metadata_extract:
+      - product_name
+      - version
+      - date
+    preserve_structure: true  # Keep directory hierarchy for code
+
+  # Product Domain
+  product:
+    types:
+      - product_manual
+      - product_catalog
+    structure: "Products/{manufacturer}/{product_line}"
+    naming: "{manufacturer}_{model}_{manual_type}_{original}"
+    metadata_extract:
+      - manufacturer
+      - model_number
+      - product_line
+
+  # Educational Domain
+  educational:
+    types:
+      - educational_material
+      - educational_guide
+    structure: "Education/{subject}/{YYYY}"
+    naming: "{YYYY-MM-DD}_{course}_{topic}_{original}"
+    metadata_extract:
+      - course_name
+      - topic
+      - date
+
+  # Insurance Domain
+  insurance:
+    types:
+      - insurance_document
+      - insurance_policy
+      - insurance_claim
+    structure: "Insurance/{policy_type}/{YYYY}"
+    naming: "{YYYY-MM-DD}_{insurer}_{policy_number}_{original}"
+    metadata_extract:
+      - policy_number
+      - insurer
+      - policy_date
+    retention_years: 10
+
+  # Travel Domain
+  travel:
+    types:
+      - travel_document
+      - travel_itinerary
+    structure: "Travel/{YYYY}/{destination}"
+    naming: "{YYYY-MM-DD}_{destination}_{booking_ref}_{original}"
+    metadata_extract:
+      - destination
+      - travel_date
+      - booking_reference
+
+  # Communication Domain
+  communication:
+    types:
+      - communication_letter
+      - communication_email
+    structure: "Communications/{correspondent}/{YYYY}"
+    naming: "{YYYY-MM-DD}_{from}_{to}_{subject}_{original}"
+    metadata_extract:
+      - date
+      - sender
+      - recipient
+      - subject
+
+  # Personal Domain
+  personal:
+    types:
+      - personal_biography
+      - recipe
+    structure: "Personal/{doc_type}"
+    naming: "{category}_{title}_{original}"
+    metadata_extract:
+      - title
+      - category
+
+  # Scientific Domain
+  scientific:
+    types:
+      - scientific_report
+    structure: "Scientific/{research_area}/{YYYY}"
+    naming: "{YYYY-MM-DD}_{lab}_{experiment_id}_{original}"
+    metadata_extract:
+      - experiment_id
+      - lab_name
+      - research_area
+      - date
+
+# Fallback for unclassified documents
+fallback:
+  structure: "Uncategorized/{file_type}/{YYYY-MM}"
+  naming: "{YYYY-MM-DD}_{original}"
+  review_required: true
+
+# General documents (catch-all)
+general:
+  types:
+    - general_document
+    - general_document_short
+  structure: "General/{YYYY}/{MM}"
+  naming: "{YYYY-MM-DD}_{original}"
+
+# File operation settings
+operations:
+  mode: "move"  # Options: move, copy, symlink
+  create_missing_dirs: true
+  conflict_resolution: "rename"  # Options: rename, skip, overwrite, ask
+  backup_before_move: true
+  backup_location: "C:\\Users\\kjfle\\Documents\\IFMOS_Backups"
+
+# Naming conventions
+naming_rules:
+  max_length: 200
+  sanitize_chars: true  # Replace special chars
+  lowercase: false
+  remove_duplicates: true  # Remove consecutive separators
+  date_format: "YYYY-MM-DD"
+  separator: "_"
+
+# Archive rules
+archive:
+  trigger_days: 365  # Move to Archive after 1 year of no access
+  archive_structure: "Archive/{domain}/{YYYY}"
+  compress: false
+
+# Metadata extraction patterns
+extraction_patterns:
+  dates:
+    - "\\d{4}-\\d{2}-\\d{2}"
+    - "\\d{2}/\\d{2}/\\d{4}"
+    - "\\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\s+\\d{1,2},?\\s+\\d{4}\\b"
+  invoice_numbers:
+    - "(?:Invoice|INV|#)\\s*:?\\s*([A-Z0-9-]+)"
+  amounts:
+    - "\\$([\\d,]+\\.\\d{2})"
+  case_numbers:
+    - "(?:Case|Docket)\\s*#?\\s*:?\\s*([A-Z0-9-]+)"
