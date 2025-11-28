@@ -104,8 +104,7 @@ class ContentExtractor:
             elif extension in ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif', '.webp']:
                 return self._extract_image(file_path)
 
-            # Plain text
-            elif extension in ['.txt', '.log', '.csv', '.json', '.xml']:
+# Plain text and structured data            elif extension in [047.txt047, 047.log047, 047.csv047, 047.json047, 047.xml047, 047.md047, 047.rst047]:                return self._extract_text(file_path)            # Code files            elif extension in [047.py047, 047.js047, 047.ts047, 047.java047, 047.cpp047, 047.c047, 047.h047, 047.cs047, 047.go047, 047.rs047, 047.rb047, 047.php047]:                return self._extract_code(file_path)            # Script files            elif extension in [047.ps1047, 047.sh047, 047.bat047, 047.cmd047]:                return self._extract_script(file_path)            # Configuration files            elif extension in [047.yaml047, 047.yml047, 047.toml047, 047.ini047, 047.conf047, 047.config047]:                return self._extract_config(file_path)            # HTML files            elif extension in [047.html047, 047.htm047]:                return self._extract_html(file_path)            # PowerPoint            elif extension in [047.pptx047]:                return self._extract_powerpoint(file_path)
                 return self._extract_text(file_path)
 
             else:
@@ -395,3 +394,148 @@ def create_extractor(ocr_engine=None):
         Configured ContentExtractor
     """
     return ContentExtractor(ocr_engine=ocr_engine)
+
+    def _extract_code(self, file_path: Path) -> Dict:
+        """Extract content from source code files."""
+        try:
+            encodings = ['utf-8', 'latin-1', 'cp1252']
+            text_content = None
+            for encoding in encodings:
+                try:
+                    with open(file_path, 'r', encoding=encoding) as f:
+                        text_content = f.read()
+                    break
+                except UnicodeDecodeError:
+                    continue
+            if text_content is None:
+                return self._error_result('Failed to decode code file')
+            lines = text_content.split('\n')
+            return {
+                'text': text_content,
+                'metadata': {
+                    'file_name': file_path.name,
+                    'file_size': file_path.stat().st_size,
+                    'file_type': f'code_{file_path.suffix[1:]}',
+                    'line_count': len(lines)
+                },
+                'method': 'code',
+                'success': True,
+                'page_count': 1,
+                'confidence': 1.0
+            }
+        except Exception as e:
+            self.logger.error(f"Code extraction failed: {e}")
+            return self._error_result(str(e))
+
+    def _extract_script(self, file_path: Path) -> Dict:
+        """Extract content from script files."""
+        try:
+            encodings = ['utf-8', 'utf-16', 'latin-1']
+            text_content = None
+            for encoding in encodings:
+                try:
+                    with open(file_path, 'r', encoding=encoding) as f:
+                        text_content = f.read()
+                    break
+                except UnicodeDecodeError:
+                    continue
+            if text_content is None:
+                return self._error_result('Failed to decode script')
+            return {
+                'text': text_content,
+                'metadata': {
+                    'file_name': file_path.name,
+                    'file_size': file_path.stat().st_size,
+                    'file_type': f'script_{file_path.suffix[1:]}'
+                },
+                'method': 'script',
+                'success': True,
+                'page_count': 1,
+                'confidence': 1.0
+            }
+        except Exception as e:
+            self.logger.error(f"Script extraction failed: {e}")
+            return self._error_result(str(e))
+
+    def _extract_config(self, file_path: Path) -> Dict:
+        """Extract content from config files."""
+        try:
+            with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                text_content = f.read()
+            return {
+                'text': text_content,
+                'metadata': {
+                    'file_name': file_path.name,
+                    'file_size': file_path.stat().st_size,
+                    'file_type': f'config_{file_path.suffix[1:]}'
+                },
+                'method': 'config',
+                'success': True,
+                'page_count': 1,
+                'confidence': 1.0
+            }
+        except Exception as e:
+            self.logger.error(f"Config extraction failed: {e}")
+            return self._error_result(str(e))
+
+    def _extract_html(self, file_path: Path) -> Dict:
+        """Extract text from HTML files."""
+        try:
+            with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                html_content = f.read()
+            
+            try:
+                from bs4 import BeautifulSoup
+                soup = BeautifulSoup(html_content, 'html.parser')
+                for script in soup(['script', 'style']):
+                    script.decompose()
+                text_content = soup.get_text(separator='\n', strip=True)
+            except ImportError:
+                import re
+                text_content = re.sub('<script.*?</script>', '', html_content, flags=re.DOTALL)
+                text_content = re.sub('<.*?>', '', text_content)
+                
+            return {
+                'text': text_content,
+                'metadata': {
+                    'file_name': file_path.name,
+                    'file_size': file_path.stat().st_size,
+                    'file_type': 'html'
+                },
+                'method': 'html',
+                'success': True,
+                'page_count': 1,
+                'confidence': 1.0
+            }
+        except Exception as e:
+            self.logger.error(f"HTML extraction failed: {e}")
+            return self._error_result(str(e))
+
+    def _extract_powerpoint(self, file_path: Path) -> Dict:
+        """Extract text from PowerPoint."""
+        try:
+            from pptx import Presentation
+            prs = Presentation(file_path)
+            text_content = []
+            for i, slide in enumerate(prs.slides):
+                for shape in slide.shapes:
+                    if hasattr(shape, 'text') and shape.text:
+                        text_content.append(shape.text)
+            return {
+                'text': '\n'.join(text_content),
+                'metadata': {
+                    'file_name': file_path.name,
+                    'file_size': file_path.stat().st_size,
+                    'file_type': 'powerpoint',
+                    'slide_count': len(prs.slides)
+                },
+                'method': 'powerpoint',
+                'success': True,
+                'page_count': len(prs.slides),
+                'confidence': 1.0
+            }
+        except ImportError:
+            return self._error_result('python-pptx not installed')
+        except Exception as e:
+            self.logger.error(f"PowerPoint extraction failed: {e}")
+            return self._error_result(str(e))

@@ -318,6 +318,84 @@ class TextAnalyzer:
         if self._contains_phrase(text_lower, ['executive summary', 'findings', 'recommendations', 'analysis']):
             scores['report'] = 50
 
+
+        # === DOMAIN-SPECIFIC CATEGORIES ===
+        
+        # Automotive - Technical
+        auto_score = 0
+        if self._contains_phrase(text_lower, ['parts diagram', 'engine', 'cylinder', 'transmission', 'suspension']):
+            auto_score += 30
+        if self._contains_phrase(text_lower, ['bmw', 'mercedes', 'audi', 'volkswagen', 'parts', 'repair']):
+            auto_score += 20
+        if self._contains_phrase(text_lower, ['diagnostic', 'torque', 'oil', 'brake', 'clutch']):
+            auto_score += 15
+        if auto_score >= 40:
+            scores['automotive_technical'] = auto_score
+
+        # Automotive - Service/Repair
+        if self._contains_phrase(text_lower, ['service manual', 'repair instructions', 'maintenance', 'oil change']):
+            scores['automotive_service'] = 65
+
+        # Real Estate - Listing/Flyer
+        if self._contains_phrase(text_lower, ['property', 'real estate', 'listing', 'bedroom', 'bathroom', 'square feet']):
+            scores['realestate_listing'] = 60
+
+        # Real Estate - Contract/Legal
+        if self._contains_phrase(text_lower, ['lease agreement', 'rental agreement', 'property purchase', 'escrow']):
+            scores['realestate_contract'] = 70
+
+        # Product Manual/Catalog
+        product_score = 0
+        if self._contains_phrase(text_lower, ['user manual', 'product guide', 'instructions', 'installation']):
+            product_score += 30
+        if self._contains_phrase(text_lower, ['specifications', 'features', 'warranty', 'model number']):
+            product_score += 20
+        if product_score >= 35:
+            scores['product_manual'] = product_score
+
+        # Product Catalog/Brochure
+        if self._contains_phrase(text_lower, ['catalog', 'product line', 'collection', 'available in']):
+            scores['product_catalog'] = 55
+
+        # Educational - Textbook/Course Material
+        if self._contains_phrase(text_lower, ['chapter', 'lesson', 'exercise', 'quiz', 'homework']):
+            if 'DATE' in entity_labels:
+                scores['educational_material'] = 60
+
+        # Educational - Guide/Tutorial
+        if self._contains_phrase(text_lower, ['how to', 'step by step', 'tutorial', 'guide to', 'getting started']):
+            scores['educational_guide'] = 55
+
+        # Business - Marketing/Sales
+        if self._contains_phrase(text_lower, ['marketing plan', 'sales strategy', 'campaign', 'target audience']):
+            scores['business_marketing'] = 60
+
+        # Business - Proposal/Quote
+        if self._contains_phrase(text_lower, ['proposal', 'quote', 'estimate', 'scope of work', 'deliverables']):
+            if 'MONEY' in entity_labels:
+                scores['business_proposal'] = 65
+
+        # Insurance - Policy/Claim
+        if self._contains_phrase(text_lower, ['insurance policy', 'coverage', 'premium', 'deductible', 'claim']):
+            scores['insurance_document'] = 70
+
+        # Travel - Itinerary/Booking
+        if self._contains_phrase(text_lower, ['itinerary', 'flight', 'hotel', 'reservation', 'booking confirmation']):
+            scores['travel_document'] = 65
+
+        # Food/Recipe
+        if self._contains_phrase(text_lower, ['recipe', 'ingredients', 'instructions', 'serves', 'cooking time']):
+            scores['recipe'] = 60
+
+        # Personal - Biography/CV
+        if filename_lower and any(kw in filename_lower for kw in ['bio', 'about']):
+            if self._contains_phrase(text_lower, ['born', 'education', 'career', 'achievements']):
+                scores['personal_biography'] = 60
+
+        # Scientific - Lab Report
+        if self._contains_phrase(text_lower, ['experiment', 'hypothesis', 'results', 'discussion', 'conclusion']):
+            scores['scientific_report'] = 65
+
         # === SELECT BEST CATEGORY ===
         if scores:
             # Return category with highest confidence
