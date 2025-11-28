@@ -115,8 +115,9 @@ function Invoke-IFMOSMLProcess {
         return $null
     }
 
+    # Use -LiteralPath to handle brackets and special characters in filenames
     $body = @{
-        file_path = (Resolve-Path $FilePath).Path
+        file_path = (Resolve-Path -LiteralPath $FilePath).Path
     } | ConvertTo-Json
 
     try {

@@ -5,7 +5,6 @@ REST API bridge for PowerShell to Python ML functionality
 
 import logging
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from pathlib import Path
 import sys
 
@@ -17,11 +16,15 @@ from ifmos.ml.utils import ContentExtractor, create_extractor
 from ifmos.ml.nlp import TextAnalyzer, create_analyzer
 from ifmos.ml.classification import MLClassifier, create_classifier
 from ifmos.ml.learning import TrainingDatabase, create_database
+from ifmos.ml.api.security import configure_cors, apply_security_headers, rate_limit
 
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for PowerShell requests
+
+# Apply security middleware
+configure_cors(app)  # Restrict CORS to localhost only
+apply_security_headers(app)  # Add OWASP security headers
 
 # Configure logging
 logging.basicConfig(
@@ -109,6 +112,7 @@ def health_check():
 
 # OCR endpoints
 @app.route('/ocr/extract', methods=['POST'])
+@rate_limit
 def ocr_extract():
     """Extract text from a single image or PDF page."""
     try:
@@ -130,6 +134,7 @@ def ocr_extract():
 
 # Content extraction endpoints
 @app.route('/extract/document', methods=['POST'])
+@rate_limit
 def extract_document():
     """Extract content from any document type."""
     try:
@@ -193,6 +198,7 @@ def classify_document():
 
 # End-to-end pipeline endpoint
 @app.route('/process/document', methods=['POST'])
+@rate_limit  # Apply rate limiting to prevent abuse
 def process_document():
     """
     Complete document processing pipeline:

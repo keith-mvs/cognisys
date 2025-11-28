@@ -22,7 +22,13 @@
       "Bash(gh --version:*)",
       "Bash(git push:*)",
       "Bash(del nul 2)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(./venv/Scripts/python.exe:*)",
+      "Bash(curl:*)",
+      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \".\\scripts\\powershell\\workflows\\batch_process_inbox.ps1 -MaxFiles 10\")",
+      "Bash(cat:*)",
+      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \".\\scripts\\powershell\\workflows\\batch_process_inbox.ps1\")",
+      "Bash(./venv/Scripts/pip install:*)"
     ],
     "deny": [],
     "ask": []

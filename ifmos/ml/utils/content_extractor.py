@@ -101,7 +101,7 @@ class ContentExtractor:
                 return self._extract_excel(file_path)
 
             # Images
-            elif extension in ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif']:
+            elif extension in ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif', '.webp']:
                 return self._extract_image(file_path)
 
             # Plain text
