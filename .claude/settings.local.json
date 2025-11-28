@@ -16,7 +16,13 @@
       "Bash(ifmos dry-run:*)",
       "Bash(git init:*)",
       "Bash(git config:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git tag:*)",
+      "Bash(gh --version:*)",
+      "Bash(git push:*)",
+      "Bash(del nul 2)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
     "ask": []

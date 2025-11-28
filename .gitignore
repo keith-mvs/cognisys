@@ -50,6 +50,10 @@ data/models/**/*.pkl
 data/models/**/*.pt
 data/training/**/*
 data/feedback/**/*
+ifmos/data/training/**/*
+ifmos/data/feedback/**/*
+ifmos/data/models/**/*.pkl
+ifmos/data/models/**/*.pt
 mlruns/
 runs/
 cache/
