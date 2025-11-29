@@ -6,7 +6,13 @@
       "Bash(./venv/Scripts/python.exe:*)",
       "Bash(sqlite3:*)",
       "Bash(powershell.exe:*)",
-      "Bash(SESSION_COMPLETE_SUMMARY.md)"
+      "Bash(SESSION_COMPLETE_SUMMARY.md)",
+      "Bash(echo:*)",
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\kjfle\\.claude\\statusline-command.ps1\")",
+      "Bash(git pull:*)",
+      "Bash(git fetch:*)",
+      "Bash(pwsh -Command:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []
