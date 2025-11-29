@@ -37,6 +37,9 @@ env/
 # IFMOS Specific
 db/*.db
 db/*.db-journal
+.ifmos/*.db
+.ifmos/*.db-journal
+.ifmos/training_sample/
 reports/
 !reports/.gitkeep
 logs/
@@ -44,6 +47,18 @@ logs/
 checkpoints/
 tmp/
 temp/
+
+# Session files and analysis outputs
+check_db_status.py
+check_unclassified.py
+show_originals.py
+analyze_low_confidence.py
+investigate_personal_journal.py
+generate_review_report.py
+reclassify_null_files.py
+review_needed*.csv
+auto_corrections.csv
+SESSION_*.md
 
 # ML Specific
 data/models/**/*.pkl

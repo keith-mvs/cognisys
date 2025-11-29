@@ -86,6 +86,7 @@ domain_mapping:
       - financial_invoice
       - financial_statement
       - financial_receipt
+      - financial_document
     path_template: "Financial/{doc_subtype}/{YYYY}/{MM}/{YYYY-MM-DD}_{vendor}_{invoice_id}_{original}"
     metadata_extract:
       - invoice_number
@@ -137,6 +138,7 @@ domain_mapping:
       - legal_court
       - legal_contract
       - legal_agreement
+      - legal_document
     path_template: "Legal/{doc_subtype}/{YYYY}/{case_number}_{YYYY-MM-DD}_{original}"
     metadata_extract:
       - case_number
@@ -161,6 +163,8 @@ domain_mapping:
       - technical_manual
       - technical_documentation
       - technical_config
+      - technical_script
+      - technical_archive
     path_template: "Technical/{doc_subtype}/{product}/{version}_{YYYY-MM-DD}_{original}"
     metadata_extract:
       - product_name
@@ -173,8 +177,89 @@ domain_mapping:
       - personal_career
       - personal_journal
       - personal_note
+      - personal_document
     path_template: "Personal/{doc_subtype}/{YYYY}/{MM}/{YYYY-MM-DD}_{original}"
     metadata_extract:
+      - date
+
+  # Business documents
+  business:
+    types:
+      - business_spreadsheet
+      - business_document
+      - business_presentation
+    path_template: "Business/{doc_subtype}/{YYYY}/{YYYY-MM-DD}_{project}_{original}"
+    metadata_extract:
+      - project_name
+      - department
+      - date
+
+  # Design documents
+  design:
+    types:
+      - design_document
+      - design_blueprint
+      - design_floorplan
+    path_template: "Design/{doc_subtype}/{project}/{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - project_name
+      - architect
+      - date
+
+  # Media files
+  media:
+    types:
+      - media_screenshot
+      - media_graphic
+      - media_video
+      - media_audio
+      - media_image
+    path_template: "Media/{doc_subtype}/{YYYY}/{MM}/{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - date
+
+  # Software/Tools
+  software:
+    types:
+      - software_installer
+      - software_tool
+      - software_source
+    path_template: "Software/{product}/{version}/{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - product_name
+      - version
+      - date
+
+  # Web content
+  web:
+    types:
+      - web_bookmark
+      - web_export
+      - web_content
+    path_template: "Web/{doc_subtype}/{YYYY}/{MM}/{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - date
+
+  # CAD/Engineering
+  cad:
+    types:
+      - design_cad
+      - engineering_drawing
+      - technical_model
+    path_template: "CAD/{project}/{version}/{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - project_name
+      - version
+      - date
+
+  # Database files
+  database:
+    types:
+      - technical_database
+      - data_archive
+    path_template: "Database/{product}/{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - product_name
       - date
 
   # General / Uncategorized
@@ -206,6 +291,10 @@ template_defaults:
   form_type: "FORM"
   tax_year: "YEAR"
   doc_subtype: "Documents"
+  project: "PROJECT"
+  project_name: "PROJECT"
+  department: "DEPT"
+  architect: "ARCHITECT"
 
   # ==================================================================
   # EXCLUSIONS
