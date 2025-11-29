@@ -1,0 +1,543 @@
+# IFMOS Domain-Based Organization Mapping v2
+# Function/Form/Fit Structure (No Chronological Organization)
+# Structure: Domain / Function / Form / [Fit]
+
+# Repository root - all organized files go here
+repository_root: "C:\\Users\\kjfle\\Documents\\Organized"
+
+# Domain-based Function/Form/Fit mapping
+domains:
+
+  # ============================================================================
+  # FINANCIAL DOMAIN
+  # ============================================================================
+  financial:
+    types:
+      - financial_invoice
+      - financial_statement
+      - financial_receipt
+
+    # Function-based organization
+    functions:
+      invoicing:
+        forms:
+          vendor_invoices:
+            types: [financial_invoice]
+            fit_by: vendor  # Group by vendor name
+            structure: "Financial/Invoicing/Vendor_Invoices/{vendor}"
+            naming: "{invoice_id}_{vendor}_{original}"
+
+          service_invoices:
+            types: [financial_invoice]
+            fit_by: service_provider
+            structure: "Financial/Invoicing/Service_Invoices/{provider}"
+            naming: "{invoice_id}_{provider}_{original}"
+
+      reporting:
+        forms:
+          monthly_statements:
+            types: [financial_statement]
+            fit_by: account
+            structure: "Financial/Reporting/Monthly_Statements/{account}"
+            naming: "{account}_{statement_id}_{original}"
+
+          annual_reports:
+            types: [financial_statement]
+            fit_by: entity
+            structure: "Financial/Reporting/Annual_Reports/{entity}"
+            naming: "{entity}_{year}_{original}"
+
+      receipts:
+        forms:
+          expense_receipts:
+            types: [financial_receipt]
+            fit_by: category
+            structure: "Financial/Receipts/Expenses/{category}"
+            naming: "{amount}_{vendor}_{original}"
+
+    metadata_extract:
+      - invoice_number
+      - vendor
+      - amount
+      - account_number
+
+  # ============================================================================
+  # LEGAL DOMAIN
+  # ============================================================================
+  legal:
+    types:
+      - legal_contract
+      - legal_court
+      - legal_agreement
+
+    functions:
+      contracts:
+        forms:
+          employment_contracts:
+            types: [legal_contract, legal_agreement]
+            fit_by: party
+            structure: "Legal/Contracts/Employment/{party}"
+            naming: "{party}_{contract_type}_{original}"
+
+          vendor_agreements:
+            types: [legal_contract, legal_agreement]
+            fit_by: vendor
+            structure: "Legal/Contracts/Vendor_Agreements/{vendor}"
+            naming: "{vendor}_{agreement_type}_{original}"
+
+      litigation:
+        forms:
+          court_documents:
+            types: [legal_court]
+            fit_by: case_number
+            structure: "Legal/Litigation/Court_Documents/{case_number}"
+            naming: "{case_number}_{document_type}_{original}"
+
+      compliance:
+        forms:
+          regulatory_filings:
+            types: [legal_agreement]
+            fit_by: agency
+            structure: "Legal/Compliance/Regulatory/{agency}"
+            naming: "{agency}_{filing_type}_{original}"
+
+    metadata_extract:
+      - contract_date
+      - parties
+      - case_number
+    retention_years: 7
+
+  # ============================================================================
+  # TAX DOMAIN
+  # ============================================================================
+  tax:
+    types:
+      - tax_document
+      - tax_form
+      - tax_return
+
+    functions:
+      returns:
+        forms:
+          federal_returns:
+            types: [tax_return]
+            fit_by: tax_year
+            structure: "Tax/Returns/Federal/{tax_year}"
+            naming: "{tax_year}_Federal_{form_type}_{original}"
+
+          state_returns:
+            types: [tax_return]
+            fit_by: tax_year
+            structure: "Tax/Returns/State/{tax_year}"
+            naming: "{tax_year}_State_{form_type}_{original}"
+
+      documentation:
+        forms:
+          supporting_docs:
+            types: [tax_document]
+            fit_by: tax_year
+            structure: "Tax/Documentation/Supporting/{tax_year}"
+            naming: "{tax_year}_{document_type}_{original}"
+
+    metadata_extract:
+      - tax_year
+      - form_type
+      - ssn_last4
+    retention_years: 7
+
+  # ============================================================================
+  # MEDICAL DOMAIN
+  # ============================================================================
+  medical:
+    types:
+      - medical
+      - medical_record
+      - medical_bill
+
+    functions:
+      records:
+        forms:
+          visit_records:
+            types: [medical, medical_record]
+            fit_by: provider
+            structure: "Medical/Records/Visits/{provider}"
+            naming: "{provider}_{visit_type}_{original}"
+
+          test_results:
+            types: [medical_record]
+            fit_by: test_type
+            structure: "Medical/Records/Test_Results/{test_type}"
+            naming: "{test_type}_{provider}_{original}"
+
+      billing:
+        forms:
+          medical_bills:
+            types: [medical_bill]
+            fit_by: provider
+            structure: "Medical/Billing/Provider_Bills/{provider}"
+            naming: "{provider}_{bill_id}_{original}"
+
+    metadata_extract:
+      - visit_date
+      - provider
+      - patient_name
+    retention_years: 10
+    sensitive: true
+
+  # ============================================================================
+  # HR DOMAIN
+  # ============================================================================
+  hr:
+    types:
+      - hr_resume
+      - hr_application
+      - hr_benefits
+
+    functions:
+      recruitment:
+        forms:
+          resumes:
+            types: [hr_resume]
+            fit_by: position
+            structure: "HR/Recruitment/Resumes/{position}"
+            naming: "{candidate_name}_{position}_{original}"
+
+          applications:
+            types: [hr_application]
+            fit_by: position
+            structure: "HR/Recruitment/Applications/{position}"
+            naming: "{candidate_name}_{position}_{original}"
+
+      employee_records:
+        forms:
+          benefits:
+            types: [hr_benefits]
+            fit_by: employee
+            structure: "HR/Employee_Records/Benefits/{employee}"
+            naming: "{employee}_{benefit_type}_{original}"
+
+    metadata_extract:
+      - candidate_name
+      - position
+      - application_date
+
+  # ============================================================================
+  # AUTOMOTIVE DOMAIN
+  # ============================================================================
+  automotive:
+    types:
+      - automotive_technical
+      - automotive_service
+      - form  # Many automotive docs classified as "form"
+      - general_document  # Technical manuals often misclassified
+
+    functions:
+      technical:
+        forms:
+          parts_manuals:
+            types: [automotive_technical, form, general_document]
+            fit_by: vehicle_model
+            structure: "Automotive/Technical/Parts_Manuals/{vehicle_model}"
+            naming: "{vehicle_model}_{part_system}_{original}"
+
+          service_manuals:
+            types: [automotive_technical, form, general_document]
+            fit_by: vehicle_model
+            structure: "Automotive/Technical/Service_Manuals/{vehicle_model}"
+            naming: "{vehicle_model}_{system}_{original}"
+
+      maintenance:
+        forms:
+          service_records:
+            types: [automotive_service]
+            fit_by: vehicle_id
+            structure: "Automotive/Maintenance/Service_Records/{vehicle_id}"
+            naming: "{vehicle_id}_{service_type}_{original}"
+
+          diagnostic_reports:
+            types: [automotive_service, general_document]
+            fit_by: vehicle_id
+            structure: "Automotive/Maintenance/Diagnostics/{vehicle_id}"
+            naming: "{vehicle_id}_{diagnostic_type}_{original}"
+
+      vehicle_history:
+        forms:
+          carfax_reports:
+            types: [general_document, automotive_service]
+            fit_by: vin
+            structure: "Automotive/Vehicle_History/CARFAX/{vin}"
+            naming: "CARFAX_{vin}_{original}"
+
+    metadata_extract:
+      - vehicle_model
+      - vin
+      - service_date
+      - part_number
+
+  # ============================================================================
+  # REAL ESTATE DOMAIN
+  # ============================================================================
+  realestate:
+    types:
+      - realestate_listing
+      - realestate_contract
+
+    functions:
+      transactions:
+        forms:
+          purchase_contracts:
+            types: [realestate_contract]
+            fit_by: property_address
+            structure: "RealEstate/Transactions/Purchase_Contracts/{property}"
+            naming: "{property}_{transaction_type}_{original}"
+
+      listings:
+        forms:
+          property_listings:
+            types: [realestate_listing]
+            fit_by: location
+            structure: "RealEstate/Listings/Properties/{location}"
+            naming: "{property}_{listing_type}_{original}"
+
+    metadata_extract:
+      - property_address
+      - listing_date
+      - price
+
+  # ============================================================================
+  # TECHNICAL/IT DOMAIN
+  # ============================================================================
+  technical:
+    types:
+      - technical_documentation
+      - technical_manual
+      - technical_research
+      - technical_config
+      - technical_code
+      - general_document  # Many technical docs misclassified
+      - form  # Configuration forms
+
+    functions:
+      documentation:
+        forms:
+          product_manuals:
+            types: [technical_manual, technical_documentation]
+            fit_by: product
+            structure: "Technical/Documentation/Product_Manuals/{product}"
+            naming: "{product}_{version}_{original}"
+
+          api_docs:
+            types: [technical_documentation]
+            fit_by: system
+            structure: "Technical/Documentation/API_Docs/{system}"
+            naming: "{system}_{api_name}_{original}"
+
+      configuration:
+        forms:
+          system_configs:
+            types: [technical_config, form]
+            fit_by: system
+            structure: "Technical/Configuration/Systems/{system}"
+            naming: "{system}_{config_type}_{original}"
+
+      research:
+        forms:
+          research_papers:
+            types: [technical_research]
+            fit_by: topic
+            structure: "Technical/Research/Papers/{topic}"
+            naming: "{topic}_{author}_{original}"
+
+    metadata_extract:
+      - product_name
+      - version
+      - system_name
+    preserve_structure: true
+
+  # ============================================================================
+  # COMMUNICATIONS DOMAIN
+  # ============================================================================
+  communication:
+    types:
+      - communication_letter
+      - communication_email
+
+    functions:
+      correspondence:
+        forms:
+          business_letters:
+            types: [communication_letter]
+            fit_by: correspondent
+            structure: "Communications/Correspondence/Business/{correspondent}"
+            naming: "{correspondent}_{subject}_{original}"
+
+          emails:
+            types: [communication_email]
+            fit_by: correspondent
+            structure: "Communications/Correspondence/Email/{correspondent}"
+            naming: "{correspondent}_{subject}_{original}"
+
+    metadata_extract:
+      - sender
+      - recipient
+      - subject
+      - date
+
+  # ============================================================================
+  # BUSINESS DOMAIN
+  # ============================================================================
+  business:
+    types:
+      - business_marketing
+      - business_proposal
+      - form
+
+    functions:
+      proposals:
+        forms:
+          client_proposals:
+            types: [business_proposal, form]
+            fit_by: client
+            structure: "Business/Proposals/Clients/{client}"
+            naming: "{client}_{project}_{original}"
+
+      marketing:
+        forms:
+          campaigns:
+            types: [business_marketing]
+            fit_by: campaign
+            structure: "Business/Marketing/Campaigns/{campaign}"
+            naming: "{campaign}_{material_type}_{original}"
+
+    metadata_extract:
+      - client_name
+      - project_name
+      - campaign_name
+
+# ============================================================================
+# FALLBACK FOR UNKNOWN/GENERAL DOCUMENTS
+# ============================================================================
+fallback:
+  # For truly unknown documents
+  unknown:
+    structure: "Uncategorized/Review_Required/{file_type}"
+    naming: "REVIEW_{original}"
+    review_required: true
+
+  # For general documents that don't fit specific categories
+  general:
+    types:
+      - general_document
+      - general_document_short
+    structure: "General/Miscellaneous/{file_type}"
+    naming: "{original}"
+
+  # For generic forms
+  forms:
+    types:
+      - form
+    structure: "General/Forms/{file_type}"
+    naming: "FORM_{original}"
+
+# ============================================================================
+# FILE OPERATION SETTINGS
+# ============================================================================
+operations:
+  mode: "move"  # Options: move, copy, symlink
+  create_missing_dirs: true
+  conflict_resolution: "rename"  # Options: rename, skip, overwrite, ask
+  backup_before_move: true
+  backup_location: "C:\\Users\\kjfle\\Documents\\IFMOS_Backups"
+
+# ============================================================================
+# NAMING CONVENTIONS
+# ============================================================================
+naming_rules:
+  max_length: 200
+  sanitize_chars: true
+  lowercase: false
+  remove_duplicates: true
+  separator: "_"
+
+# ============================================================================
+# METADATA EXTRACTION PATTERNS
+# ============================================================================
+extraction_patterns:
+  # Dates
+  dates:
+    - "\\d{4}-\\d{2}-\\d{2}"
+    - "\\d{2}/\\d{2}/\\d{4}"
+    - "\\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\s+\\d{1,2},?\\s+\\d{4}\\b"
+
+  # Invoice/Order numbers
+  invoice_numbers:
+    - "(?:Invoice|INV|Order|#)\\s*:?\\s*([A-Z0-9-]+)"
+
+  # Amounts
+  amounts:
+    - "\\$([\\d,]+\\.\\d{2})"
+
+  # Case numbers
+  case_numbers:
+    - "(?:Case|Docket)\\s*#?\\s*:?\\s*([A-Z0-9-]+)"
+
+  # Vehicle identification
+  vin:
+    - "\\b([A-HJ-NPR-Z0-9]{17})\\b"  # Standard VIN format
+  vehicle_model:
+    - "\\b(BMW|Mercedes|Audi|Ford|Toyota|Honda)\\s+([A-Z0-9]+)\\b"
+
+  # Part numbers
+  part_numbers:
+    - "(?:Part|P/N)\\s*:?\\s*([A-Z0-9-]+)"
+
+# ============================================================================
+# WEB SEARCH ENHANCEMENT (OPTIONAL)
+# ============================================================================
+web_search_enhancement:
+  enabled: false  # Set to true when Brave Search MCP is configured
+  use_cases:
+    - unknown_documents  # Use web search for documents with "unknown" classification
+    - low_confidence  # Use for classifications with confidence < 0.50
+
+  search_strategies:
+    - extract_key_terms  # Extract important terms from filename/content
+    - search_file_hash  # Search by file hash for known documents
+    - search_metadata  # Search extracted metadata (invoice #, VIN, etc.)
+
+  fallback_classification:
+    confidence_threshold: 0.50
+    max_search_results: 5
+
+# ============================================================================
+# CLASSIFICATION HINTS (For ML Model Training)
+# ============================================================================
+classification_hints:
+  # Patterns that suggest automotive documents
+  automotive_indicators:
+    filenames:
+      - ".*\\b(BMW|Mercedes|Audi|Ford|Toyota|Honda)\\b.*"
+      - ".*\\b(Parts?|Service|Manual|Diagnostic|Engine|Transmission)\\b.*"
+      - ".*\\bE\\d{2}\\b.*"  # BMW chassis codes (E46, E90, etc.)
+      - ".*\\bM\\d{1,2}\\b.*"  # BMW M models
+    content:
+      - "\\b(VIN|Vehicle Identification)\\b"
+      - "\\b(Engine Code|Chassis)\\b"
+      - "\\b(Service Record|Maintenance)\\b"
+
+  # Financial document indicators
+  financial_indicators:
+    filenames:
+      - ".*\\b(Invoice|Receipt|Statement|Bill)\\b.*"
+      - ".*\\$\\d+.*"
+    content:
+      - "\\b(Invoice Number|Order Number)\\b"
+      - "\\b(Total|Subtotal|Tax)\\b.*\\$"
+
+  # Legal document indicators
+  legal_indicators:
+    filenames:
+      - ".*\\b(Contract|Agreement|Court|Legal)\\b.*"
+    content:
+      - "\\b(Party|Parties|Whereas)\\b"
+      - "\\b(Case Number|Docket)\\b"

@@ -1,0 +1,135 @@
+{
+  "timestamp": "2025-11-28T03:19:25.813909",
+  "total_tests": 17,
+  "total_passed": 12,
+  "total_failed": 5,
+  "servers": [
+    {
+      "server": "sqlite",
+      "passed": 3,
+      "failed": 1,
+      "tests": [
+        {
+          "name": "Database file exists",
+          "status": "PASS"
+        },
+        {
+          "name": "Database query",
+          "status": "PASS",
+          "details": "1127 documents"
+        },
+        {
+          "name": "Document types query",
+          "status": "PASS"
+        },
+        {
+          "name": "MCP server available",
+          "status": "FAIL",
+          "error": "[WinError 2] The system cannot find the file specified"
+        }
+      ]
+    },
+    {
+      "server": "memory",
+      "passed": 1,
+      "failed": 1,
+      "tests": [
+        {
+          "name": "MCP server available",
+          "status": "FAIL",
+          "error": "[WinError 2] The system cannot find the file specified"
+        },
+        {
+          "name": "Memory storage",
+          "status": "PASS",
+          "note": "Will be created on first use"
+        }
+      ]
+    },
+    {
+      "server": "git",
+      "passed": 3,
+      "failed": 1,
+      "tests": [
+        {
+          "name": "Git repository exists",
+          "status": "PASS"
+        },
+        {
+          "name": "Git branch query",
+          "status": "PASS",
+          "branch": "master"
+        },
+        {
+          "name": "Git log query",
+          "status": "PASS",
+          "commits": 5
+        },
+        {
+          "name": "MCP server available",
+          "status": "FAIL",
+          "error": "[WinError 2] The system cannot find the file specified"
+        }
+      ]
+    },
+    {
+      "server": "filesystem",
+      "passed": 5,
+      "failed": 1,
+      "tests": [
+        {
+          "name": "Directory: Project root",
+          "status": "PASS",
+          "path": "C:\\Users\\kjfle\\Projects\\intelligent-file-management-system",
+          "items": 76620
+        },
+        {
+          "name": "Directory: Organized_V2",
+          "status": "PASS",
+          "path": "C:\\Users\\kjfle\\Documents\\Organized_V2",
+          "items": 1012
+        },
+        {
+          "name": "Directory: Inbox",
+          "status": "PASS",
+          "path": "C:\\Users\\kjfle\\00_Inbox",
+          "items": 1437
+        },
+        {
+          "name": "Directory: Pictures",
+          "status": "PASS",
+          "path": "C:\\Users\\kjfle\\Pictures",
+          "items": 42934
+        },
+        {
+          "name": "Directory: Videos",
+          "status": "PASS",
+          "path": "C:\\Users\\kjfle\\Videos",
+          "items": 1854
+        },
+        {
+          "name": "MCP server available",
+          "status": "FAIL",
+          "error": "[WinError 2] The system cannot find the file specified"
+        }
+      ]
+    },
+    {
+      "server": "brave-search",
+      "passed": 0,
+      "failed": 1,
+      "tests": [
+        {
+          "name": "API key configured",
+          "status": "WARN",
+          "note": "Optional - add for web search"
+        },
+        {
+          "name": "MCP server available",
+          "status": "FAIL",
+          "error": "[WinError 2] The system cannot find the file specified"
+        }
+      ]
+    }
+  ]
+}

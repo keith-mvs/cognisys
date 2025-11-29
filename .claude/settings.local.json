@@ -1,13 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"Get-ChildItem ''C:\\Users\\kjfle\\00_Inbox\\To_Review'' -File | Measure-Object | Select-Object -ExpandProperty Count\")",
-      "Bash(git reset:*)",
-      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"Get-ChildItem ''C:\\Users\\kjfle\\ml_batch_results'' -File | Select-Object Name, Length, LastWriteTime | Format-Table -AutoSize | Out-String -Width 200\")",
-      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"(Get-ChildItem ''C:\\Users\\kjfle\\ml_batch_results\\*.json'' | Measure-Object).Count\")",
-      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"Get-Content ''C:\\Users\\kjfle\\ml_batch_results\\batch_results.json'' | ConvertFrom-Json | Select-Object total_files, successful, failed, @{Name=''success_rate'';Expression={''{0:P1}'' -f ($_successful/$_total_files)}} | Format-List\")",
-      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"\n$results = Get-Content ''C:\\Users\\kjfle\\ml_batch_results\\batch_results.json'' | ConvertFrom-Json\n$results.document_types | Get-Member -MemberType NoteProperty | ForEach-Object {\n    [PSCustomObject]@{\n        Category = $_Name\n        Count = $results.document_types.($_Name)\n    }\n} | Sort-Object Count -Descending | Format-Table -AutoSize\n\")",
-      "Bash(./venv/Scripts/python:*)"
+      "Bash(nvidia-smi:*)",
+      "Bash(powershell.exe -NoProfile -Command \"(Get-ChildItem -Path ''C:\\Users\\kjfle\\00_Inbox'' -File -Recurse | Measure-Object).Count\")",
+      "Bash(./venv/Scripts/python.exe:*)",
+      "Bash(sqlite3:*)",
+      "Bash(powershell.exe:*)",
+      "Bash(SESSION_COMPLETE_SUMMARY.md)"
     ],
     "deny": [],
     "ask": []

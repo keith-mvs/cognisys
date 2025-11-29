@@ -1,0 +1,255 @@
+# IFMOS Configuration
+# Version: 2.0 (Architecture Redesign)
+
+ifmos:
+  version: "2.0"
+
+  # ==================================================================
+  # PATHS
+  # ==================================================================
+
+  # Drop directory - where new files arrive
+  drop_directory: "C:\\Users\\kjfle\\00_Inbox"
+
+  # Canonical root - single source of truth for organized files
+  canonical_root: "C:\\Users\\kjfle\\Documents\\Organized_Canonical"
+
+  # Database path
+  database: ".ifmos/file_registry.db"
+
+  # ==================================================================
+  # BEHAVIOR
+  # ==================================================================
+
+  # How to move files: 'move', 'symlink', or 'hardlink'
+  default_action: "move"
+
+  # Duplicate handling: 'link_to_original', 'skip', 'flag_for_review'
+  duplicate_policy: "link_to_original"
+
+  # Create backups before operations
+  create_backups: true
+  backup_before_reorg: true
+
+  # ==================================================================
+  # CLASSIFICATION
+  # ==================================================================
+
+  # ML model path
+  ml_model_path: "ifmos/models/trained/random_forest_classifier.pkl"
+  tfidf_vectorizer_path: "ifmos/models/trained/tfidf_vectorizer.pkl"
+  label_mappings_path: "ifmos/models/trained/label_mappings.pkl"
+
+  # Confidence threshold (below this → requires manual review)
+  confidence_threshold: 0.70
+
+  # Classification method priority (higher = tried first)
+  classification_priority:
+    - ml_model        # Use ML model first
+    - keyword         # Fallback to keyword matching
+    - pattern         # Fallback to regex patterns
+
+  # ==================================================================
+  # ACCURACY TRACKING
+  # ==================================================================
+
+  # Track all moves in move_history table
+  track_moves: true
+
+  # Log level: DEBUG, INFO, WARNING, ERROR
+  log_level: "INFO"
+
+  # How often to compute and save metrics
+  metrics_interval: "daily"  # 'daily', 'weekly', 'never'
+
+  # ==================================================================
+  # PERFORMANCE
+  # ==================================================================
+
+  # Number of files to process in parallel
+  parallel_workers: 4
+
+  # Batch size for database inserts
+  batch_size: 100
+
+  # GPU acceleration (requires CUDA)
+  use_gpu: true
+
+  # ==================================================================
+  # DOMAIN MAPPING (Path Templates)
+  # ==================================================================
+
+domain_mapping:
+  # Financial documents
+  financial:
+    types:
+      - financial_invoice
+      - financial_statement
+      - financial_receipt
+    path_template: "Financial/{doc_subtype}/{YYYY}/{MM}/{YYYY-MM-DD}_{vendor}_{invoice_id}_{original}"
+    metadata_extract:
+      - invoice_number
+      - vendor_name
+      - amount
+      - date
+
+  # Automotive documents
+  automotive:
+    types:
+      - automotive_technical
+      - automotive_service
+      - automotive_manual
+    path_template: "Automotive/{doc_subtype}/{vehicle_make}/{YYYY-MM-DD}_{vehicle_id}_{original}"
+    metadata_extract:
+      - vin
+      - vehicle_make
+      - vehicle_model
+      - service_type
+
+  # HR documents
+  hr:
+    types:
+      - hr_resume
+      - hr_application
+      - hr_offer
+    path_template: "HR/{doc_subtype}/{YYYY}/{candidate_name}_{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - candidate_name
+      - position
+      - date
+
+  # Tax documents
+  tax:
+    types:
+      - tax_document
+      - tax_return
+      - tax_w2
+      - tax_1099
+    path_template: "Tax/{tax_year}/{form_type}_{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - tax_year
+      - form_type
+      - taxpayer_name
+
+  # Legal documents
+  legal:
+    types:
+      - legal_court
+      - legal_contract
+      - legal_agreement
+    path_template: "Legal/{doc_subtype}/{YYYY}/{case_number}_{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - case_number
+      - party_names
+      - date
+
+  # Medical documents
+  medical:
+    types:
+      - medical
+      - medical_record
+      - medical_prescription
+    path_template: "Medical/{doc_subtype}/{YYYY}/{patient_name}_{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - patient_name
+      - provider
+      - date
+
+  # Technical documentation
+  technical:
+    types:
+      - technical_manual
+      - technical_documentation
+      - technical_config
+    path_template: "Technical/{doc_subtype}/{product}/{version}_{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - product_name
+      - version
+      - date
+
+  # Personal documents
+  personal:
+    types:
+      - personal_career
+      - personal_journal
+      - personal_note
+    path_template: "Personal/{doc_subtype}/{YYYY}/{MM}/{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - date
+
+  # General / Uncategorized
+  general:
+    types:
+      - general_document
+      - unknown
+    path_template: "General/{YYYY}/{MM}/{YYYY-MM-DD}_{original}"
+    metadata_extract:
+      - date
+
+  # ==================================================================
+  # TEMPLATE VARIABLE DEFAULTS
+  # ==================================================================
+  # Used when metadata cannot be extracted
+
+template_defaults:
+  vendor: "VENDOR"
+  invoice_id: "UNKNOWN"
+  vehicle_id: "VEHICLE"
+  vehicle_make: "MAKE"
+  service_type: "SERVICE"
+  candidate_name: "CANDIDATE"
+  position: "POSITION"
+  case_number: "CASE"
+  patient_name: "PATIENT"
+  product: "PRODUCT"
+  version: "v1"
+  form_type: "FORM"
+  tax_year: "YEAR"
+  doc_subtype: "Documents"
+
+  # ==================================================================
+  # EXCLUSIONS
+  # ==================================================================
+
+exclusions:
+  # Directories to skip during scanning
+  exclude_dirs:
+    - ".git"
+    - ".ifmos"
+    - "__pycache__"
+    - "node_modules"
+    - ".venv"
+    - "venv"
+    - "_archived_*"
+
+  # Files to skip
+  exclude_files:
+    - ".DS_Store"
+    - "Thumbs.db"
+    - "desktop.ini"
+    - "*.tmp"
+    - "*.temp"
+
+  # Minimum file size (bytes) - skip smaller files
+  min_file_size: 100
+
+  # Maximum file size (bytes) - skip larger files (0 = no limit)
+  max_file_size: 0
+
+# ==================================================================
+# CONSOLIDATION MIGRATION SETTINGS
+# ==================================================================
+
+consolidation:
+  # Source directories to consolidate (in priority order)
+  sources:
+    - path: "C:\\Users\\kjfle\\Documents\\Organized_V2"
+      priority: 100  # Higher = preferred when duplicates found
+    - path: "C:\\Users\\kjfle\\Documents\\Organized"
+      priority: 50
+
+  # Where to archive old directories after consolidation
+  archive_path: "C:\\Users\\kjfle\\Documents\\_archived"
+
+  # Delete old directories after successful consolidation
+  delete_after_archive: false  # Keep archives for safety
