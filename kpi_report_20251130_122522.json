@@ -1,0 +1,91 @@
+{
+  "timestamp": "2025-11-30T12:25:21.342974",
+  "classification": {
+    "total_classified": 77244,
+    "total_files": 104863,
+    "unique_files": 77082,
+    "pending_files": 0,
+    "classification_rate": 73.66,
+    "unique_classification_rate": 100.21,
+    "ml_coverage_pct": 40.7,
+    "pattern_coverage_pct": 48.71,
+    "methods": {
+      "context_filename": 226,
+      "default": 7952,
+      "ml_model": 31437,
+      "pattern_context": 1000,
+      "pattern_extension": 11061,
+      "pattern_filename": 146,
+      "pattern_git_metadata": 15,
+      "pattern_override": 25078,
+      "pattern_path": 329
+    }
+  },
+  "deduplication": {
+    "total_duplicates": 27781,
+    "duplicate_groups": 9373,
+    "deduplication_rate_pct": 26.49,
+    "avg_duplicates_per_group": 2.96,
+    "max_duplicates_in_group": 1304,
+    "unique_files": 77082,
+    "space_efficiency_pct": 73.51
+  },
+  "storage": {
+    "total_size_bytes": 55151346757,
+    "total_size_gb": 51.36,
+    "duplicate_size_bytes": 29525152152,
+    "duplicate_size_gb": 27.5,
+    "unique_size_bytes": 25626194605,
+    "unique_size_gb": 23.87,
+    "space_savings_pct": 53.53,
+    "database_size_mb": 61.75,
+    "storage_efficiency_ratio": 851.82,
+    "top_categories_by_size": {
+      "unknown": 6.8,
+      "software_installer": 6.27,
+      "document_pdf": 3.22,
+      "automotive_technical": 1.3,
+      "archive": 1.0
+    }
+  },
+  "quality": {
+    "avg_confidence": 0.9684,
+    "high_confidence_pct": 94.84,
+    "unknown_rate_pct": 7.58,
+    "review_needed_count": 164,
+    "review_rate_pct": 0.16,
+    "confidence_distribution": {
+      "high": 5168,
+      "low": 164,
+      "medium": 3412,
+      "none": 35571,
+      "very_high": 60548
+    }
+  },
+  "performance": {
+    "database_rows": 104863,
+    "database_size_mb": 61.75,
+    "bytes_per_row": 617.43,
+    "count_query_ms": 2.0,
+    "hash_lookup_ms": 0.0,
+    "type_lookup_ms": 1.37,
+    "queries_per_second_estimate": 499.0
+  },
+  "coverage": {
+    "document_type_diversity": 50,
+    "classification_method_diversity": 9,
+    "top_5_types_coverage_pct": 65.93,
+    "top_10_document_types": {
+      "compiled_code": 24940,
+      "technical_script": 24471,
+      "source_header": 9221,
+      "unknown": 7952,
+      "technical_config": 2551,
+      "automotive_technical": 2114,
+      "document_pdf": 1341,
+      "technical_documentation": 534,
+      "document_text": 515,
+      "business_spreadsheet": 448
+    }
+  }
+}
