@@ -1,0 +1,42 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\kjfle\\.projects\\intelligent-file-management-system",
+        "C:\\Users\\kjfle\\00_Inbox",
+        "C:\\Users\\kjfle\\Documents"
+      ],
+      "description": "File system access for IFMOS project, inbox, and documents"
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "--db-path",
+        "C:\\Users\\kjfle\\.projects\\intelligent-file-management-system\\ifmos\\data\\training\\ifmos_ml.db"
+      ],
+      "description": "Direct SQL access to IFMOS ML training database"
+    },
+    "git": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git",
+        "--repository",
+        "C:\\Users\\kjfle\\.projects\\intelligent-file-management-system"
+      ],
+      "description": "Git operations for IFMOS repository"
+    },
+    "ifmos": {
+      "command": "python",
+      "args": [
+        "C:\\Users\\kjfle\\.projects\\intelligent-file-management-system\\.claude\\mcp-servers\\ifmos_server.py"
+      ],
+      "description": "Custom IFMOS MCP server - classification, querying, feedback"
+    }
+  }
+}
