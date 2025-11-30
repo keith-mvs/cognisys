@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFMOS Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        h1 { margin-bottom: 30px; color: #2c3e50; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat-card h3 { color: #7f8c8d; font-size: 14px; margin-bottom: 10px; }
+        .stat-card .value { font-size: 32px; font-weight: bold; color: #2c3e50; }
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .chart-container h2 { margin-bottom: 20px; color: #2c3e50; font-size: 18px; }
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-collapse: collapse;
+        }
+        th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        tr:hover { background: #f8f9fa; }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-success { background: #27ae60; color: white; }
+        .badge-warning { background: #f39c12; color: white; }
+        .badge-info { background: #3498db; color: white; }
+        .badge-danger { background: #e74c3c; color: white; }
+        .bar {
+            background: #3498db;
+            height: 20px;
+            border-radius: 4px;
+            margin: 5px 0;
+            transition: width 0.3s ease;
+        }
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .filters input, .filters select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .filters button {
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .filters button:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 IFMOS Dashboard</h1>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Files</h3>
+                <div class="value" id="total-files">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Organized</h3>
+                <div class="value" id="organized-files">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Duplicates</h3>
+                <div class="value" id="duplicate-files">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Low Confidence</h3>
+                <div class="value" id="low-confidence-files">-</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h2>Top Document Types</h2>
+            <div id="type-chart"></div>
+        </div>
+
+        <div class="chart-container">
+            <h2>Classification Methods</h2>
+            <div id="method-chart"></div>
+        </div>
+
+        <div class="chart-container">
+            <h2>Recent Files</h2>
+            <div class="filters">
+                <input type="text" id="search-input" placeholder="Search files...">
+                <select id="type-filter">
+                    <option value="">All Types</option>
+                </select>
+                <select id="state-filter">
+                    <option value="">All States</option>
+                    <option value="organized">Organized</option>
+                    <option value="pending">Pending</option>
+                    <option value="duplicate">Duplicate</option>
+                </select>
+                <button onclick="loadFiles()">Search</button>
+            </div>
+            <div id="files-table" class="loading">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadStats() {
+            const response = await fetch('/api/stats');
+            const data = await response.json();
+
+            // Update stat cards
+            document.getElementById('total-files').textContent = data.total.toLocaleString();
+            document.getElementById('organized-files').textContent = (data.by_state.organized || 0).toLocaleString();
+            document.getElementById('duplicate-files').textContent = data.duplicates.toLocaleString();
+            document.getElementById('low-confidence-files').textContent = data.low_confidence.toLocaleString();
+
+            // Render document type chart
+            renderBarChart('type-chart', data.by_type, 'count', 'document_type');
+
+            // Render method chart
+            const methodData = Object.entries(data.by_method).map(([method, count]) => ({
+                document_type: method,
+                count: count
+            }));
+            renderBarChart('method-chart', methodData, 'count', 'document_type');
+
+            // Populate type filter
+            const typeFilter = document.getElementById('type-filter');
+            data.by_type.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.document_type;
+                option.textContent = item.document_type;
+                typeFilter.appendChild(option);
+            });
+        }
+
+        function renderBarChart(containerId, data, valueKey, labelKey) {
+            const container = document.getElementById(containerId);
+            const maxValue = Math.max(...data.map(d => d[valueKey]));
+
+            container.innerHTML = data.map(item => {
+                const width = (item[valueKey] / maxValue * 100) + '%';
+                return `
+                    <div class="bar-label">
+                        <span>${item[labelKey]}</span>
+                        <span><strong>${item[valueKey].toLocaleString()}</strong></span>
+                    </div>
+                    <div class="bar" style="width: ${width}"></div>
+                `;
+            }).join('');
+        }
+
+        async function loadFiles() {
+            const searchQuery = document.getElementById('search-input').value;
+            const typeFilter = document.getElementById('type-filter').value;
+            const stateFilter = document.getElementById('state-filter').value;
+
+            let url = '/api/files?';
+            if (typeFilter) url += `type=${typeFilter}&`;
+            if (stateFilter) url += `state=${stateFilter}&`;
+
+            if (searchQuery.length >= 3) {
+                url = `/api/search?q=${searchQuery}&`;
+            }
+
+            const response = await fetch(url);
+            const data = await response.json();
+            const files = data.files;
+
+            const tableContainer = document.getElementById('files-table');
+
+            if (files.length === 0) {
+                tableContainer.innerHTML = '<div class="loading">No files found</div>';
+                return;
+            }
+
+            tableContainer.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Path</th>
+                            <th>Type</th>
+                            <th>Confidence</th>
+                            <th>Method</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${files.map(file => `
+                            <tr>
+                                <td>${file.file_id}</td>
+                                <td style="max-width: 400px; overflow: hidden; text-overflow: ellipsis;" title="${file.original_path}">
+                                    ${file.original_path}
+                                </td>
+                                <td><span class="badge badge-info">${file.document_type || 'NULL'}</span></td>
+                                <td>${file.confidence ? (file.confidence * 100).toFixed(0) + '%' : '-'}</td>
+                                <td>${file.classification_method || '-'}</td>
+                                <td><span class="badge ${getStateBadge(file.canonical_state)}">${file.canonical_state}</span></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function getStateBadge(state) {
+            const badges = {
+                'organized': 'badge-success',
+                'pending': 'badge-warning',
+                'duplicate': 'badge-info'
+            };
+            return badges[state] || 'badge-info';
+        }
+
+        // Load data on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            loadFiles();
+        });
+    </script>
+</body>
+</html>
