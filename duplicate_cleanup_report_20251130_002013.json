@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-11-30T00:20:13.968925",
+  "dry_run": false,
+  "checkpoint_file": ".ifmos/checkpoints/duplicate_cleanup_20251130_001958.json",
+  "statistics": {
+    "duplicates_found": 27781,
+    "duplicates_deleted": 27387,
+    "space_freed": 29367930289,
+    "errors": 232,
+    "skipped": 162
+  }
+}
