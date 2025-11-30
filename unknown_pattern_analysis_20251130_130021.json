@@ -1,0 +1,1765 @@
+{
+  "total_unknown": 7747,
+  "analysis_results": {
+    "total": 7747,
+    "directory_patterns": {
+      "counts": {
+        "other": 4250,
+        "venv/site-packages": 3409,
+        ".git": 74,
+        "cache/temp": 14
+      },
+      "samples": {
+        ".git": [
+          "4f6aa1c3594e4a30207efb82830b7a0076f24d",
+          "114944a9075114e8de09f05d9e390da878ea3b",
+          "c6d88dbb9a91072027f1be55b2b414b8108121",
+          "e093052d11836e72888e66e57cafd705e002b8",
+          "f090cef39d0dd8cabd5ef5dd00158642c32251"
+        ],
+        "venv/site-packages": [
+          "distutils-precedence.pth",
+          "PyWin32.chm",
+          "pywin32.pth",
+          "ujson.cp311-win_amd64.pyd",
+          "_cffi_backend.cp311-win_amd64.pyd"
+        ],
+        "cache/temp": [
+          "E46B9F4F35C35D3A-AE865D765D455D51.itc2",
+          "E46B9F4F35C35D3A-0F5A0602D7781754.itc2",
+          "E46B9F4F35C35D3A-786369CA97CEDF15.itc2",
+          "E46B9F4F35C35D3A-0D7FB2760BBE74C5.itc2",
+          "E46B9F4F35C35D3A-C9C67483F0BA0B07.itc2"
+        ]
+      }
+    },
+    "filename_patterns": {
+      "numbered": {
+        "count": 3,
+        "samples": [
+          "1.1",
+          "1.wm2d",
+          "2.wm2d"
+        ]
+      },
+      "timestamp": {
+        "count": 49,
+        "samples": [
+          "c6d88dbb9a91072027f1be55b2b414b8108121",
+          "f090cef39d0dd8cabd5ef5dd00158642c32251",
+          "a349b03ad242a1599c9c0d33717219dfb9f28d",
+          "98b63656a361f34e35080964ce7371c25cb63a",
+          "0c3c07200f48385f29b7c6cfe36352426c78d1",
+          "185834413827d0815b0b24d8e16ae868ffad2c",
+          "3ccaa214c122a357aeea58664367a04903c57d",
+          "29919852ca392436a1e2a2bdbc31fc07da1c58",
+          "21c1f9d01d61697525a3d1cb4749cdcfc5a202",
+          "0fa5ed94821aa6bc50b7da41e05e94767968ea"
+        ]
+      },
+      "no_extension": {
+        "count": 964,
+        "samples": [
+          "4f6aa1c3594e4a30207efb82830b7a0076f24d",
+          "114944a9075114e8de09f05d9e390da878ea3b",
+          "e093052d11836e72888e66e57cafd705e002b8",
+          "8c73be6f5737bc253601c162e909f1b1d0b6b9",
+          "015364ab4d26ebae77f3b4c9437ed318abe30e",
+          "cec98025c0da3f69a2f0502d48f4b5a1659cc2",
+          "355ef565b33658f8505e49f53b8b77b235e3fd",
+          "effb7b2b849968c0c1e97188f0937cf912ada0",
+          "738b0b991b6ac0820761e830d62b0044281a64",
+          "7d8f1da74e5375484b8829a91b07d8676fa0b7"
+        ]
+      },
+      "mixed": {
+        "count": 6731,
+        "samples": [
+          "opc-contentTypes.xsd",
+          "opc-coreProperties.xsd",
+          "opc-digSig.xsd",
+          "opc-relationships.xsd",
+          "dml-chart.xsd",
+          "dml-chartDrawing.xsd",
+          "dml-diagram.xsd",
+          "dml-lockedCanvas.xsd",
+          "dml-main.xsd",
+          "dml-picture.xsd"
+        ]
+      }
+    },
+    "extension_patterns": {
+      "counts": {
+        "no_extension": 979,
+        ".vcf": 489,
+        ".pyi": 481,
+        ".pyd": 461,
+        ".1": 437,
+        ".2": 308,
+        ".out": 240,
+        ".sum": 233,
+        ".m": 231,
+        ".3": 225,
+        ".lib": 219,
+        ".wcm": 216,
+        ".4": 158,
+        ".5": 139,
+        ".itc2": 128,
+        ".pyx": 124,
+        ".6": 123,
+        ".cpp": 105,
+        ".7": 103,
+        ".pxd": 97,
+        ".a": 90,
+        ".8": 86,
+        ".c": 83,
+        ".dll": 82,
+        ".9": 70,
+        ".10": 63,
+        ".wm2d": 61,
+        ".afm": 60,
+        ".f90": 60,
+        ".doctest": 58
+      },
+      "samples": {
+        "no_extension": [
+          "4f6aa1c3594e4a30207efb82830b7a0076f24d",
+          "114944a9075114e8de09f05d9e390da878ea3b",
+          "c6d88dbb9a91072027f1be55b2b414b8108121",
+          "e093052d11836e72888e66e57cafd705e002b8",
+          "f090cef39d0dd8cabd5ef5dd00158642c32251"
+        ],
+        ".idx": [
+          "pack-05d9a78f1db590877275c9994ee34a084fdcd646.idx"
+        ],
+        ".pack": [
+          "pack-05d9a78f1db590877275c9994ee34a084fdcd646.pack"
+        ],
+        ".rev": [
+          "pack-05d9a78f1db590877275c9994ee34a084fdcd646.rev"
+        ],
+        ".xsd": [
+          "opc-contentTypes.xsd",
+          "opc-coreProperties.xsd",
+          "opc-digSig.xsd",
+          "opc-relationships.xsd",
+          "dml-chart.xsd"
+        ],
+        ".bbff7336de": [
+          "statsig.cached.evaluations.bbff7336de"
+        ],
+        ".evaluations": [
+          "statsig.last_modified_time.evaluations"
+        ],
+        ".2656274335": [
+          "statsig.session_id.2656274335",
+          "statsig.stable_id.2656274335"
+        ],
+        ".reg": [
+          "Registry_HKEY_CURRENT_USER_Software_Microsoft_Windows_CurrentVersion_AppHost_IndexedDB_claude.ai-18877962_4k56vfyhbf6dg.reg",
+          "Registry_HKEY_CURRENT_USER_Software_Microsoft_Windows_CurrentVersion_BackgroundAccessApplications_claude.ai-18877962_4k56vfyhbf6dg.reg",
+          "Registry_HKEY_CURRENT_USER_Software_Microsoft_Windows_CurrentVersion_BackgroundAccessApplications_KaymaTech.Claude-AIChatbot_4qeft69pa7b3m.reg",
+          "Registry_HKEY_CURRENT_USER_Software_Microsoft_Windows_CurrentVersion_PushNotifications_Backup_claude.ai-18877962_4k56vfyhbf6dg!App.reg"
+        ],
+        ".fig": [
+          "#11.fig",
+          "#4.fig",
+          "#5.fig"
+        ],
+        ".5": [
+          "1-and-1-half-inch-bar-bed-1.prt.5",
+          "2.prt.5",
+          "90128a157.prt.5",
+          "90322a652.prt.5",
+          "aft_bogie.prt.5"
+        ],
+        ".6": [
+          "1-and-1-half-inch-bar-bed-1.prt.6",
+          "2-inch-bar-bed-v3.prt.6",
+          "90322a652.prt.6",
+          "aft_bogie.prt.6",
+          "aft_bracket.prt.6"
+        ],
+        ".7": [
+          "1-and-1-half-inch-bar-bed-1.prt.7",
+          "2-inch-bar-bed-v3.prt.7",
+          "aft_bogie.prt.7",
+          "aft_bracket.prt.7",
+          "angled-frame.asm.7"
+        ],
+        ".1": [
+          "1.1",
+          "1.prt.1",
+          "1.prt_2.1",
+          "10_24.prt.1",
+          "10_in_wheel.prt.1"
+        ],
+        ".2": [
+          "1.prt.2",
+          "1.prt_2.2",
+          "10_wheel.prt.2",
+          "1556a210.prt.2",
+          "2.prt.2"
+        ],
+        ".3": [
+          "1.prt.3",
+          "1.prt_2.3",
+          "2.prt.3",
+          "90107a029.prt.3",
+          "90107a127.prt.3"
+        ],
+        ".4": [
+          "1.prt.4",
+          "2.prt.4",
+          "90107a127.prt.4",
+          "90128a157.prt.4",
+          "90128a364.prt.4"
+        ],
+        ".wm2d": [
+          "1.wm2d",
+          "1DOF.wm2d",
+          "1DOF_2.wm2d",
+          "2.wm2d",
+          "2DOF.wm2d"
+        ],
+        ".3dm": [
+          "10 inch rubber wheel.3dm"
+        ],
+        ".rhl": [
+          "10 inch rubber wheel.3dm.rhl"
+        ],
+        ".3dmbak": [
+          "10 inch rubber wheel.3dmbak"
+        ],
+        ".igs": [
+          "10 inch rubber wheel.igs"
+        ],
+        ".obj": [
+          "10 inch rubber wheel.obj",
+          "switch_arm64_masm.obj",
+          "switch_x64_masm.obj"
+        ],
+        ".ees": [
+          "10-24.EES",
+          "10-30.EES",
+          "10-36.EES",
+          "10-49.EES",
+          "11-10.EES"
+        ],
+        ".m": [
+          "16.D6.m",
+          "6parta.m",
+          "6partb.m",
+          "6partc.m",
+          "area.m"
+        ],
+        ".dta": [
+          "1DOF.dta",
+          "1DOF_2.dta",
+          "2DOF.dta",
+          "2DOF_2.dta",
+          "5DOF.dta"
+        ],
+        ".wps": [
+          "302 Mod.wps",
+          "302 Stock.wps",
+          "302 Windsor (v2014) WAVEPOST.wps",
+          "302_Windsor Modifed (v2014).wps",
+          "302_Windsor Modified (v2014) WAVEPOST.wps"
+        ],
+        ".bak1": [
+          "302 Windsor (v2014) WAVEPOST.wps.bak1",
+          "302_Windsor (v2014).wvm.bak1",
+          "302_Windsor (v2014).wvm_2.bak1",
+          "302_Windsor Modifed (v2014).wvm.bak1",
+          "302_Windsor Modifed (v2014).wvm_2.bak1"
+        ],
+        ".out": [
+          "302_Windsor (v2014).out",
+          "302_Windsor Modifed (v2014).out",
+          "302_Windsor Modifed (v2014)_2.out",
+          "S50B30US_NA (TESTER).out",
+          "S50B30US_NA.out"
+        ],
+        ".sum": [
+          "302_Windsor (v2014).sum",
+          "302_Windsor Modifed (v2014).sum",
+          "302_Windsor Modifed (v2014)_2.sum",
+          "S50B30US_NA (TESTER).sum",
+          "S50B30US_NA.sum"
+        ],
+        ".wvd": [
+          "302_Windsor (v2014).wvd",
+          "302_Windsor Modifed (v2014).wvd",
+          "302_Windsor Modifed (v2014)_2.wvd",
+          "S50B30US_NA (TESTER).wvd",
+          "S50B30US_NA.wvd"
+        ],
+        ".wvm": [
+          "302_Windsor (v2014).wvm",
+          "302_Windsor (v2014)_2.wvm",
+          "302_Windsor (v8.4).wvm",
+          "302_Windsor Modifed (v2014).wvm",
+          "302_Windsor Modifed (v8.4).wvm"
+        ],
+        ".bak3": [
+          "302_Windsor (v2014).wvm.bak3",
+          "302_Windsor Modifed (v2014).wvm.bak3",
+          "S50B30US_NA (TESTER).wvm.bak3",
+          "S50B30US_NA.wvm.bak3",
+          "S50B30US_SUPER (1).wvm.bak3"
+        ],
+        ".bak4": [
+          "302_Windsor (v2014).wvm.bak4",
+          "302_Windsor Modifed (v2014).wvm.bak4",
+          "S50B30US_NA (TESTER).wvm.bak4",
+          "S50B30US_NA.wvm.bak4",
+          "S50B30US_SUPER (1).wvm.bak4"
+        ],
+        ".bak5": [
+          "302_Windsor (v2014).wvm.bak5",
+          "302_Windsor Modifed (v2014).wvm.bak5",
+          "S50B30US_NA (TESTER).wvm.bak5",
+          "S50B30US_NA.wvm.bak5",
+          "S50B30US_SUPER (1).wvm.bak5"
+        ],
+        ".bak6": [
+          "302_Windsor (v2014).wvm.bak6",
+          "302_Windsor Modifed (v2014).wvm.bak6",
+          "S50B30US_NA.wvm.bak6",
+          "S50B30US_SUPER (1).wvm.bak6",
+          "S50B32EURO.wvm.bak6"
+        ],
+        ".bak7": [
+          "302_Windsor (v2014).wvm.bak7",
+          "302_Windsor Modifed (v2014).wvm.bak7",
+          "S50B30US_NA.wvm.bak7",
+          "S50B30US_SUPER (1).wvm.bak7",
+          "S50B30US_SUPER (8.4)(2).wvm.bak7"
+        ],
+        ".bak8": [
+          "302_Windsor (v2014).wvm.bak8",
+          "302_Windsor Modifed (v2014).wvm.bak8",
+          "S50B30US_NA.wvm.bak8",
+          "S50B30US_SUPER (1).wvm.bak8",
+          "S50B30US_SUPER (8.4)(2).wvm.bak8"
+        ],
+        ".bak9": [
+          "302_Windsor (v2014).wvm.bak9",
+          "302_Windsor Modifed (v2014).wvm.bak9",
+          "S50B30US_NA.wvm.bak9",
+          "S50B30US_SUPER (1).wvm.bak9",
+          "S50B30US_SUPER (8.4)(2).wvm.bak9"
+        ],
+        ".bak2": [
+          "302_Windsor (v2014).wvm_2.bak2",
+          "302_Windsor Modifed (v2014).wvm.bak2",
+          "302_Windsor Modifed (v2014).wvm_2.bak2",
+          "S50B30US_NA (TESTER).wvm.bak2",
+          "S50B30US_NA.wvm.bak2"
+        ],
+        ".wxp": [
+          "302_Windsor (v2014).wxp",
+          "302_Windsor (v2014)_2.wxp",
+          "302_Windsor Modifed (v2014).wxp",
+          "302_Windsor Modifed (v2014)_2.wxp",
+          "S50B30US_NA (TESTER).wxp"
+        ],
+        ".vsdx": [
+          "6a. Process Diagram - ATM.vsdx",
+          "6b. Process Diagram - TV-DVR.vsdx",
+          "6c. Process Diagram - Skiing.vsdx",
+          "6d. Process Diagram - Smoothie.vsdx",
+          "Objective Hierarchy.vsdx"
+        ],
+        ".10": [
+          "aft_bogie.prt.10",
+          "bogie_pivot.prt.10",
+          "chassis.asm.10",
+          "chassis_2.asm.10",
+          "crawler.prt.10"
+        ],
+        ".11": [
+          "aft_bogie.prt.11",
+          "bogie_pivot.prt.11",
+          "chassis.asm.11",
+          "chassis_2.asm.11",
+          "crawler.prt.11"
+        ],
+        ".8": [
+          "aft_bogie.prt.8",
+          "aft_bracket.prt.8",
+          "angled-frame.asm.8",
+          "bogie_pivot.prt.8",
+          "chassis.asm.8"
+        ],
+        ".9": [
+          "aft_bogie.prt.9",
+          "bogie_pivot.prt.9",
+          "chassis.asm.9",
+          "chassis_2.asm.9",
+          "crawler.prt.9"
+        ],
+        ".a01": [
+          "Analysis1.a01",
+          "Analysis1_2.a01",
+          "bar_1.a01",
+          "bar_1opt.a01",
+          "opt_study.a01"
+        ],
+        ".avg": [
+          "Analysis1.avg",
+          "bar_1opt.avg"
+        ],
+        ".buc": [
+          "Analysis1.buc",
+          "Analysis1_2.buc",
+          "bar_1.buc",
+          "bar_1opt.buc",
+          "bar_1s.buc"
+        ],
+        ".cnv": [
+          "Analysis1.cnv",
+          "Analysis1_2.cnv",
+          "bar_1.cnv",
+          "bar_1opt.cnv",
+          "bar_1s.cnv"
+        ],
+        ".d01": [
+          "Analysis1.d01",
+          "Analysis1_2.d01",
+          "bar_1.d01",
+          "bar_1opt.d01",
+          "opt_study.d01"
+        ],
+        ".err": [
+          "Analysis1.err",
+          "Analysis1_2.err",
+          "bar_1.err",
+          "bar_1opt.err",
+          "bar_1s.err"
+        ],
+        ".mcd": [
+          "Analysis1.mcd",
+          "Analysis1_2.mcd",
+          "bar_1.mcd",
+          "bar_1opt.mcd",
+          "bar_1s.mcd"
+        ],
+        ".mor": [
+          "Analysis1.mor",
+          "Analysis1_2.mor",
+          "bar_1.mor",
+          "bar_1opt.mor",
+          "bar_1opt_2.mor"
+        ],
+        ".n01": [
+          "Analysis1.n01",
+          "shaft.n01"
+        ],
+        ".neu": [
+          "Analysis1.neu",
+          "Analysis1_2.neu",
+          "bar_1.neu",
+          "bar_1opt.neu",
+          "bar_1opt_2.neu"
+        ],
+        ".p01": [
+          "Analysis1.p01"
+        ],
+        ".pas": [
+          "Analysis1.pas",
+          "Analysis1_2.pas",
+          "bar_1.pas",
+          "bar_1opt.pas",
+          "bar_1s.pas"
+        ],
+        ".pnu": [
+          "Analysis1.pnu",
+          "Analysis1_2.pnu",
+          "bar_1.pnu",
+          "bar_1opt.pnu",
+          "bar_1s.pnu"
+        ],
+        ".r01": [
+          "Analysis1.r01",
+          "Analysis1_2.r01",
+          "bar_1.r01",
+          "bar_1opt.r01",
+          "opt_study.r01"
+        ],
+        ".res": [
+          "Analysis1.res",
+          "Analysis1_2.res",
+          "bar_1.res",
+          "bar_1s.res",
+          "opt_study.res"
+        ],
+        ".rpt": [
+          "Analysis1.rpt",
+          "Analysis1_2.rpt",
+          "bar_1.rpt",
+          "bar_1opt.rpt",
+          "bar_1s.rpt"
+        ],
+        ".s01": [
+          "Analysis1.s01",
+          "Analysis1_2.s01",
+          "bar_1.s01",
+          "bar_1opt.s01",
+          "opt_study.s01"
+        ],
+        ".solution": [
+          "Analysis1.solution",
+          "Analysis1_2.solution",
+          "bar_1.solution",
+          "bar_1_2.solution",
+          "shaft.solution"
+        ],
+        ".stt": [
+          "Analysis1.stt",
+          "Analysis1_2.stt",
+          "bar_1.stt",
+          "bar_1opt.stt",
+          "bar_1s.stt"
+        ],
+        ".usr": [
+          "Analysis1.usr",
+          "Analysis1_2.usr",
+          "bar_1.usr",
+          "bar_1opt.usr",
+          "bar_1s.usr"
+        ],
+        ".bak": [
+          "ARCH-001KJF.bak",
+          "KEITH FLEMING-001.bak"
+        ],
+        ".resx": [
+          "AshraeGraphics.resx",
+          "AshraeTables.resx"
+        ],
+        ".rwd": [
+          "bar_1.rwd",
+          "bar_1opt.rwd",
+          "bar_1s.rwd",
+          "Optimized_Pedals.rwd",
+          "SDS.rwd"
+        ],
+        ".dpi": [
+          "bar_1opt.dpi",
+          "opt_study.dpi",
+          "study1.dpi",
+          "study1_2.dpi"
+        ],
+        ".hst": [
+          "bar_1opt.hst",
+          "bar_1s.hst",
+          "opt_study.hst",
+          "SDS_dp_1.hst",
+          "sensitivity_study.hst"
+        ],
+        ".opt": [
+          "bar_1opt.opt",
+          "opt_study.opt",
+          "study1.opt",
+          "study1_2.opt"
+        ],
+        ".g01": [
+          "bar_1s.g01",
+          "sensitivity_study.g01",
+          "study2.g01"
+        ],
+        ".12": [
+          "bogie_pivot.prt.12",
+          "chassis.asm.12",
+          "chassis_2.asm.12",
+          "crawler.prt.12",
+          "ct1000-000.asm.12"
+        ],
+        ".13": [
+          "bogie_pivot.prt.13",
+          "chassis.asm.13",
+          "chassis_2.asm.13",
+          "crawler.prt.13",
+          "ct1000-000.asm.13"
+        ],
+        ".prof": [
+          "cdtyp.prof",
+          "cfperfexh.prof",
+          "cfperfint.prof",
+          "cftyp.prof"
+        ],
+        ".agm": [
+          "center_shaft.agm",
+          "center_shaft_2.agm",
+          "opt_innershaft.agm",
+          "pedal.agm",
+          "pedal_2.agm"
+        ],
+        ".mmp": [
+          "center_shaft.mmp",
+          "opt_innershaft.mmp"
+        ],
+        ".14": [
+          "chassis.asm.14",
+          "chassis_2.asm.14",
+          "crawler.prt.14",
+          "ct1100-000.asm.14",
+          "ct1200-000.asm.14"
+        ],
+        ".15": [
+          "chassis.asm.15",
+          "crawler.prt.15",
+          "ct1100-000.asm.15",
+          "ct1200-000.asm.15",
+          "cw1000-000.asm.15"
+        ],
+        ".16": [
+          "chassis.asm.16",
+          "ct1100-000.asm.16",
+          "ct1200-000.asm.16",
+          "cw1000-000.asm.16",
+          "cw1000-000.asm_2.16"
+        ],
+        ".17": [
+          "chassis.asm.17",
+          "ct1100-000.asm.17",
+          "ct1200-000.asm.17",
+          "cw1000-000.asm.17",
+          "cw1000-000.asm_2.17"
+        ],
+        ".18": [
+          "chassis.asm.18",
+          "ct1100-000.asm.18",
+          "ct1200-000.asm.18",
+          "cw1000-000.asm.18",
+          "cw1000-000.asm_2.18"
+        ],
+        ".dat": [
+          "cnmsm_tweak.dat",
+          "Language.dat",
+          "eeg.dat",
+          "membrane.dat",
+          "fortran-3x3d-2i.dat"
+        ],
+        ".19": [
+          "ct1100-000.asm.19",
+          "cw1000-000.asm.19",
+          "cw1000-000.asm_2.19",
+          "cw2000-000.asm.19",
+          "cw2100-000.drw.19"
+        ],
+        ".20": [
+          "ct1100-000.asm.20",
+          "cw1000-000.asm.20",
+          "cw1000-000.asm_2.20",
+          "cw2000-000.asm.20",
+          "cw2100-000.drw.20"
+        ],
+        ".21": [
+          "ct1100-000.asm.21",
+          "cw1000-000.asm.21",
+          "cw1000-000.asm_2.21",
+          "cw2000-000.asm.21",
+          "cw2100-000.drw.21"
+        ],
+        ".pro": [
+          "current_session.pro",
+          "HDPsychart3161.PRO"
+        ],
+        ".22": [
+          "cw1000-000.asm.22",
+          "cw1000-000.asm_2.22",
+          "cw2000-000.asm.22",
+          "cw2100-000.drw.22",
+          "cw5000-000.asm.22"
+        ],
+        ".23": [
+          "cw1000-000.asm.23",
+          "cw1000-000.asm_2.23",
+          "cw2000-000.asm.23",
+          "cw5000-000.asm.23",
+          "sprocket_crawler.prt.23"
+        ],
+        ".24": [
+          "cw1000-000.asm.24",
+          "cw1000-000.asm_2.24",
+          "cw2000-000.asm.24",
+          "cw5000-000.asm.24",
+          "su3100-030.prt.24"
+        ],
+        ".25": [
+          "cw1000-000.asm.25",
+          "cw1000-000.asm_2.25",
+          "cw2000-000.asm.25",
+          "cw5000-000.asm.25"
+        ],
+        ".m_p": [
+          "cw1000-000.m_p"
+        ],
+        ".26": [
+          "cw2000-000.asm.26",
+          "cw5000-000.asm.26"
+        ],
+        ".27": [
+          "cw2000-000.asm.27",
+          "cw5000-000.asm.27"
+        ],
+        ".28": [
+          "cw2000-000.asm.28",
+          "cw5000-000.asm.28"
+        ],
+        ".29": [
+          "cw2000-000.asm.29",
+          "cw5000-000.asm.29"
+        ],
+        ".30": [
+          "cw2000-000.asm.30"
+        ],
+        ".asv": [
+          "do_headings.asv",
+          "h07_2.asv",
+          "input_material_coords.asv",
+          "onebarinput.asv",
+          "Problem1E_HW6.asv"
+        ],
+        ".drg": [
+          "DragSim1.drg"
+        ],
+        ".pc3": [
+          "DWG To PDF.pc3"
+        ],
+        ".rtf": [
+          "Functional Spec.rtf",
+          "Performance Spec.rtf"
+        ],
+        ".mpp": [
+          "Gantt Chart_RF.mpp"
+        ],
+        ".odt": [
+          "Genesis Montoya.odt"
+        ],
+        ".hd": [
+          "HDPsyChart1.hd"
+        ],
+        ".hdd": [
+          "HDPsyChart_SE1.hdd"
+        ],
+        ".tps": [
+          "howitzer_cart.tps"
+        ],
+        ".fue": [
+          "indolene.fue",
+          "toluene.fue"
+        ],
+        ".crd": [
+          "lab$1.CRD"
+        ],
+        ".dcz": [
+          "ME365_Fleming_Exam1.dcz"
+        ],
+        ".ctb": [
+          "monochrome.ctb"
+        ],
+        ".rwt": [
+          "MPA_standard.rwt",
+          "template.rwt",
+          "Template_prj.rwt",
+          "totalmasstemp.rwt"
+        ],
+        ".f": [
+          "newton-raphson.f",
+          "foo.f",
+          "foo.f",
+          "gh25211.f",
+          "hi77.f"
+        ],
+        ".m~": [
+          "onebarinput.m~"
+        ],
+        ".bin": [
+          "pendulum.bin",
+          "spring_mass.bin",
+          "lookups.bin",
+          "lookups.bin",
+          "NETGEAR_94A67EF8853C.bin"
+        ],
+        ".tvr": [
+          "Registry.rw.tvr"
+        ],
+        ".lck": [
+          "Registry.rw.tvr.lck",
+          "Registry.rw.tvr_2.lck"
+        ],
+        ".transact": [
+          "Registry.rw.tvr_2.transact"
+        ],
+        ".rp": [
+          "S50B30US_NA (TESTER).rp",
+          "S50B30US_NA.rp",
+          "S50B30US_SUPER (8.4)(2).rp"
+        ],
+        ".hlt": [
+          "S50B30US_SUPER (1).hlt"
+        ],
+        ".cmp": [
+          "sample.cmp",
+          "sample_2.cmp"
+        ],
+        ".g02": [
+          "sensitivity_study.g02",
+          "study2.g02"
+        ],
+        ".val": [
+          "si1exh.val",
+          "si1int.val"
+        ],
+        ".wcm": [
+          "speed10000_centerpoint_par.wcm",
+          "speed10000_run1_par.wcm",
+          "speed10000_run2_par.wcm",
+          "speed10000_run3_par.wcm",
+          "speed10000_run4_par.wcm"
+        ],
+        ".sdf": [
+          "sumvars.sdf",
+          "sumvars_2.sdf"
+        ],
+        ".pth": [
+          "distutils-precedence.pth",
+          "pywin32.pth",
+          "_pynvml_redirector.pth"
+        ],
+        ".chm": [
+          "PyWin32.chm"
+        ],
+        ".pyd": [
+          "ujson.cp311-win_amd64.pyd",
+          "_cffi_backend.cp311-win_amd64.pyd",
+          "_kernel_lib.cp311-win_amd64.pyd",
+          "_ruamel_yaml.cp311-win_amd64.pyd",
+          "bidi.cp311-win_amd64.pyd"
+        ],
+        ".pyi": [
+          "app.pyi",
+          "context.pyi",
+          "op.pyi",
+          "_contourpy.pyi",
+          "ARC2.pyi"
+        ],
+        ".mako": [
+          "alembic.ini.mako",
+          "script.py.mako",
+          "alembic.ini.mako",
+          "alembic.ini.mako",
+          "script.py.mako"
+        ],
+        ".dll": [
+          "ANSI32.dll",
+          "ANSI64.dll",
+          "libscipy_openblas64_-13e2df515630b4a41f92893938845698.dll",
+          "msvcp140-263139962577ecda4cd9469ca360a746.dll",
+          "arrow.dll"
+        ],
+        ".exp": [
+          "cy.cp311-win_amd64.exp",
+          "py.cp311-win_amd64.exp"
+        ],
+        ".lib": [
+          "cy.cp311-win_amd64.lib",
+          "py.cp311-win_amd64.lib",
+          "_contourpy.cp311-win_amd64.lib",
+          "_pocketfft_umath.cp311-win_amd64.lib",
+          "lapack_lite.cp311-win_amd64.lib"
+        ],
+        ".pxd": [
+          "cy.pxd",
+          "cymem.pxd",
+          "mrmr.pxd",
+          "__init__.cython-30.pxd",
+          "__init__.pxd"
+        ],
+        ".pyx": [
+          "cy.pyx",
+          "py.pyx",
+          "cymem.pyx",
+          "mrmr.pyx",
+          "extending.pyx"
+        ],
+        ".pem": [
+          "cacert.pem",
+          "badcert.pem",
+          "badkey.pem",
+          "dh512.pem",
+          "https_svn_python_org_root.pem"
+        ],
+        ".apache": [
+          "LICENSE.APACHE",
+          "LICENSE.APACHE"
+        ],
+        ".bsd": [
+          "LICENSE.BSD",
+          "LICENSE.BSD"
+        ],
+        ".typed": [
+          "py.typed",
+          "py.typed",
+          "py.typed",
+          "py.typed",
+          "py.typed"
+        ],
+        ".rels": [
+          "item1.xml.rels",
+          "document.xml.rels"
+        ],
+        ".cpp": [
+          "deform_conv_cpu.cpp",
+          "deform_conv_cpu_kernel.cpp",
+          "deform_conv_cuda.cpp",
+          "deform_pool_cpu.cpp",
+          "deform_pool_cpu_kernel.cpp"
+        ],
+        ".cu": [
+          "deform_conv_cuda_kernel.cu",
+          "deform_pool_cuda_kernel.cu",
+          "adam_upd_kernel.cu",
+          "render_utils_kernel.cu",
+          "total_variation_kernel.cu"
+        ],
+        ".python": [
+          "LICENCE.python"
+        ],
+        ".c": [
+          "cu2qu.c",
+          "lexer.c",
+          "bezierTools.c",
+          "momentsPen.c",
+          "qu2cu.c"
+        ],
+        ".external": [
+          "LICENSE.external"
+        ],
+        ".hpp": [
+          "greenlet_allocator.hpp",
+          "greenlet_compiler_compat.hpp",
+          "greenlet_cpython_compat.hpp",
+          "greenlet_exceptions.hpp",
+          "greenlet_internal.hpp"
+        ],
+        ".psf": [
+          "LICENSE.PSF"
+        ],
+        ".lua": [
+          "kpsewhich.lua"
+        ],
+        ".afm": [
+          "cmex10.afm",
+          "cmmi10.afm",
+          "cmr10.afm",
+          "cmsy10.afm",
+          "cmtt10.afm"
+        ],
+        ".xrc": [
+          "embedding_in_wx3.xrc"
+        ],
+        ".npz": [
+          "goog.npz",
+          "jacksboro_fault_dem.npz",
+          "topobathy.npz",
+          "py2-objarr.npz",
+          "py3-objarr.npz"
+        ],
+        ".npy": [
+          "bivariate_normal.npy",
+          "py2-np0-objarr.npy",
+          "py2-objarr.npy",
+          "py3-objarr.npy",
+          "python3.npy"
+        ],
+        ".mplstyle": [
+          "bmh.mplstyle",
+          "classic.mplstyle",
+          "dark_background.mplstyle",
+          "fast.mplstyle",
+          "fivethirtyeight.mplstyle"
+        ],
+        ".ico": [
+          "favicon.ico"
+        ],
+        ".mjs": [
+          "pdf.worker.min.1e04b97855d3d1d0937e.mjs",
+          "htm.mjs",
+          "preact.mjs"
+        ],
+        ".tpl": [
+          "readme.tpl",
+          "template.tpl",
+          "html.tpl",
+          "html_style.tpl",
+          "html_table.tpl"
+        ],
+        ".a99": [
+          "iso_r01_s80.A99",
+          "si2_b06_m200.A99"
+        ],
+        ".b99": [
+          "iso_r01_s80.B99",
+          "si2_b06_m200.B99"
+        ],
+        ".doctest": [
+          "bleu.doctest",
+          "bnc.doctest",
+          "ccg.doctest",
+          "ccg_semantics.doctest",
+          "chat80.doctest"
+        ],
+        ".ptx": [
+          "jitlink.ptx"
+        ],
+        ".gdb": [
+          "cmdlang.gdb"
+        ],
+        ".third-party": [
+          "LICENSES.third-party"
+        ],
+        ".f90": [
+          "foo.f90",
+          "gh18403_mod.f90",
+          "foo_free.f90",
+          "foo_mod.f90",
+          "foo_use.f90"
+        ],
+        ".pyf": [
+          "gh25211.pyf",
+          "gh_22819.pyf",
+          "gh22648.pyf",
+          "funcfortranname.pyf",
+          "subrout.pyf"
+        ],
+        ".inc": [
+          "AB.inc"
+        ],
+        ".f95": [
+          "f77fixedform.f95"
+        ],
+        ".template": [
+          "meson.build.template"
+        ],
+        ".build": [
+          "meson.build",
+          "meson.build",
+          "meson.build",
+          "meson.build",
+          "meson.build"
+        ],
+        ".pc": [
+          "numpy.pc"
+        ],
+        ".pkl": [
+          "astype_copy.pkl"
+        ],
+        ".fits": [
+          "recarray_from_file.fits"
+        ],
+        ".cc": [
+          "voxelize_op.cc",
+          "arrow_to_pandas.cc",
+          "benchmark.cc",
+          "common.cc",
+          "config.cc"
+        ],
+        ".egg": [
+          "my_test_package-1.0-py3.7.egg"
+        ],
+        ".pxi": [
+          "array.pxi",
+          "benchmark.pxi",
+          "builder.pxi",
+          "compat.pxi",
+          "config.pxi"
+        ],
+        ".h": [
+          "file_json.h",
+          "json.h",
+          "ultrajson.h"
+        ],
+        ".cmake": [
+          "config_internal.h.cmake"
+        ],
+        ".feather": [
+          "v0.17.0.version.2-compression.lz4.feather"
+        ],
+        ".orc": [
+          "decimal.orc",
+          "TestOrcFile.emptyFile.orc",
+          "TestOrcFile.test1.orc",
+          "TestOrcFile.testDate1900.orc"
+        ],
+        ".parquet": [
+          "v0.7.1.all-named-index.parquet",
+          "v0.7.1.column-metadata-handling.parquet",
+          "v0.7.1.parquet",
+          "v0.7.1.some-named-index.parquet"
+        ],
+        ".ijg": [
+          "libjpeg_turbo.ijg"
+        ],
+        ".pyw": [
+          "start_pythonwin.pyw"
+        ],
+        ".lesser": [
+          "COPYING.LESSER"
+        ],
+        ".tab": [
+          "iso3166.tab"
+        ],
+        ".mat": [
+          "testonechar_4.2c_SOL2.mat",
+          "testonechar_6.1_SOL2.mat",
+          "testonechar_6.5.1_GLNX86.mat",
+          "testonechar_7.1_GLNX86.mat",
+          "testonechar_7.4_GLNX86.mat"
+        ],
+        ".sav": [
+          "array_float32_1d.sav",
+          "array_float32_2d.sav",
+          "array_float32_3d.sav",
+          "array_float32_4d.sav",
+          "array_float32_5d.sav"
+        ],
+        ".nc": [
+          "example_1.nc",
+          "example_2.nc",
+          "example_3_maskedvals.nc"
+        ],
+        ".ani": [
+          "Transparent Busy.ani"
+        ],
+        ".a": [
+          "_fmm_core.cp311-win_amd64.dll.a",
+          "cython_blas.cp311-win_amd64.dll.a",
+          "cython_lapack.cp311-win_amd64.dll.a",
+          "_cythonized_array_utils.cp311-win_amd64.dll.a",
+          "_decomp_interpolative.cp311-win_amd64.dll.a"
+        ],
+        ".tmpl": [
+          "script (dev).tmpl",
+          "script.tmpl"
+        ],
+        ".tif": [
+          "multipage.tif",
+          "multipage_rgb.tif"
+        ],
+        ".tp": [
+          "_sag_fast.pyx.tp",
+          "_sgd_fast.pyx.tp",
+          "_dist_metrics.pxd.tp",
+          "_dist_metrics.pyx.tp",
+          "_argkmin.pxd.tp"
+        ],
+        ".mit": [
+          "LICENSE.MIT"
+        ],
+        ".jinja": [
+          "quickstart_training.jinja"
+        ],
+        ".g4": [
+          "Autolev.g4",
+          "LaTeX.g4"
+        ],
+        ".al": [
+          "ruletest1.al",
+          "ruletest10.al",
+          "ruletest11.al",
+          "ruletest12.al",
+          "ruletest2.al"
+        ],
+        ".lark": [
+          "greek_symbols.lark",
+          "latex.lark"
+        ],
+        ".xsl": [
+          "mmlctop.xsl",
+          "mmltex.xsl",
+          "simple_mmlctop.xsl",
+          "STYLE.XSL"
+        ],
+        ".cuh": [
+          "ApplyGridUtils.cuh",
+          "AsmUtils.cuh",
+          "Atomic.cuh",
+          "cub.cuh",
+          "cub_definitions.cuh"
+        ],
+        ".bazel": [
+          "BUILD.bazel"
+        ],
+        ".bzl": [
+          "build.bzl"
+        ],
+        ".zi": [
+          "tzdata.zi"
+        ],
+        ".asp": [
+          "caps.asp",
+          "CreateObject.asp",
+          "tut1.asp",
+          "test.asp",
+          "test1.asp"
+        ],
+        ".pys": [
+          "excel.pys",
+          "registry.pys",
+          "test.pys",
+          "debugTest.pys"
+        ],
+        ".itdb": [
+          "iTunes Library Extras.itdb",
+          "iTunes Library Genius.itdb"
+        ],
+        ".itl": [
+          "iTunes Library.itl"
+        ],
+        ".itc2": [
+          "E46B9F4F35C35D3A-AE865D765D455D51.itc2",
+          "E46B9F4F35C35D3A-0F5A0602D7781754.itc2",
+          "E46B9F4F35C35D3A-786369CA97CEDF15.itc2",
+          "E46B9F4F35C35D3A-0D7FB2760BBE74C5.itc2",
+          "E46B9F4F35C35D3A-C9C67483F0BA0B07.itc2"
+        ],
+        ".url": [
+          "Babo.url",
+          "Bing.url"
+        ],
+        ".vcf": [
+          "Contact - Booz Allen Hamilton.vcf",
+          "Contact - Brooke.vcf",
+          "Contact - Cathy.vcf",
+          "Contact - Chinn.vcf",
+          "Contact - Chloe.vcf"
+        ],
+        ".chk": [
+          "R7000-V1.0.12.216_10.2.122.chk"
+        ],
+        ".one": [
+          "Journal.one"
+        ],
+        ".pfx": [
+          "certificate_12-Records.pfx",
+          "DESKTOP-LL0ID5.pfx"
+        ],
+        ".pgp": [
+          "Proton Pass_export_2024-02-12.pgp"
+        ],
+        ".asc": [
+          "proton_recovery.asc"
+        ],
+        ".torrent": [
+          "BMW ISTA 4.39.20.torrent"
+        ],
+        ".nfo": [
+          "caxiso.nfo"
+        ],
+        ".iso": [
+          "Ricardo WAVE 8.0.iso"
+        ],
+        ".lnk": [
+          "Portable Working Model 2D 8.0.1.0 - Shortcut.lnk"
+        ],
+        ".wbs": [
+          "krstart.wbs",
+          "startup.wbs",
+          "BLDCONS.WBS",
+          "CreateLink.wbs",
+          "OPTIMIZE.WBS"
+        ],
+        ".x32": [
+          "wmf.x32"
+        ]
+      }
+    },
+    "size_patterns": {
+      "tiny (< 1KB)": {
+        "count": 1843,
+        "samples": [
+          "114944a9075114e8de09f05d9e390da878ea3b",
+          "c6d88dbb9a91072027f1be55b2b414b8108121",
+          "e093052d11836e72888e66e57cafd705e002b8",
+          "f090cef39d0dd8cabd5ef5dd00158642c32251",
+          "8c73be6f5737bc253601c162e909f1b1d0b6b9"
+        ]
+      },
+      "small (1KB-100KB)": {
+        "count": 3554,
+        "samples": [
+          "4f6aa1c3594e4a30207efb82830b7a0076f24d",
+          "a349b03ad242a1599c9c0d33717219dfb9f28d",
+          "effb7b2b849968c0c1e97188f0937cf912ada0",
+          "7d8f1da74e5375484b8829a91b07d8676fa0b7",
+          "185834413827d0815b0b24d8e16ae868ffad2c"
+        ]
+      },
+      "medium (100KB-10MB)": {
+        "count": 2263,
+        "samples": [
+          "pack-05d9a78f1db590877275c9994ee34a084fdcd646.pack",
+          "dml-main.xsd",
+          "sml.xsd",
+          "wml.xsd",
+          "1-and-1-half-inch-bar-bed-1.prt.5"
+        ]
+      },
+      "large (> 10MB)": {
+        "count": 87,
+        "samples": [
+          "10 inch rubber wheel.3dm",
+          "10 inch rubber wheel.3dmbak",
+          "5DOF.wm2d",
+          "5DOF_2.wm2d",
+          "5DOF_AR.wm2d"
+        ]
+      }
+    },
+    "character_patterns": {
+      "all_lowercase": 5487,
+      "all_uppercase": 865,
+      "mixed_case": 1395,
+      "contains_underscore": 3394,
+      "contains_dash": 2769,
+      "contains_dot": 3138,
+      "alphanumeric_only": 4043,
+      "contains_special": 3704
+    }
+  },
+  "suggestions": [
+    {
+      "type": "filename_pattern",
+      "pattern": "mixed",
+      "count": 6731,
+      "coverage_pct": 86.88524590163934,
+      "suggested_type": "unknown",
+      "confidence": 0.8,
+      "samples": [
+        "opc-contentTypes.xsd",
+        "opc-coreProperties.xsd",
+        "opc-digSig.xsd"
+      ]
+    },
+    {
+      "type": "directory_pattern",
+      "pattern": "venv/site-packages",
+      "count": 3409,
+      "coverage_pct": 44.00413063121208,
+      "suggested_type": "dependency_python",
+      "confidence": 0.85,
+      "samples": [
+        "distutils-precedence.pth",
+        "PyWin32.chm",
+        "pywin32.pth"
+      ]
+    },
+    {
+      "type": "filename_pattern",
+      "pattern": "no_extension",
+      "count": 964,
+      "coverage_pct": 12.443526526397315,
+      "suggested_type": "binary_unknown",
+      "confidence": 0.8,
+      "samples": [
+        "4f6aa1c3594e4a30207efb82830b7a0076f24d",
+        "114944a9075114e8de09f05d9e390da878ea3b",
+        "e093052d11836e72888e66e57cafd705e002b8"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".vcf",
+      "count": 489,
+      "coverage_pct": 6.312120820962954,
+      "suggested_type": "file_vcf",
+      "confidence": 0.75,
+      "samples": [
+        "Contact - Booz Allen Hamilton.vcf",
+        "Contact - Brooke.vcf",
+        "Contact - Cathy.vcf"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".pyi",
+      "count": 481,
+      "coverage_pct": 6.208855040660901,
+      "suggested_type": "file_pyi",
+      "confidence": 0.75,
+      "samples": [
+        "app.pyi",
+        "context.pyi",
+        "op.pyi"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".pyd",
+      "count": 461,
+      "coverage_pct": 5.95069058990577,
+      "suggested_type": "file_pyd",
+      "confidence": 0.75,
+      "samples": [
+        "ujson.cp311-win_amd64.pyd",
+        "_cffi_backend.cp311-win_amd64.pyd",
+        "_kernel_lib.cp311-win_amd64.pyd"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".1",
+      "count": 437,
+      "coverage_pct": 5.640893248999613,
+      "suggested_type": "file_1",
+      "confidence": 0.75,
+      "samples": [
+        "1.1",
+        "1.prt.1",
+        "1.prt_2.1"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".2",
+      "count": 308,
+      "coverage_pct": 3.975732541629018,
+      "suggested_type": "file_2",
+      "confidence": 0.75,
+      "samples": [
+        "1.prt.2",
+        "1.prt_2.2",
+        "10_wheel.prt.2"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".out",
+      "count": 240,
+      "coverage_pct": 3.0979734090615723,
+      "suggested_type": "file_out",
+      "confidence": 0.75,
+      "samples": [
+        "302_Windsor (v2014).out",
+        "302_Windsor Modifed (v2014).out",
+        "302_Windsor Modifed (v2014)_2.out"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".sum",
+      "count": 233,
+      "coverage_pct": 3.007615851297276,
+      "suggested_type": "file_sum",
+      "confidence": 0.75,
+      "samples": [
+        "302_Windsor (v2014).sum",
+        "302_Windsor Modifed (v2014).sum",
+        "302_Windsor Modifed (v2014)_2.sum"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".m",
+      "count": 231,
+      "coverage_pct": 2.9817994062217634,
+      "suggested_type": "file_m",
+      "confidence": 0.75,
+      "samples": [
+        "16.D6.m",
+        "6parta.m",
+        "6partb.m"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".3",
+      "count": 225,
+      "coverage_pct": 2.904350070995224,
+      "suggested_type": "file_3",
+      "confidence": 0.75,
+      "samples": [
+        "1.prt.3",
+        "1.prt_2.3",
+        "2.prt.3"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".lib",
+      "count": 219,
+      "coverage_pct": 2.826900735768685,
+      "suggested_type": "file_lib",
+      "confidence": 0.75,
+      "samples": [
+        "cy.cp311-win_amd64.lib",
+        "py.cp311-win_amd64.lib",
+        "_contourpy.cp311-win_amd64.lib"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".wcm",
+      "count": 216,
+      "coverage_pct": 2.7881760681554146,
+      "suggested_type": "file_wcm",
+      "confidence": 0.75,
+      "samples": [
+        "speed10000_centerpoint_par.wcm",
+        "speed10000_run1_par.wcm",
+        "speed10000_run2_par.wcm"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".4",
+      "count": 158,
+      "coverage_pct": 2.0394991609655353,
+      "suggested_type": "file_4",
+      "confidence": 0.75,
+      "samples": [
+        "1.prt.4",
+        "2.prt.4",
+        "90107a127.prt.4"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".5",
+      "count": 139,
+      "coverage_pct": 1.7942429327481606,
+      "suggested_type": "file_5",
+      "confidence": 0.75,
+      "samples": [
+        "1-and-1-half-inch-bar-bed-1.prt.5",
+        "2.prt.5",
+        "90128a157.prt.5"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".itc2",
+      "count": 128,
+      "coverage_pct": 1.6522524848328384,
+      "suggested_type": "file_itc2",
+      "confidence": 0.75,
+      "samples": [
+        "E46B9F4F35C35D3A-AE865D765D455D51.itc2",
+        "E46B9F4F35C35D3A-0F5A0602D7781754.itc2",
+        "E46B9F4F35C35D3A-786369CA97CEDF15.itc2"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".pyx",
+      "count": 124,
+      "coverage_pct": 1.6006195946818125,
+      "suggested_type": "file_pyx",
+      "confidence": 0.75,
+      "samples": [
+        "cy.pyx",
+        "py.pyx",
+        "cymem.pyx"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".6",
+      "count": 123,
+      "coverage_pct": 1.5877113721440559,
+      "suggested_type": "file_6",
+      "confidence": 0.75,
+      "samples": [
+        "1-and-1-half-inch-bar-bed-1.prt.6",
+        "2-inch-bar-bed-v3.prt.6",
+        "90322a652.prt.6"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".cpp",
+      "count": 105,
+      "coverage_pct": 1.3553633664644378,
+      "suggested_type": "file_cpp",
+      "confidence": 0.75,
+      "samples": [
+        "deform_conv_cpu.cpp",
+        "deform_conv_cpu_kernel.cpp",
+        "deform_conv_cuda.cpp"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".7",
+      "count": 103,
+      "coverage_pct": 1.3295469213889248,
+      "suggested_type": "file_7",
+      "confidence": 0.75,
+      "samples": [
+        "1-and-1-half-inch-bar-bed-1.prt.7",
+        "2-inch-bar-bed-v3.prt.7",
+        "aft_bogie.prt.7"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".pxd",
+      "count": 97,
+      "coverage_pct": 1.2520975861623853,
+      "suggested_type": "file_pxd",
+      "confidence": 0.75,
+      "samples": [
+        "cy.pxd",
+        "cymem.pxd",
+        "mrmr.pxd"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".a",
+      "count": 90,
+      "coverage_pct": 1.1617400283980897,
+      "suggested_type": "file_a",
+      "confidence": 0.75,
+      "samples": [
+        "_fmm_core.cp311-win_amd64.dll.a",
+        "cython_blas.cp311-win_amd64.dll.a",
+        "cython_lapack.cp311-win_amd64.dll.a"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".8",
+      "count": 86,
+      "coverage_pct": 1.1101071382470633,
+      "suggested_type": "file_8",
+      "confidence": 0.75,
+      "samples": [
+        "aft_bogie.prt.8",
+        "aft_bracket.prt.8",
+        "angled-frame.asm.8"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".c",
+      "count": 83,
+      "coverage_pct": 1.0713824706337938,
+      "suggested_type": "file_c",
+      "confidence": 0.75,
+      "samples": [
+        "cu2qu.c",
+        "lexer.c",
+        "bezierTools.c"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".dll",
+      "count": 82,
+      "coverage_pct": 1.0584742480960372,
+      "suggested_type": "file_dll",
+      "confidence": 0.75,
+      "samples": [
+        "ANSI32.dll",
+        "ANSI64.dll",
+        "libscipy_openblas64_-13e2df515630b4a41f92893938845698.dll"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".9",
+      "count": 70,
+      "coverage_pct": 0.9035755776429585,
+      "suggested_type": "file_9",
+      "confidence": 0.75,
+      "samples": [
+        "aft_bogie.prt.9",
+        "bogie_pivot.prt.9",
+        "chassis.asm.9"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".10",
+      "count": 63,
+      "coverage_pct": 0.8132180198786627,
+      "suggested_type": "file_10",
+      "confidence": 0.75,
+      "samples": [
+        "aft_bogie.prt.10",
+        "bogie_pivot.prt.10",
+        "chassis.asm.10"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".wm2d",
+      "count": 61,
+      "coverage_pct": 0.7874015748031495,
+      "suggested_type": "file_wm2d",
+      "confidence": 0.75,
+      "samples": [
+        "1.wm2d",
+        "1DOF.wm2d",
+        "1DOF_2.wm2d"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".afm",
+      "count": 60,
+      "coverage_pct": 0.7744933522653931,
+      "suggested_type": "file_afm",
+      "confidence": 0.75,
+      "samples": [
+        "cmex10.afm",
+        "cmmi10.afm",
+        "cmr10.afm"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".f90",
+      "count": 60,
+      "coverage_pct": 0.7744933522653931,
+      "suggested_type": "file_f90",
+      "confidence": 0.75,
+      "samples": [
+        "foo.f90",
+        "gh18403_mod.f90",
+        "foo_free.f90"
+      ]
+    },
+    {
+      "type": "extension",
+      "pattern": ".doctest",
+      "count": 58,
+      "coverage_pct": 0.7486769071898799,
+      "suggested_type": "file_doctest",
+      "confidence": 0.75,
+      "samples": [
+        "bleu.doctest",
+        "bnc.doctest",
+        "ccg.doctest"
+      ]
+    },
+    {
+      "type": "filename_pattern",
+      "pattern": "timestamp",
+      "count": 49,
+      "coverage_pct": 0.6325029043500711,
+      "suggested_type": "temporary_generated",
+      "confidence": 0.8,
+      "samples": [
+        "c6d88dbb9a91072027f1be55b2b414b8108121",
+        "f090cef39d0dd8cabd5ef5dd00158642c32251",
+        "a349b03ad242a1599c9c0d33717219dfb9f28d"
+      ]
+    }
+  ]
+}

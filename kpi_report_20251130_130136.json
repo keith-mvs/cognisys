@@ -1,0 +1,93 @@
+{
+  "timestamp": "2025-11-30T13:01:35.618403",
+  "classification": {
+    "total_classified": 77244,
+    "total_files": 104863,
+    "unique_files": 77082,
+    "pending_files": 0,
+    "classification_rate": 73.66,
+    "unique_classification_rate": 100.21,
+    "ml_coverage_pct": 40.7,
+    "pattern_coverage_pct": 57.56,
+    "methods": {
+      "context_filename": 226,
+      "default": 1118,
+      "ml_model": 31437,
+      "pattern_cache_npm": 205,
+      "pattern_context": 1000,
+      "pattern_directory_venv": 3405,
+      "pattern_extension": 14285,
+      "pattern_filename": 146,
+      "pattern_git_metadata": 15,
+      "pattern_override": 25078,
+      "pattern_path": 329
+    }
+  },
+  "deduplication": {
+    "total_duplicates": 27781,
+    "duplicate_groups": 9373,
+    "deduplication_rate_pct": 26.49,
+    "avg_duplicates_per_group": 2.96,
+    "max_duplicates_in_group": 1304,
+    "unique_files": 77082,
+    "space_efficiency_pct": 73.51
+  },
+  "storage": {
+    "total_size_bytes": 55151346757,
+    "total_size_gb": 51.36,
+    "duplicate_size_bytes": 29525152152,
+    "duplicate_size_gb": 27.5,
+    "unique_size_bytes": 25626194605,
+    "unique_size_gb": 23.87,
+    "space_savings_pct": 53.53,
+    "database_size_mb": 62.17,
+    "storage_efficiency_ratio": 846.04,
+    "top_categories_by_size": {
+      "software_installer": 6.27,
+      "dependency_python": 4.68,
+      "document_pdf": 3.22,
+      "automotive_technical": 1.33,
+      "unknown": 1.32
+    }
+  },
+  "quality": {
+    "avg_confidence": 0.9646,
+    "high_confidence_pct": 95.13,
+    "unknown_rate_pct": 1.07,
+    "review_needed_count": 164,
+    "review_rate_pct": 0.16,
+    "confidence_distribution": {
+      "high": 7775,
+      "low": 164,
+      "medium": 3540,
+      "none": 28737,
+      "very_high": 64647
+    }
+  },
+  "performance": {
+    "database_rows": 104863,
+    "database_size_mb": 62.17,
+    "bytes_per_row": 621.65,
+    "count_query_ms": 2.01,
+    "hash_lookup_ms": 2.0,
+    "type_lookup_ms": 0.0,
+    "queries_per_second_estimate": 498.0
+  },
+  "coverage": {
+    "document_type_diversity": 54,
+    "classification_method_diversity": 11,
+    "top_5_types_coverage_pct": 62.05,
+    "top_10_document_types": {
+      "compiled_code": 24940,
+      "technical_script": 24702,
+      "source_header": 9221,
+      "dependency_python": 3405,
+      "automotive_technical": 2803,
+      "technical_config": 2590,
+      "backup_versioned": 1648,
+      "document_pdf": 1341,
+      "unknown": 1118,
+      "technical_dataset": 554
+    }
+  }
+}
