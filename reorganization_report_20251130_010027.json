@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-11-30T01:00:27.721365",
+  "dry_run": false,
+  "checkpoint_file": ".ifmos/checkpoints/reorganization_20251130_005638.json",
+  "statistics": {
+    "files_moved": 74961,
+    "directories_created": 27,
+    "errors": 0,
+    "skipped": 0
+  }
+}
