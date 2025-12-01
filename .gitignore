@@ -75,6 +75,16 @@ cache/
 .EasyOCR/
 .paddleocr/
 
+# DistilBERT Training - Large model checkpoints
+ifmos/models/distilbert/checkpoint_*/
+!ifmos/models/distilbert/label_mapping.json
+.ifmos/training_data.csv
+.ifmos/backups/
+.ifmos/rollbacks/
+
+# User organized files (not part of repo)
+Organized/
+
 # OS
 Thumbs.db
 .DS_Store
