@@ -12,7 +12,22 @@
       "Bash(git pull:*)",
       "Bash(git fetch:*)",
       "Bash(pwsh -Command:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(for file in analyze_low_confidence.py investigate_personal_journal.py generate_review_report.py reclassify_null_files.py show_originals.py check_unclassified.py)",
+      "Bash(do git ls-files \"$file\")",
+      "Bash(done)",
+      "Bash(git rm:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(./venv/Scripts/ifmos.exe:*)",
+      "Bash($env:NVIDIA_API_KEY = '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')",
+      "Bash(powershell -NoProfile -Command \"(Get-ChildItem -Path ''Organized'' -Recurse -File | Measure-Object).Count\")",
+      "Bash(powershell -NoProfile -Command \"(Get-Item ''Organized'').FullName\")",
+      "Bash(curl:*)",
+      "Bash(Start-Sleep -Seconds 5)",
+      "Bash(powershell -Command \"Get-Process python | Where-Object {$_CPU -gt 0} | Select-Object CPU, WorkingSet, ProcessName | Format-Table -AutoSize\")",
+      "Bash(powershell:*)"
     ],
     "deny": [],
     "ask": []
