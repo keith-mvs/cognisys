@@ -1,8 +1,31 @@
 """
 IFMOS ML - Classification Module
-ML-powered document classification with ensemble learning
+ML-powered document classification with multiple backends
 """
 
 from .ml_classifier import MLClassifier, create_classifier
+from .distilbert_classifier import DistilBERTClassifier, create_distilbert_classifier
+from .cascade_classifier import (
+    CascadeClassifier,
+    ModelType,
+    ModelConfig,
+    create_cascade,
+    RuleBasedClassifier
+)
 
-__all__ = ['MLClassifier', 'create_classifier']
+__all__ = [
+    # Ensemble ML (XGBoost/LightGBM/RF)
+    'MLClassifier',
+    'create_classifier',
+
+    # DistilBERT
+    'DistilBERTClassifier',
+    'create_distilbert_classifier',
+
+    # Cascade
+    'CascadeClassifier',
+    'ModelType',
+    'ModelConfig',
+    'create_cascade',
+    'RuleBasedClassifier',
+]
