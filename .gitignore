@@ -48,7 +48,7 @@ checkpoints/
 tmp/
 temp/
 
-# Session files and analysis outputs
+# Analysis outputs (exclude from repo)
 check_db_status.py
 check_unclassified.py
 show_originals.py
@@ -58,7 +58,10 @@ generate_review_report.py
 reclassify_null_files.py
 review_needed*.csv
 auto_corrections.csv
-SESSION_*.md
+
+# Session files - Keep .sessions/ directory, exclude root SESSION_*.md files
+/SESSION_*.md
+!.sessions/
 
 # ML Specific
 data/models/**/*.pkl
