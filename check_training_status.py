@@ -1,38 +1,43 @@
 #!/usr/bin/env python3
-"""Quick training status checker"""
+"""Quick training status checker for v1 and v2"""
 import json
 from pathlib import Path
 
-# Check what phase we're in
-label_mapping = Path("ifmos/models/distilbert/label_mapping.json")
-training_history = Path("ifmos/models/distilbert/training_history.json")
-checkpoint_1 = Path("ifmos/models/distilbert/checkpoint_epoch1")
-checkpoint_2 = Path("ifmos/models/distilbert/checkpoint_epoch2")
-checkpoint_3 = Path("ifmos/models/distilbert/checkpoint_epoch3")
+def check_version(version_dir, name):
+    """Check status of a training version"""
+    label_mapping = version_dir / "label_mapping.json"
+    training_history = version_dir / "training_history.json"
+    best_model = version_dir / "best_model"
 
-print("\n=== TRAINING STATUS ===")
+    print(f"\n=== {name} ===")
 
-if not label_mapping.exists():
-    print("Status: Not started")
-elif not training_history.exists():
-    if checkpoint_1.exists():
-        print("Status: Epoch 1 complete, working on Epoch 2")
-    else:
-        print("Status: Content extraction or Epoch 1 training in progress")
-else:
+    if not label_mapping.exists():
+        print("Status: Not started")
+        return
+
+    if not training_history.exists():
+        if best_model.exists():
+            print("Status: Training complete (best model saved)")
+        else:
+            print("Status: Content extraction or training in progress")
+        return
+
     with open(training_history) as f:
         history = json.load(f)
 
-    last_epoch = history[-1]
-    print(f"Status: {len(history)} of 3 epochs complete")
-    print(f"Epoch {last_epoch['epoch']}:")
-    print(f"  Train Acc: {last_epoch['train_accuracy']:.2%}")
-    print(f"  Val Acc:   {last_epoch['val_accuracy']:.2%}")
+    last = history[-1]
+    print(f"Epochs completed: {len(history)}")
+    print(f"Train Acc: {last['train_accuracy']:.2%}")
+    print(f"Val Acc:   {last['val_accuracy']:.2%}")
+    print(f"Gap:       {(last['train_accuracy'] - last['val_accuracy'])*100:.1f}pp")
 
-    if checkpoint_3.exists():
-        print("\n✓ TRAINING COMPLETE")
-    else:
-        remaining = 3 - len(history)
-        print(f"\n{remaining} epoch(s) remaining...")
+    if best_model.exists():
+        print("Best model: SAVED")
 
-print("=" * 25 + "\n")
+# Check v1
+check_version(Path("ifmos/models/distilbert"), "v1 (Original - Overfitted)")
+
+# Check v2
+check_version(Path("ifmos/models/distilbert_v2"), "v2 (With Fixes)")
+
+print("\n" + "=" * 35)
