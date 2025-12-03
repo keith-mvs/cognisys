@@ -148,6 +148,23 @@ class Database:
             )
         """)
 
+        # ML Classifications table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS ml_classifications (
+                classification_id TEXT PRIMARY KEY,
+                file_id TEXT NOT NULL,
+                model_name TEXT NOT NULL,
+                predicted_category TEXT,
+                confidence REAL,
+                probabilities TEXT,
+                classified_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                session_id TEXT,
+                FOREIGN KEY (file_id) REFERENCES files(file_id)
+            )
+        """)
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_ml_file ON ml_classifications(file_id)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_ml_model ON ml_classifications(model_name)")
+
         self.conn.commit()
 
     def create_session(self, root_paths: List[str], config: Dict) -> str:
@@ -391,6 +408,82 @@ class Database:
 
         metrics['by_type'] = [dict(row) for row in cursor.fetchall()]
         return metrics
+
+    def insert_ml_classification(self, classification: Dict):
+        """Insert ML classification result."""
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            INSERT OR REPLACE INTO ml_classifications
+            (classification_id, file_id, model_name, predicted_category,
+             confidence, probabilities, session_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
+            classification.get('classification_id', str(uuid.uuid4())),
+            classification['file_id'],
+            classification['model_name'],
+            classification['predicted_category'],
+            classification['confidence'],
+            json.dumps(classification.get('probabilities', {})),
+            classification.get('session_id')
+        ))
+        self.conn.commit()
+
+    def insert_ml_classifications_batch(self, classifications: List[Dict]):
+        """Batch insert ML classifications."""
+        cursor = self.conn.cursor()
+        cursor.executemany("""
+            INSERT OR REPLACE INTO ml_classifications
+            (classification_id, file_id, model_name, predicted_category,
+             confidence, probabilities, session_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, [
+            (
+                c.get('classification_id', str(uuid.uuid4())),
+                c['file_id'],
+                c['model_name'],
+                c['predicted_category'],
+                c['confidence'],
+                json.dumps(c.get('probabilities', {})),
+                c.get('session_id')
+            )
+            for c in classifications
+        ])
+        self.conn.commit()
+
+    def get_ml_classifications(self, session_id: str, model_name: str = None) -> List[Dict]:
+        """Get ML classifications for a session."""
+        cursor = self.conn.cursor()
+        if model_name:
+            cursor.execute("""
+                SELECT mc.*, f.path, f.name
+                FROM ml_classifications mc
+                JOIN files f ON mc.file_id = f.file_id
+                WHERE mc.session_id = ? AND mc.model_name = ?
+            """, (session_id, model_name))
+        else:
+            cursor.execute("""
+                SELECT mc.*, f.path, f.name
+                FROM ml_classifications mc
+                JOIN files f ON mc.file_id = f.file_id
+                WHERE mc.session_id = ?
+            """, (session_id,))
+        return [dict(row) for row in cursor.fetchall()]
+
+    def get_classification_stats(self, session_id: str) -> Dict:
+        """Get ML classification statistics for a session."""
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            SELECT
+                model_name,
+                COUNT(*) as total,
+                AVG(confidence) as avg_confidence,
+                COUNT(CASE WHEN confidence >= 0.7 THEN 1 END) as high_conf,
+                COUNT(CASE WHEN confidence < 0.5 THEN 1 END) as low_conf
+            FROM ml_classifications
+            WHERE session_id = ?
+            GROUP BY model_name
+        """, (session_id,))
+        return [dict(row) for row in cursor.fetchall()]
 
     def close(self):
         """Close database connection."""

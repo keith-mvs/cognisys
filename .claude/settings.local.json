@@ -27,10 +27,13 @@
       "Bash(curl:*)",
       "Bash(Start-Sleep -Seconds 5)",
       "Bash(powershell -Command \"Get-Process python | Where-Object {$_CPU -gt 0} | Select-Object CPU, WorkingSet, ProcessName | Format-Table -AutoSize\")",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(cat:*)",
+      "Bash(.\\venv\\Scripts\\python.exe -m ifmos:*)",
+      "Bash(./venv/Scripts/pip.exe install:*)"
     ],
     "deny": [],
     "ask": []
   },
-  "outputStyle": "Explanatory"
+  "outputStyle": "default"
 }

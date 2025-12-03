@@ -13,6 +13,7 @@ from .core.analyzer import Analyzer
 from .core.reporter import Reporter
 from .core.structure_generator import StructureProposalGenerator
 from .core.migrator import MigrationPlanner, MigrationExecutor
+from .core.classifier import MLClassifier
 from .utils.logging_config import setup_logging, get_logger
 
 logger = get_logger(__name__)
@@ -327,6 +328,161 @@ def list_sessions(db):
         click.echo(f"  Completed: {completed or 'In progress'}")
         click.echo(f"  Files: {files:,}")
         click.echo(f"  Status: {status}")
+
+
+@cli.command()
+@click.option('--session', required=True, help='Session ID to classify')
+@click.option('--model', default='distilbert_v2',
+              type=click.Choice(['distilbert_v2', 'distilbert_v1', 'rule_based']),
+              help='Classification model')
+@click.option('--cascade', type=click.Choice(['default', 'fast', 'accurate', 'local_only']),
+              help='Use cascade classifier with preset (overrides --model)')
+@click.option('--min-size', default=100, help='Minimum file size in bytes')
+@click.option('--extensions', '-e', multiple=True, help='File extensions to classify')
+@click.option('--limit', type=int, help='Limit number of files to classify')
+@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.pass_context
+def classify(ctx, session, model, cascade, min_size, extensions, limit, db):
+    """Classify files using ML models."""
+    click.echo(f"[INFO] Classifying session: {session}")
+
+    model_name = f"cascade_{cascade}" if cascade else model
+    click.echo(f"[INFO] Model: {model_name}")
+
+    # Initialize database and classifier
+    database = Database(db)
+    classifier = MLClassifier(
+        database,
+        model=model,
+        cascade_preset=cascade,
+        batch_size=32,
+        max_workers=4
+    )
+
+    # Run classification
+    try:
+        stats = classifier.classify_session(
+            session,
+            min_size=min_size,
+            extensions=list(extensions) if extensions else None,
+            limit=limit
+        )
+
+        click.echo(f"\n[SUCCESS] Classification complete!")
+        click.echo(f"  Files classified: {stats['files_classified']:,}")
+        click.echo(f"  High confidence (>=0.7): {stats['high_confidence']:,}")
+        click.echo(f"  Low confidence (<0.5): {stats['low_confidence']:,}")
+        click.echo(f"  Errors: {stats['errors']}")
+        click.echo(f"  Duration: {stats['total_time']:.1f}s")
+        click.echo(f"\nRun 'ifmos classify-report --session {session}' to see results")
+
+    except Exception as e:
+        click.echo(f"[ERROR] Classification failed: {e}", err=True)
+        raise click.Abort()
+
+
+@cli.command('classify-report')
+@click.option('--session', required=True, help='Session ID')
+@click.option('--model', help='Filter by model name')
+@click.option('--min-conf', default=0.0, type=float, help='Minimum confidence threshold')
+@click.option('--top', default=20, help='Number of results to show')
+@click.option('--db', default='db/ifmos.db', help='Database path')
+def classify_report(session, model, min_conf, top, db):
+    """Show classification results for a session."""
+    database = Database(db)
+
+    # Get stats by model
+    stats = database.get_classification_stats(session)
+
+    if not stats:
+        click.echo(f"[INFO] No classifications found for session: {session}")
+        return
+
+    click.echo(f"\nClassification Statistics for {session}:")
+    click.echo("=" * 70)
+
+    for s in stats:
+        click.echo(f"\nModel: {s['model_name']}")
+        click.echo(f"  Total classified: {s['total']:,}")
+        click.echo(f"  Avg confidence: {s['avg_confidence']:.2%}")
+        click.echo(f"  High confidence (>=0.7): {s['high_conf']:,}")
+        click.echo(f"  Low confidence (<0.5): {s['low_conf']:,}")
+
+    # Category distribution
+    cursor = database.conn.cursor()
+    cursor.execute("""
+        SELECT predicted_category, COUNT(*) as count, AVG(confidence) as avg_conf
+        FROM ml_classifications
+        WHERE session_id = ?
+        GROUP BY predicted_category
+        ORDER BY count DESC
+        LIMIT ?
+    """, (session, top))
+
+    click.echo(f"\nTop {top} Categories:")
+    click.echo("-" * 50)
+    click.echo(f"{'Category':<30} {'Count':>8} {'Avg Conf':>10}")
+    click.echo("-" * 50)
+
+    for row in cursor.fetchall():
+        cat, count, conf = row
+        click.echo(f"{cat:<30} {count:>8} {conf:>9.2%}")
+
+
+@cli.command('classify-file')
+@click.argument('file_path')
+@click.option('--model', default='distilbert_v2',
+              type=click.Choice(['distilbert_v2', 'distilbert_v1', 'rule_based']))
+@click.option('--cascade', type=click.Choice(['default', 'fast', 'accurate', 'local_only']))
+def classify_file(file_path, model, cascade):
+    """Classify a single file."""
+    from .ml.classification import create_distilbert_classifier, create_cascade, RuleBasedClassifier
+    from .ml.content_extraction import ContentExtractor
+
+    path = Path(file_path)
+    if not path.exists():
+        click.echo(f"[ERROR] File not found: {file_path}", err=True)
+        raise click.Abort()
+
+    # Initialize classifier
+    if cascade:
+        classifier = create_cascade(cascade)
+        model_name = f"cascade_{cascade}"
+    elif model == "rule_based":
+        classifier = RuleBasedClassifier()
+        model_name = "rule_based"
+    else:
+        classifier = create_distilbert_classifier(model.replace('distilbert_', ''))
+        model_name = model
+
+    # Extract content
+    extractor = ContentExtractor(max_chars=2000)
+    result = extractor.extract(path)
+    content = result.get('content', path.name)
+
+    click.echo(f"\n[INFO] Classifying: {file_path}")
+    click.echo(f"[INFO] Model: {model_name}")
+
+    # Classify
+    if hasattr(classifier, 'predict'):
+        pred = classifier.predict(content)
+    else:
+        pred = classifier.classify(content)
+
+    if pred.get('success'):
+        click.echo(f"\n[RESULT]")
+        click.echo(f"  Category: {pred['predicted_category']}")
+        click.echo(f"  Confidence: {pred.get('confidence', 0):.2%}")
+
+        if 'probabilities' in pred:
+            click.echo(f"\n  Top predictions:")
+            for cat, prob in list(pred['probabilities'].items())[:5]:
+                click.echo(f"    {cat}: {prob:.2%}")
+
+        if 'model_used' in pred:
+            click.echo(f"\n  Model used: {pred['model_used']}")
+    else:
+        click.echo(f"[ERROR] Classification failed: {pred.get('error', 'Unknown error')}", err=True)
 
 
 def main():
