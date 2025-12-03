@@ -15,7 +15,8 @@ class ModelType(Enum):
     NVIDIA_AI = "nvidia_ai"
     DISTILBERT_V2 = "distilbert_v2"
     DISTILBERT_V1 = "distilbert_v1"
-    ENSEMBLE_ML = "ensemble_ml"  # XGBoost/LightGBM/RF
+    ENSEMBLE_RF = "ensemble_rf"  # Trained Random Forest
+    ENSEMBLE_ML = "ensemble_ml"  # XGBoost/LightGBM/RF (old)
     RANDOM_FOREST = "random_forest"
     RULE_BASED = "rule_based"
 
@@ -74,6 +75,11 @@ class CascadeClassifier:
                 version = "v2" if model_type == ModelType.DISTILBERT_V2 else "v1"
                 classifier = DistilBERTClassifier(model_version=version)
                 classifier.load_model()
+                self.models[model_type] = classifier
+
+            elif model_type == ModelType.ENSEMBLE_RF:
+                from ifmos.ml.classification.ensemble_classifier import EnsembleClassifier
+                classifier = EnsembleClassifier()
                 self.models[model_type] = classifier
 
             elif model_type == ModelType.ENSEMBLE_ML:
@@ -332,30 +338,30 @@ def create_cascade(preset: str = "default") -> CascadeClassifier:
         "default": [
             ModelConfig(ModelType.NVIDIA_AI, min_confidence=0.85, priority=0),
             ModelConfig(ModelType.DISTILBERT_V2, min_confidence=0.70, priority=1),
-            ModelConfig(ModelType.ENSEMBLE_ML, min_confidence=0.60, priority=2),
+            ModelConfig(ModelType.ENSEMBLE_RF, min_confidence=0.60, priority=2),
             ModelConfig(ModelType.RULE_BASED, min_confidence=0.0, priority=3),
         ],
         "fast": [
-            ModelConfig(ModelType.DISTILBERT_V2, min_confidence=0.70, priority=0),
+            ModelConfig(ModelType.ENSEMBLE_RF, min_confidence=0.05, priority=0),  # RF has lower confidence scores
             ModelConfig(ModelType.RULE_BASED, min_confidence=0.0, priority=1),
         ],
         "accurate": [
             ModelConfig(ModelType.NVIDIA_AI, min_confidence=0.90, priority=0),
-            ModelConfig(ModelType.DISTILBERT_V2, min_confidence=0.80, priority=1),
-            ModelConfig(ModelType.DISTILBERT_V1, min_confidence=0.70, priority=2),
-            ModelConfig(ModelType.ENSEMBLE_ML, min_confidence=0.60, priority=3),
+            ModelConfig(ModelType.DISTILBERT_V2, min_confidence=0.85, priority=1),
+            ModelConfig(ModelType.ENSEMBLE_RF, min_confidence=0.75, priority=2),
+            ModelConfig(ModelType.DISTILBERT_V1, min_confidence=0.60, priority=3),
             ModelConfig(ModelType.RULE_BASED, min_confidence=0.0, priority=4),
         ],
         "local_only": [
             ModelConfig(ModelType.DISTILBERT_V2, min_confidence=0.70, priority=0),
-            ModelConfig(ModelType.ENSEMBLE_ML, min_confidence=0.50, priority=1),
+            ModelConfig(ModelType.ENSEMBLE_RF, min_confidence=0.05, priority=1),  # RF fallback
             ModelConfig(ModelType.RULE_BASED, min_confidence=0.0, priority=2),
         ],
         "tradeoff_study": [
             ModelConfig(ModelType.NVIDIA_AI, min_confidence=0.0, priority=0, enabled=True),
             ModelConfig(ModelType.DISTILBERT_V2, min_confidence=0.0, priority=1, enabled=True),
-            ModelConfig(ModelType.DISTILBERT_V1, min_confidence=0.0, priority=2, enabled=True),
-            ModelConfig(ModelType.ENSEMBLE_ML, min_confidence=0.0, priority=3, enabled=True),
+            ModelConfig(ModelType.ENSEMBLE_RF, min_confidence=0.0, priority=2, enabled=True),
+            ModelConfig(ModelType.DISTILBERT_V1, min_confidence=0.0, priority=3, enabled=True),
             ModelConfig(ModelType.RULE_BASED, min_confidence=0.0, priority=4, enabled=True),
         ],
     }
