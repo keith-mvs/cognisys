@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\caption{Document Classification Model Performance Comparison}
+\label{tab:model_comparison}
+\begin{tabular}{lrrrr}
+\toprule
+Model & Accuracy (\%) & Latency (ms) & Throughput (files/s) & Memory (MB) \\
+\midrule
+distilbert\_v2 & 82.90 & 9.11 & 109.8 & 266 \\
+rule\_based & 6.79 & 0.05 & 19721.5 & 1 \\
+cascade\_local\_only & 66.74 & 8.94 & 111.9 & 267 \\
+cascade\_fast & 66.74 & 8.87 & 112.7 & 267 \\
+\bottomrule
+\end{tabular}
+\end{table}
