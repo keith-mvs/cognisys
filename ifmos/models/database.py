@@ -165,6 +165,83 @@ class Database:
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_ml_file ON ml_classifications(file_id)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_ml_model ON ml_classifications(model_name)")
 
+        # Staging tables for preview/commit workflow
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS staging_plans (
+                plan_id TEXT PRIMARY KEY,
+                created_at DATETIME,
+                session_id TEXT,
+                staging_root TEXT,
+                target_root TEXT,
+                status TEXT,
+                method TEXT,
+                committed_at DATETIME
+            )
+        """)
+
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS staging_actions (
+                action_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                plan_id TEXT,
+                source_path TEXT,
+                staging_path TEXT,
+                target_path TEXT,
+                action_type TEXT,
+                status TEXT,
+                conflict_type TEXT,
+                validation_errors TEXT,
+                resolution_strategy TEXT,
+                FOREIGN KEY (plan_id) REFERENCES staging_plans(plan_id)
+            )
+        """)
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_staging_plan ON staging_actions(plan_id)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_staging_status ON staging_actions(status)")
+
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS conflict_resolutions (
+                resolution_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                action_id INTEGER,
+                conflict_type TEXT,
+                strategy TEXT,
+                resolved_path TEXT,
+                resolved_at DATETIME,
+                FOREIGN KEY (action_id) REFERENCES staging_actions(action_id)
+            )
+        """)
+
+        # Snapshots for rollback
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS snapshots (
+                snapshot_id TEXT PRIMARY KEY,
+                created_at DATETIME,
+                snapshot_type TEXT,
+                plan_id TEXT,
+                root_path TEXT,
+                file_count INTEGER,
+                total_size INTEGER,
+                manifest_path TEXT
+            )
+        """)
+
+        # Rollback log
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS rollback_log (
+                log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                plan_id TEXT,
+                action_id INTEGER,
+                before_state TEXT,
+                after_state TEXT,
+                rolled_back INTEGER DEFAULT 0,
+                rollback_timestamp DATETIME
+            )
+        """)
+
+        # Add classified_category column to files if not exists
+        try:
+            cursor.execute("ALTER TABLE files ADD COLUMN classified_category TEXT")
+        except sqlite3.OperationalError:
+            pass  # Column already exists
+
         self.conn.commit()
 
     def create_session(self, root_paths: List[str], config: Dict) -> str:
