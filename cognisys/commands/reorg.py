@@ -1,5 +1,5 @@
 """
-IFMOS Reorg Command
+CogniSys Reorg Command
 Idempotent reorganization - refines canonical tree structure in-place
 
 This command reorganizes files already in the canonical tree based on:
@@ -55,9 +55,9 @@ def reclassify_organized_files(db_path, config, reclassify_all=False):
 
     # Load ML model
     model, vectorizer, label_mappings = load_ml_model(
-        config['ifmos']['ml_model_path'],
-        config['ifmos']['tfidf_vectorizer_path'],
-        config['ifmos']['label_mappings_path']
+        config['cognisys']['ml_model_path'],
+        config['cognisys']['tfidf_vectorizer_path'],
+        config['cognisys']['label_mappings_path']
     )
 
     # Load classification rules
@@ -78,7 +78,7 @@ def reclassify_organized_files(db_path, config, reclassify_all=False):
         """)
     else:
         # Only reclassify low-confidence or fallback classifications
-        threshold = config['ifmos'].get('confidence_threshold', 0.70)
+        threshold = config['cognisys'].get('confidence_threshold', 0.70)
         cursor.execute("""
             SELECT file_id, canonical_path, document_type, confidence
             FROM file_registry
@@ -95,7 +95,7 @@ def reclassify_organized_files(db_path, config, reclassify_all=False):
         'unchanged': 0
     }
 
-    confidence_threshold = config['ifmos'].get('confidence_threshold', 0.70)
+    confidence_threshold = config['cognisys'].get('confidence_threshold', 0.70)
 
     for file_id, canonical_path, old_type, old_confidence in organized_files:
         stats['processed'] += 1
@@ -193,7 +193,7 @@ def reorganize_canonical_tree(db_path, config, dry_run=False):
         'errors': 0
     }
 
-    canonical_root = Path(config['ifmos']['canonical_root'])
+    canonical_root = Path(config['cognisys']['canonical_root'])
     domain_mapping = config.get('domain_mapping', {})
     template_defaults = config.get('template_defaults', {})
 

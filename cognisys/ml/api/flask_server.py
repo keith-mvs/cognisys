@@ -403,7 +403,7 @@ def shutdown():
 
 
 if __name__ == '__main__':
-    logger.info("Starting IFMOS ML API Server...")
+    logger.info("Starting CogniSys ML API Server...")
     logger.info("Endpoints:")
     logger.info("  GET  /health - Health check")
     logger.info("  POST /process/document - Full document processing pipeline")

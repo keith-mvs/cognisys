@@ -1,5 +1,5 @@
 """
-Command-line interface for IFMOS.
+Command-line interface for CogniSys.
 Provides user-friendly commands for all system operations.
 """
 
@@ -20,11 +20,11 @@ logger = get_logger(__name__)
 
 
 @click.group()
-@click.option('--config', default='ifmos/config/default_config.yml', help='Configuration file path')
+@click.option('--config', default='cognisys/config/default_config.yml', help='Configuration file path')
 @click.option('--log-level', default='INFO', help='Logging level')
 @click.pass_context
 def cli(ctx, config, log_level):
-    """IFMOS - Intelligent File Management and Organization System"""
+    """CogniSys - Cognitive File Organization System"""
     setup_logging(level=log_level)
 
     # Load configuration
@@ -39,8 +39,8 @@ def cli(ctx, config, log_level):
 
 @cli.command()
 @click.option('--roots', '-r', multiple=True, required=True, help='Root directories to scan')
-@click.option('--config', default='ifmos/config/scan_config.yml', help='Scan configuration file')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--config', default='cognisys/config/scan_config.yml', help='Scan configuration file')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 @click.option('--session-id', help='Optional custom session ID')
 @click.pass_context
 def scan(ctx, roots, config, db, session_id):
@@ -80,8 +80,8 @@ def scan(ctx, roots, config, db, session_id):
 
 @cli.command()
 @click.option('--session', required=True, help='Session ID to analyze')
-@click.option('--rules', default='ifmos/config/analysis_rules.yml', help='Analysis rules file')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--rules', default='cognisys/config/analysis_rules.yml', help='Analysis rules file')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 @click.pass_context
 def analyze(ctx, session, rules, db):
     """Analyze scanned files and detect duplicates."""
@@ -117,7 +117,7 @@ def analyze(ctx, session, rules, db):
 @click.option('--session', required=True, help='Session ID to report on')
 @click.option('--output', '-o', default='reports', help='Output directory')
 @click.option('--format', '-f', multiple=True, default=['html', 'json'], help='Output formats')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 @click.pass_context
 def report(ctx, session, output, format, db):
     """Generate analysis reports."""
@@ -146,8 +146,8 @@ def report(ctx, session, output, format, db):
 
 @cli.command()
 @click.option('--session', required=True, help='Session ID')
-@click.option('--output', default='ifmos/config/proposed_structure.yml', help='Output path for proposal')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--output', default='cognisys/config/proposed_structure.yml', help='Output path for proposal')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 @click.pass_context
 def propose_structure(ctx, session, output, db):
     """Generate repository structure proposal based on scan analysis."""
@@ -168,7 +168,7 @@ def propose_structure(ctx, session, output, db):
         click.echo(f"  Total size: {proposal['session_stats']['total_size_gb']:.2f} GB")
         click.echo(f"  Categories: {proposal['session_stats']['categories']}")
         click.echo(f"\n[NEXT] Review and customize '{output}' then run:")
-        click.echo(f"  ifmos plan --session {session} --structure {output}")
+        click.echo(f"  cognisys plan --session {session} --structure {output}")
 
     except Exception as e:
         click.echo(f"[ERROR] Structure proposal failed: {e}", err=True)
@@ -177,9 +177,9 @@ def propose_structure(ctx, session, output, db):
 
 @cli.command()
 @click.option('--session', required=True, help='Session ID')
-@click.option('--structure', default='ifmos/config/new_structure.yml', help='Target structure config')
+@click.option('--structure', default='cognisys/config/new_structure.yml', help='Target structure config')
 @click.option('--output', help='Plan ID (auto-generated if not provided)')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 @click.pass_context
 def plan(ctx, session, structure, output, db):
     """Create migration plan."""
@@ -211,7 +211,7 @@ def plan(ctx, session, structure, output, db):
         for action_type, stats in summary['actions_by_type'].items():
             click.echo(f"  {action_type}: {stats['count']:,} files ({stats['total_size_gb']:.2f} GB)")
 
-        click.echo(f"\nRun 'ifmos dry-run --plan {plan_id}' to preview changes")
+        click.echo(f"\nRun 'cognisys dry-run --plan {plan_id}' to preview changes")
 
     except Exception as e:
         click.echo(f"[ERROR] Plan creation failed: {e}", err=True)
@@ -220,7 +220,7 @@ def plan(ctx, session, structure, output, db):
 
 @cli.command('dry-run')
 @click.option('--plan', required=True, help='Plan ID')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 def dry_run(plan, db):
     """Preview migration plan without making changes."""
     click.echo(f"[INFO] Running dry-run for plan: {plan}")
@@ -255,12 +255,12 @@ def dry_run(plan, db):
 
     click.echo(f"\n[INFO] Total actions: {count:,}")
     click.echo(f"[INFO] Total data: {total_size / 1e9:.2f} GB")
-    click.echo(f"\nRun 'ifmos approve --plan {plan}' to approve, then 'ifmos execute --plan {plan}' to execute")
+    click.echo(f"\nRun 'cognisys approve --plan {plan}' to approve, then 'cognisys execute --plan {plan}' to execute")
 
 
 @cli.command()
 @click.option('--plan', required=True, help='Plan ID')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 def approve(plan, db):
     """Approve a migration plan for execution."""
     database = Database(db)
@@ -278,7 +278,7 @@ def approve(plan, db):
 
 @cli.command()
 @click.option('--plan', required=True, help='Plan ID')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 @click.confirmation_option(prompt='This will modify files. Continue?')
 def execute(plan, db):
     """Execute an approved migration plan."""
@@ -306,7 +306,7 @@ def execute(plan, db):
 
 
 @cli.command()
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 def list_sessions(db):
     """List all scan sessions."""
     database = Database(db)
@@ -340,7 +340,7 @@ def list_sessions(db):
 @click.option('--min-size', default=100, help='Minimum file size in bytes')
 @click.option('--extensions', '-e', multiple=True, help='File extensions to classify')
 @click.option('--limit', type=int, help='Limit number of files to classify')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 @click.pass_context
 def classify(ctx, session, model, cascade, min_size, extensions, limit, db):
     """Classify files using ML models."""
@@ -374,7 +374,7 @@ def classify(ctx, session, model, cascade, min_size, extensions, limit, db):
         click.echo(f"  Low confidence (<0.5): {stats['low_confidence']:,}")
         click.echo(f"  Errors: {stats['errors']}")
         click.echo(f"  Duration: {stats['total_time']:.1f}s")
-        click.echo(f"\nRun 'ifmos classify-report --session {session}' to see results")
+        click.echo(f"\nRun 'cognisys classify-report --session {session}' to see results")
 
     except Exception as e:
         click.echo(f"[ERROR] Classification failed: {e}", err=True)
@@ -386,7 +386,7 @@ def classify(ctx, session, model, cascade, min_size, extensions, limit, db):
 @click.option('--model', help='Filter by model name')
 @click.option('--min-conf', default=0.0, type=float, help='Minimum confidence threshold')
 @click.option('--top', default=20, help='Number of results to show')
-@click.option('--db', default='db/ifmos.db', help='Database path')
+@click.option('--db', default='db/cognisys.db', help='Database path')
 def classify_report(session, model, min_conf, top, db):
     """Show classification results for a session."""
     database = Database(db)
