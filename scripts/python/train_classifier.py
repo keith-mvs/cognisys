@@ -1,5 +1,5 @@
 """
-Train IFMOS ML Classifier
+Train CogniSys ML Classifier
 Trains the ensemble classifier using labeled feedback data from the database
 """
 
@@ -11,11 +11,11 @@ from datetime import datetime
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ifmos_ml.learning import create_database
-from ifmos_ml.classification import create_classifier
-from ifmos_ml.utils import create_extractor
-from ifmos_ml.nlp import create_analyzer
-from ifmos_ml.ocr import create_ocr_engine
+from cognisys_ml.learning import create_database
+from cognisys_ml.classification import create_classifier
+from cognisys_ml.utils import create_extractor
+from cognisys_ml.nlp import create_analyzer
+from cognisys_ml.ocr import create_ocr_engine
 
 # Configure logging
 logging.basicConfig(
@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 def main():
     logger.info("=" * 60)
-    logger.info("IFMOS ML Classifier Training")
+    logger.info("COGNISYS ML Classifier Training")
     logger.info("=" * 60)
 
     # Initialize database

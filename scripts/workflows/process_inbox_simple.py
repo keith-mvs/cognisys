@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Simple Inbox Processing
+CogniSys Simple Inbox Processing
 Scan inbox → Classify → Organize
 """
 
@@ -10,7 +10,7 @@ import sqlite3
 from pathlib import Path
 from datetime import datetime
 
-# Add IFMOS to path
+# Add CogniSys to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -79,10 +79,10 @@ def main():
     args = parser.parse_args()
 
     if args.db is None:
-        args.db = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
+        args.db = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
 
     logger.info("=" * 80)
-    logger.info("IFMOS INBOX PROCESSING")
+    logger.info("COGNISYS INBOX PROCESSING")
     logger.info("=" * 80)
     logger.info(f"Inbox: {args.inbox}")
     logger.info(f"Database: {args.db}")
@@ -133,7 +133,7 @@ def main():
     logger.info(f"Found {len(doc_ids)} classified documents")
 
     # Organize
-    config_path = PROJECT_ROOT / "ifmos" / "config" / "domain_mapping.yml"
+    config_path = PROJECT_ROOT / "cognisys" / "config" / "domain_mapping.yml"
     organizer = FileOrganizer(str(config_path), str(args.db))
     result = organizer.organize_batch(doc_ids, dry_run=args.dry_run)
 

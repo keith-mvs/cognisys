@@ -1,5 +1,5 @@
 """
-Database layer for IFMOS using SQLite.
+Database layer for CogniSys using SQLite.
 Handles all database operations including schema creation and queries.
 """
 

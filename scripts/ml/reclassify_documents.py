@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Document Reclassification Script
+CogniSys Document Reclassification Script
 Fixes misclassifications using pattern matching and contextual analysis
 """
 
@@ -307,9 +307,9 @@ class DocumentReclassifier:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Reclassify IFMOS documents using pattern matching")
-    parser.add_argument('--db', type=str, default='ifmos/data/training/ifmos_ml.db',
-                        help='Path to IFMOS database')
+    parser = argparse.ArgumentParser(description="Reclassify CogniSys documents using pattern matching")
+    parser.add_argument('--db', type=str, default='cognisys/data/training/cognisys_ml.db',
+                        help='Path to CogniSys database')
     parser.add_argument('--execute', action='store_true',
                         help='Execute reclassification (default is dry-run)')
 

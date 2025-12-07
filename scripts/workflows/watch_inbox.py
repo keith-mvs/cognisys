@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Inbox File Watcher
+CogniSys Inbox File Watcher
 Monitors inbox directory and automatically processes new files
 """
 
@@ -58,7 +58,7 @@ class InboxFileHandler(FileSystemEventHandler):
         self.processing.discard(str(file_path))
 
     def process_file(self, file_path: Path):
-        """Process a single file through IFMOS pipeline"""
+        """Process a single file through CogniSys pipeline"""
         try:
             logger.info(f"Processing: {file_path.name}")
 
@@ -97,7 +97,7 @@ def watch_inbox(inbox_path: str, project_root: str):
         return
 
     logger.info("=" * 80)
-    logger.info("IFMOS INBOX WATCHER")
+    logger.info("COGNISYS INBOX WATCHER")
     logger.info("=" * 80)
     logger.info(f"Watching: {inbox}")
     logger.info(f"Project root: {project}")
@@ -139,7 +139,7 @@ if __name__ == "__main__":
         '--project',
         type=str,
         default='C:/Users/kjfle/Projects/intelligent-file-management-system',
-        help='IFMOS project root'
+        help='CogniSys project root'
     )
 
     args = parser.parse_args()

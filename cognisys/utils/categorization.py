@@ -1,5 +1,5 @@
 """
-File categorization utility for IFMOS.
+File categorization utility for CogniSys.
 Provides hierarchical file classification based on extensions and MIME types.
 """
 

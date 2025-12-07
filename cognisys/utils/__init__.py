@@ -1,4 +1,4 @@
-"""Utility modules for IFMOS."""
+"""Utility modules for CogniSys."""
 
 from .hashing import calculate_quick_hash, calculate_full_hash
 from .logging_config import setup_logging, get_logger

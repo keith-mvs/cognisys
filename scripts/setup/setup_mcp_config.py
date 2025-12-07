@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Setup Claude Desktop MCP Configuration
-Creates/updates claude_desktop_config.json with IFMOS MCP servers
+Creates/updates claude_desktop_config.json with CogniSys MCP servers
 """
 
 import json
@@ -25,7 +25,7 @@ def setup_mcp_config():
 
     # Get project paths
     project_root = Path(__file__).parent.parent.parent.absolute()
-    db_path = project_root / 'ifmos' / 'data' / 'training' / 'ifmos_ml.db'
+    db_path = project_root / 'cognisys' / 'data' / 'training' / 'cognisys_ml.db'
     git_dir = project_root / '.git'
 
     # Build configuration
@@ -92,7 +92,7 @@ def setup_mcp_config():
     print(f"Configuration written to: {config_path}")
     print("")
     print("Configured MCP Servers:")
-    print("  ✓ SQLite - Query IFMOS database directly")
+    print("  ✓ SQLite - Query CogniSys database directly")
     print("  ✓ Memory - Learn from your decisions")
     print("  ✓ Git - Track configuration changes")
     print("  ✓ Brave Search - Web search for disambiguation")

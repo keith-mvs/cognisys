@@ -1,5 +1,5 @@
 """
-IFMOS Classify Command
+CogniSys Classify Command
 Classifies pending files using ML model and pattern matching
 """
 

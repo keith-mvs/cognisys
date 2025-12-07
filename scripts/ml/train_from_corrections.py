@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS: Train ML Classifier from Existing Classifications
+CogniSys: Train ML Classifier from Existing Classifications
 Learn from your 2,482 manually corrected documents
 """
 
@@ -289,13 +289,13 @@ def main():
     args = parser.parse_args()
 
     if args.db is None:
-        args.db = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
+        args.db = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
 
     if args.output is None:
-        args.output = PROJECT_ROOT / "ifmos" / "models" / "trained"
+        args.output = PROJECT_ROOT / "cognisys" / "models" / "trained"
 
     logger.info("=" * 80)
-    logger.info("IFMOS ML CLASSIFIER TRAINING")
+    logger.info("COGNISYS ML CLASSIFIER TRAINING")
     logger.info("=" * 80)
     logger.info(f"Database: {args.db}")
     logger.info(f"Output: {args.output}")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Database Initialization
+CogniSys Database Initialization
 Creates the file_registry.db with complete schema for provenance tracking
 """
 
@@ -10,12 +10,12 @@ from pathlib import Path
 from datetime import datetime
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
-IFMOS_DIR = PROJECT_ROOT / ".ifmos"
-DB_PATH = IFMOS_DIR / "file_registry.db"
+COGNISYS_DIR = PROJECT_ROOT / ".cognisys"
+DB_PATH = COGNISYS_DIR / "file_registry.db"
 
 
 def create_schema(conn):
-    """Create complete IFMOS database schema"""
+    """Create complete CogniSys database schema"""
     cursor = conn.cursor()
 
     # File provenance and current state
@@ -286,9 +286,9 @@ def verify_database(conn):
 
 
 def main():
-    """Initialize IFMOS database"""
+    """Initialize CogniSys database"""
     print("="*80)
-    print("IFMOS DATABASE INITIALIZATION")
+    print("COGNISYS DATABASE INITIALIZATION")
     print("="*80)
     print(f"Database path: {DB_PATH}")
     print()
@@ -307,10 +307,10 @@ def main():
         shutil.copy2(DB_PATH, backup_path)
         DB_PATH.unlink()
 
-    # Ensure .ifmos directory exists
-    IFMOS_DIR.mkdir(exist_ok=True)
-    (IFMOS_DIR / "logs").mkdir(exist_ok=True)
-    (IFMOS_DIR / "snapshots").mkdir(exist_ok=True)
+    # Ensure .cognisys directory exists
+    COGNISYS_DIR.mkdir(exist_ok=True)
+    (COGNISYS_DIR / "logs").mkdir(exist_ok=True)
+    (COGNISYS_DIR / "snapshots").mkdir(exist_ok=True)
 
     # Create database
     print("Creating database...")
@@ -326,9 +326,9 @@ def main():
             print("="*80)
             print(f"\nDatabase ready at: {DB_PATH}")
             print("\nNext steps:")
-            print("  1. Create config: .ifmos/config.yml")
-            print("  2. Initialize IFMOS: ifmos init")
-            print("  3. Register files: ifmos register --scan-drop")
+            print("  1. Create config: .cognisys/config.yml")
+            print("  2. Initialize CogniSys: cognisys init")
+            print("  3. Register files: cognisys register --scan-drop")
             return 0
         else:
             print("\n[FAIL] Verification failed")

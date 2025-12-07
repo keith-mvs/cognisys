@@ -1,4 +1,4 @@
-"""IFMOS Commands Package"""
+"""CogniSys Commands Package"""
 
 from .register import register_files_from_drop
 from .classify import classify_pending_files

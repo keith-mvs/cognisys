@@ -1,4 +1,4 @@
-# IFMOS ML Bridge - PowerShell Module
+# CogniSys ML Bridge - PowerShell Module
 # Provides functions to interact with Python ML API
 
 # API Configuration
@@ -7,7 +7,7 @@ $script:API_PROCESS = $null
 
 <#
 .SYNOPSIS
-    Starts the IFMOS ML API server in the background
+    Starts the CogniSys ML API server in the background
 .DESCRIPTION
     Launches the Flask API server using the PyTorch virtual environment
 .EXAMPLE
@@ -17,7 +17,7 @@ function Start-IFMOSMLServer {
     [CmdletBinding()]
     param()
 
-    Write-Host "[+] Starting IFMOS ML API Server..." -ForegroundColor Cyan
+    Write-Host "[+] Starting CogniSys ML API Server..." -ForegroundColor Cyan
 
     $pythonVenv = "C:\Users\kjfle\Projects\intelligent-file-management-system\venv\Scripts\python.exe"
     $apiScript = "C:\Users\kjfle\Projects\intelligent-file-management-system\ifmos\ml\api\flask_server.py"
@@ -69,7 +69,7 @@ function Start-IFMOSMLServer {
 
 <#
 .SYNOPSIS
-    Stops the IFMOS ML API server
+    Stops the CogniSys ML API server
 .EXAMPLE
     Stop-IFMOSMLServer
 #>
@@ -77,7 +77,7 @@ function Stop-IFMOSMLServer {
     [CmdletBinding()]
     param()
 
-    Write-Host "[-] Stopping IFMOS ML API Server..." -ForegroundColor Yellow
+    Write-Host "[-] Stopping CogniSys ML API Server..." -ForegroundColor Yellow
 
     try {
         # Try graceful shutdown first

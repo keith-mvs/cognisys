@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Automated File Organization Workflow
+CogniSys Automated File Organization Workflow
 Runs after classification to organize files into domain folders
 """
 
@@ -8,7 +8,7 @@ import sys
 import logging
 from pathlib import Path
 
-# Add IFMOS to path
+# Add CogniSys to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -50,11 +50,11 @@ def organize_workflow(dry_run: bool = False, max_files: int = None):
         dry_run: If True, simulate without moving files
         max_files: Maximum number of files to organize (None = all)
     """
-    db_path = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
-    config_path = PROJECT_ROOT / "ifmos" / "config" / "domain_mapping.yml"
+    db_path = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
+    config_path = PROJECT_ROOT / "cognisys" / "config" / "domain_mapping.yml"
 
     logger.info("=" * 80)
-    logger.info("IFMOS AUTOMATED FILE ORGANIZATION")
+    logger.info("COGNISYS AUTOMATED FILE ORGANIZATION")
     logger.info("=" * 80)
 
     # Get unorganized documents
@@ -124,7 +124,7 @@ def main():
     """CLI entry point"""
     import argparse
 
-    parser = argparse.ArgumentParser(description='IFMOS Automated File Organization')
+    parser = argparse.ArgumentParser(description='CogniSys Automated File Organization')
     parser.add_argument('--dry-run', action='store_true', help='Simulate without moving files')
     parser.add_argument('--max-files', type=int, help='Maximum files to organize')
 

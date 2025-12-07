@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS File Naming Enhancement
+CogniSys File Naming Enhancement
 Applies V1-style metadata extraction to V2 structure
 Combines: V2 clean structure (no date folders) + V1 intelligent naming (metadata extraction)
 """
@@ -333,7 +333,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Enhance file naming with metadata extraction")
-    parser.add_argument('--db', type=str, default='ifmos/data/training/ifmos_ml.db')
+    parser.add_argument('--db', type=str, default='cognisys/data/training/cognisys_ml.db')
     parser.add_argument('--root', type=str, default='C:/Users/kjfle/Documents/Organized_V2')
     parser.add_argument('--execute', action='store_true',
                         help='Execute renaming (default is dry-run)')

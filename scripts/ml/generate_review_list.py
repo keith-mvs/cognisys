@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Manual Review List Generator
+CogniSys Manual Review List Generator
 Creates prioritized list of files for manual classification review
 """
 
@@ -267,8 +267,8 @@ class ReviewListGenerator:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Generate manual review list for IFMOS")
-    parser.add_argument('--db', type=str, default='ifmos/data/training/ifmos_ml.db')
+    parser = argparse.ArgumentParser(description="Generate manual review list for CogniSys")
+    parser.add_argument('--db', type=str, default='cognisys/data/training/cognisys_ml.db')
     parser.add_argument('--output', type=str, default='manual_review_list.csv')
     parser.add_argument('--priority', type=str, choices=['critical', 'high', 'all'], default='high',
                         help='Priority level: critical (most urgent), high (recommended), all (everything)')

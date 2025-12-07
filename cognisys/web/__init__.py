@@ -1,4 +1,4 @@
-"""IFMOS Web Dashboard"""
+"""CogniSys Web Dashboard"""
 
 from .dashboard import app
 

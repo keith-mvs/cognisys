@@ -1,5 +1,5 @@
 """
-Logging configuration for IFMOS.
+Logging configuration for CogniSys.
 Provides structured logging with file rotation and console output.
 """
 

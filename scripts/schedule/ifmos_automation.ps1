@@ -1,4 +1,4 @@
-# IFMOS Automated Task Scheduler
+# CogniSys Automated Task Scheduler
 # Runs periodic ML maintenance tasks: pattern detection, auto-retraining, cleanup
 
 param(
@@ -58,7 +58,7 @@ function Run-DatabaseCleanup {
     Write-Log "Running database cleanup..."
 
     try {
-        $DbPath = "$ProjectRoot\ifmos\data\training\ifmos_ml.db"
+        $DbPath = "$ProjectRoot\cognisys\data\training\cognisys_ml.db"
 
         # Vacuum database to reclaim space
         & $PythonExe -c @"
@@ -86,7 +86,7 @@ function Run-ReportGeneration {
         # Generate statistics summary
         $StatsOutput = & $PythonExe -c @"
 import sqlite3
-conn = sqlite3.connect('$ProjectRoot\ifmos\data\training\ifmos_ml.db')
+conn = sqlite3.connect('$ProjectRoot\cognisys\data\training\cognisys_ml.db')
 cursor = conn.cursor()
 
 cursor.execute('SELECT COUNT(*) FROM documents')
@@ -114,7 +114,7 @@ conn.close()
         New-Item -ItemType Directory -Force -Path "$ProjectRoot\reports" | Out-Null
 
         @"
-IFMOS Weekly Summary Report
+CogniSys Weekly Summary Report
 Generated: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
 ========================================
 
@@ -133,7 +133,7 @@ $StatsOutput
 }
 
 # Main execution
-Write-Log "========== IFMOS Automation Start =========="
+Write-Log "========== CogniSys Automation Start =========="
 Write-Log "Task: $Task"
 
 $results = @{}
@@ -169,7 +169,7 @@ foreach ($taskName in $results.Keys) {
     $status = if ($results[$taskName]) { "SUCCESS" } else { "FAILED" }
     Write-Log "$taskName : $status"
 }
-Write-Log "========== IFMOS Automation Complete =========="
+Write-Log "========== CogniSys Automation Complete =========="
 
 # Return exit code
 if ($results.Values -contains $false) {

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS: ML-Based Classification with PDF Content Extraction
+CogniSys: ML-Based Classification with PDF Content Extraction
 Uses actual document content + ML training for accurate classification
 """
 
@@ -436,10 +436,10 @@ def main():
     args = parser.parse_args()
 
     if args.db is None:
-        args.db = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
+        args.db = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
 
     logger.info("=" * 80)
-    logger.info("IFMOS ML CONTENT-BASED CLASSIFICATION")
+    logger.info("COGNISYS ML CONTENT-BASED CLASSIFICATION")
     logger.info("=" * 80)
     logger.info(f"Database: {args.db}")
     logger.info("=" * 80)

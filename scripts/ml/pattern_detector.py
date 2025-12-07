@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Pattern Detection System
+CogniSys Pattern Detection System
 Analyzes classification patterns and identifies anomalies, trends, and optimization opportunities
 """
 
@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from collections import defaultdict, Counter
 import sys
 
-# Add IFMOS to path
+# Add CogniSys to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -218,7 +218,7 @@ class PatternDetector:
         """Generate comprehensive pattern analysis report"""
         report = []
         report.append("=" * 60)
-        report.append("IFMOS PATTERN DETECTION REPORT")
+        report.append("COGNISYS PATTERN DETECTION REPORT")
         report.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         report.append("=" * 60)
         report.append("")
@@ -270,7 +270,7 @@ class PatternDetector:
 
 def main():
     """CLI entry point"""
-    db_path = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
+    db_path = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
 
     detector = PatternDetector(str(db_path))
     report = detector.generate_report()

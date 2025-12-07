@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Function/Form/Fit Reorganization
+CogniSys Function/Form/Fit Reorganization
 Reorganizes all files removing chronological nesting
 Structure: Domain → Function → Files
 """
@@ -199,8 +199,8 @@ def reorganize_all(db_path: str, new_root: str, dry_run: bool = True):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Reorganize IFMOS with Function/Form structure")
-    parser.add_argument('--db', type=str, default='ifmos/data/training/ifmos_ml.db')
+    parser = argparse.ArgumentParser(description="Reorganize CogniSys with Function/Form structure")
+    parser.add_argument('--db', type=str, default='cognisys/data/training/cognisys_ml.db')
     parser.add_argument('--new-root', type=str, default='C:/Users/kjfle/Documents/Organized_V2')
     parser.add_argument('--execute', action='store_true')
 

@@ -1,5 +1,5 @@
 """
-IFMOS Register Command
+CogniSys Register Command
 Registers files from drop directory into file_registry database
 """
 

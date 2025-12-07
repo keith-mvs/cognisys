@@ -1,5 +1,5 @@
 """
-Naming convention utilities for IFMOS.
+Naming convention utilities for CogniSys.
 Handles file/folder name normalization, sanitization, and extraction.
 """
 

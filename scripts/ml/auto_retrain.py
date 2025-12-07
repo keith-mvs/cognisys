@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Automated Model Retraining
+CogniSys Automated Model Retraining
 Monitors feedback database and triggers retraining when threshold is met
 """
 
@@ -10,7 +10,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import sys
 
-# Add IFMOS to path
+# Add CogniSys to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -202,8 +202,8 @@ class AutoRetrainer:
 
 def main():
     """CLI entry point"""
-    db_path = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
-    model_dir = PROJECT_ROOT / "ifmos" / "models" / "current"
+    db_path = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
+    model_dir = PROJECT_ROOT / "cognisys" / "models" / "current"
 
     retrainer = AutoRetrainer(str(db_path), str(model_dir))
     retrainer.run_check()

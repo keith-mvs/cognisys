@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS: Enable GPU Acceleration for ML Classification
+CogniSys: Enable GPU Acceleration for ML Classification
 Configures spaCy, PyTorch, and scikit-learn to use CUDA GPU
 """
 
@@ -83,7 +83,7 @@ def update_text_analyzer():
     print("UPDATING TEXT ANALYZER")
     print("="*80)
 
-    analyzer_path = PROJECT_ROOT / "ifmos" / "ml" / "nlp" / "text_analyzer.py"
+    analyzer_path = PROJECT_ROOT / "cognisys" / "ml" / "nlp" / "text_analyzer.py"
 
     with open(analyzer_path, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -161,7 +161,7 @@ def verify_setup():
 
 def main():
     print("="*80)
-    print("IFMOS GPU ACCELERATION SETUP")
+    print("COGNISYS GPU ACCELERATION SETUP")
     print("="*80)
 
     # Check GPU

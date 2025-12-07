@@ -2,7 +2,7 @@
 """
 Test Phase 3 Pipeline: Register → Classify → Organize
 
-This script demonstrates the complete IFMOS pipeline:
+This script demonstrates the complete CogniSys pipeline:
 1. Register files from drop directory
 2. Classify pending files (ML + patterns)
 3. Organize classified files to canonical locations
@@ -40,18 +40,18 @@ def test_phase3_pipeline(dry_run=True):
         dry_run: If True, don't actually modify files/database
     """
     logger.info("="*80)
-    logger.info("IFMOS PHASE 3 PIPELINE TEST")
+    logger.info("COGNISYS PHASE 3 PIPELINE TEST")
     logger.info("="*80)
     logger.info(f"Mode: {'DRY RUN' if dry_run else 'LIVE EXECUTION'}")
     logger.info("")
 
     # Load config
-    config_path = PROJECT_ROOT / ".ifmos" / "config.yml"
+    config_path = PROJECT_ROOT / ".cognisys" / "config.yml"
     with open(config_path) as f:
         config = yaml.safe_load(f)
 
-    db_path = PROJECT_ROOT / config['ifmos']['database']
-    drop_dir = Path(config['ifmos']['drop_directory'])
+    db_path = PROJECT_ROOT / config['cognisys']['database']
+    drop_dir = Path(config['cognisys']['drop_directory'])
 
     # Step 1: Register files from drop directory
     logger.info("STEP 1: Registering files from drop directory")
@@ -110,7 +110,7 @@ def main():
     """Main entry point"""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Test IFMOS Phase 3 Pipeline')
+    parser = argparse.ArgumentParser(description='Test CogniSys Phase 3 Pipeline')
     parser.add_argument('--dry-run', action='store_true', help='Preview changes without modifying files')
     parser.add_argument('--execute', action='store_true', help='Actually perform the pipeline')
 

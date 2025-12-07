@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS: Reorganize Files with Proper Template Substitution
+CogniSys: Reorganize Files with Proper Template Substitution
 Fills in {vehicle_id}, {vendor}, etc. from extracted metadata
 """
 
@@ -294,13 +294,13 @@ def main():
     args = parser.parse_args()
 
     if args.db is None:
-        args.db = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
+        args.db = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
 
     if args.config is None:
-        args.config = PROJECT_ROOT / "ifmos" / "config" / "domain_mapping.yml"
+        args.config = PROJECT_ROOT / "cognisys" / "config" / "domain_mapping.yml"
 
     logger.info("=" * 80)
-    logger.info("IFMOS RECURSIVE REORGANIZATION WITH TEMPLATE FILLING")
+    logger.info("COGNISYS RECURSIVE REORGANIZATION WITH TEMPLATE FILLING")
     logger.info("=" * 80)
     logger.info(f"Database: {args.db}")
     logger.info(f"Config: {args.config}")

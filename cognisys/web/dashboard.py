@@ -1,5 +1,5 @@
 """
-IFMOS Web Dashboard
+CogniSys Web Dashboard
 Flask-based review and management interface
 """
 

@@ -5,7 +5,7 @@ import sqlite3
 import sys
 
 def main():
-    db_path = 'ifmos/data/training/ifmos_ml.db'
+    db_path = 'cognisys/data/training/cognisys_ml.db'
 
     try:
         conn = sqlite3.connect(db_path)

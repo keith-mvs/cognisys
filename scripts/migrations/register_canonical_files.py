@@ -15,12 +15,12 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 # Load config
-CONFIG_PATH = PROJECT_ROOT / ".ifmos" / "config.yml"
+CONFIG_PATH = PROJECT_ROOT / ".cognisys" / "config.yml"
 with open(CONFIG_PATH) as f:
     config = yaml.safe_load(f)
 
-DB_PATH = PROJECT_ROOT / config['ifmos']['database']
-CANONICAL_ROOT = Path(config['ifmos']['canonical_root'])
+DB_PATH = PROJECT_ROOT / config['cognisys']['database']
+CANONICAL_ROOT = Path(config['cognisys']['canonical_root'])
 
 
 def compute_hash(filepath):

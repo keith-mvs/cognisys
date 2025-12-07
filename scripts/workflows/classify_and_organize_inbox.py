@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS: Classify and Organize Inbox Files
+CogniSys: Classify and Organize Inbox Files
 Complete workflow for unclassified files
 """
 
@@ -93,10 +93,10 @@ def main():
     args = parser.parse_args()
 
     if args.db is None:
-        args.db = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
+        args.db = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
 
     logger.info("=" * 80)
-    logger.info("IFMOS CLASSIFY AND ORGANIZE INBOX")
+    logger.info("COGNISYS CLASSIFY AND ORGANIZE INBOX")
     logger.info("=" * 80)
     logger.info(f"Database: {args.db}")
     logger.info(f"Mode: {'DRY RUN' if args.dry_run else 'LIVE'}")
@@ -153,7 +153,7 @@ def main():
     logger.info(f"\nOrganizing {len(doc_ids)} files...")
 
     if doc_ids:
-        config_path = PROJECT_ROOT / "ifmos" / "config" / "domain_mapping.yml"
+        config_path = PROJECT_ROOT / "cognisys" / "config" / "domain_mapping.yml"
         organizer = FileOrganizer(str(config_path), str(args.db))
         result = organizer.organize_batch(doc_ids, dry_run=args.dry_run)
 

@@ -1,12 +1,12 @@
 """
-IFMOS ML - Intelligent File Management & Organization System
+CogniSys ML - Cognitive File Organization System
 Machine Learning Enhanced Classification
 
 Main package for ML-powered document classification
 """
 
 __version__ = "1.0.0"
-__author__ = "IFMOS Development Team"
+__author__ = "CogniSys Development Team"
 
 # Package metadata
-PACKAGE_NAME = "ifmos_ml"
+PACKAGE_NAME = "cognisys_ml"

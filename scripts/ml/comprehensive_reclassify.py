@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Comprehensive Reclassification Engine
+CogniSys Comprehensive Reclassification Engine
 Learns from ALL mistakes and reclassifies everything
 """
 
@@ -508,8 +508,8 @@ class ComprehensiveReclassifier:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Comprehensive IFMOS reclassification")
-    parser.add_argument('--db', type=str, default='ifmos/data/training/ifmos_ml.db')
+    parser = argparse.ArgumentParser(description="Comprehensive CogniSys reclassification")
+    parser.add_argument('--db', type=str, default='cognisys/data/training/cognisys_ml.db')
     parser.add_argument('--execute', action='store_true')
 
     args = parser.parse_args()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Inbox Processing Workflow
+CogniSys Inbox Processing Workflow
 Complete workflow: Scan → Classify → Organize
 """
 
@@ -11,7 +11,7 @@ from pathlib import Path
 from datetime import datetime
 import hashlib
 
-# Add IFMOS to path
+# Add CogniSys to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -181,7 +181,7 @@ class InboxProcessor:
         logger.info(f"Found {len(doc_ids)} classified documents to organize")
 
         # Initialize organizer
-        config_path = PROJECT_ROOT / "ifmos" / "config" / "domain_mapping.yml"
+        config_path = PROJECT_ROOT / "cognisys" / "config" / "domain_mapping.yml"
         organizer = FileOrganizer(str(config_path), str(self.db_path))
 
         # Organize files
@@ -194,11 +194,11 @@ def main():
     """Main workflow"""
     import argparse
 
-    parser = argparse.ArgumentParser(description='IFMOS Inbox Processing')
+    parser = argparse.ArgumentParser(description='CogniSys Inbox Processing')
     parser.add_argument('--inbox', default='C:\\Users\\kjfle\\00_Inbox',
                        help='Inbox directory path')
     parser.add_argument('--db', default=None,
-                       help='Database path (default: ifmos/data/training/ifmos_ml.db)')
+                       help='Database path (default: cognisys/data/training/cognisys_ml.db)')
     parser.add_argument('--dry-run', action='store_true',
                        help='Simulate organization without moving files')
     parser.add_argument('--classify-only', action='store_true',
@@ -210,10 +210,10 @@ def main():
 
     # Set database path
     if args.db is None:
-        args.db = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
+        args.db = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
 
     logger.info("=" * 80)
-    logger.info("IFMOS INBOX PROCESSING WORKFLOW")
+    logger.info("COGNISYS INBOX PROCESSING WORKFLOW")
     logger.info("=" * 80)
     logger.info(f"Inbox: {args.inbox}")
     logger.info(f"Database: {args.db}")

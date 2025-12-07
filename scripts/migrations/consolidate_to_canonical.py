@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Consolidation Migration
+CogniSys Consolidation Migration
 Consolidates Organized/ and Organized_V2/ into Organized_Canonical/
 
 Features:
@@ -25,12 +25,12 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 # Load config
-CONFIG_PATH = PROJECT_ROOT / ".ifmos" / "config.yml"
+CONFIG_PATH = PROJECT_ROOT / ".cognisys" / "config.yml"
 with open(CONFIG_PATH) as f:
     config = yaml.safe_load(f)
 
-DB_PATH = PROJECT_ROOT / config['ifmos']['database']
-CANONICAL_ROOT = Path(config['ifmos']['canonical_root'])
+DB_PATH = PROJECT_ROOT / config['cognisys']['database']
+CANONICAL_ROOT = Path(config['cognisys']['canonical_root'])
 
 
 def compute_hash(filepath):
@@ -163,7 +163,7 @@ def consolidate_to_canonical(dry_run=True):
     4. Register all files in database
     """
     print("="*80)
-    print("IFMOS CONSOLIDATION MIGRATION")
+    print("COGNISYS CONSOLIDATION MIGRATION")
     print("="*80)
     print(f"Mode: {'DRY RUN' if dry_run else 'LIVE EXECUTION'}")
     print(f"Target: {CANONICAL_ROOT}")
@@ -301,7 +301,7 @@ def consolidate_to_canonical(dry_run=True):
         print(f"Consolidation complete! Files are now in: {CANONICAL_ROOT}")
         print("\nNext steps:")
         print("  1. Verify files: ls -R", str(CANONICAL_ROOT))
-        print("  2. Check database: ifmos status")
+        print("  2. Check database: cognisys status")
         print("  3. Archive old directories (manual)")
         print(f"     mv {config['consolidation']['sources'][0]['path']} {config['consolidation']['archive_path']}/")
 
@@ -336,7 +336,7 @@ def main():
     """Main entry point"""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Consolidate IFMOS file trees')
+    parser = argparse.ArgumentParser(description='Consolidate CogniSys file trees')
     parser.add_argument('--dry-run', action='store_true', help='Preview changes without moving files')
     parser.add_argument('--execute', action='store_true', help='Actually perform consolidation')
     parser.add_argument('--report', type=str, help='Save JSON report to file')

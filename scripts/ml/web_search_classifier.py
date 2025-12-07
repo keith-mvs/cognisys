@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Web Search Classification Enhancement
+CogniSys Web Search Classification Enhancement
 Uses Brave Search MCP to disambiguate low-confidence classifications
 """
 
@@ -346,7 +346,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Enhance classification using web search")
-    parser.add_argument('--db', type=str, default='ifmos/data/training/ifmos_ml.db')
+    parser.add_argument('--db', type=str, default='cognisys/data/training/cognisys_ml.db')
     parser.add_argument('--priority', type=str, choices=['critical', 'high'], default='critical',
                         help='Priority level: critical (conf<0.50), high (conf<0.75)')
     parser.add_argument('--execute', action='store_true',

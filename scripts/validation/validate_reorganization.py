@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Organization Validation Script
+CogniSys Organization Validation Script
 Validates that all files exist at their new paths and provides statistics
 """
 
@@ -128,8 +128,8 @@ def validate_reorganization(db_path: str):
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Validate IFMOS reorganization")
-    parser.add_argument('--db', type=str, default='ifmos/data/training/ifmos_ml.db')
+    parser = argparse.ArgumentParser(description="Validate CogniSys reorganization")
+    parser.add_argument('--db', type=str, default='cognisys/data/training/cognisys_ml.db')
 
     args = parser.parse_args()
 

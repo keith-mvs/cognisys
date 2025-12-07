@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS MCP Server Comprehensive Testing Suite
+CogniSys MCP Server Comprehensive Testing Suite
 Tests all configured MCP servers and generates detailed report
 """
 
@@ -46,7 +46,7 @@ class MCPServerTester:
     def __init__(self):
         self.results = []
         self.project_root = Path(__file__).parent.parent.parent
-        self.db_path = self.project_root / 'ifmos' / 'data' / 'training' / 'ifmos_ml.db'
+        self.db_path = self.project_root / 'cognisys' / 'data' / 'training' / 'cognisys_ml.db'
 
     def test_sqlite_server(self):
         """Test SQLite MCP Server"""
@@ -418,7 +418,7 @@ class MCPServerTester:
 
 
 def main():
-    print_header("IFMOS MCP Server Comprehensive Test Suite")
+    print_header("COGNISYS MCP Server Comprehensive Test Suite")
     print(f"Starting tests at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
 
     tester = MCPServerTester()

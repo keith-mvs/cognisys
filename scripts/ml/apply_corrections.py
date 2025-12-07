@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Corrections Application Script
+CogniSys Corrections Application Script
 Applies manual corrections from CSV review and collects training data
 """
 
@@ -223,7 +223,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Apply manual corrections from CSV review")
     parser.add_argument('--csv', type=str, required=True,
                         help='Path to corrected CSV file')
-    parser.add_argument('--db', type=str, default='ifmos/data/training/ifmos_ml.db')
+    parser.add_argument('--db', type=str, default='cognisys/data/training/cognisys_ml.db')
     parser.add_argument('--root', type=str, default='C:/Users/kjfle/Documents/Organized_V2')
     parser.add_argument('--execute', action='store_true',
                         help='Execute corrections (default is dry-run)')

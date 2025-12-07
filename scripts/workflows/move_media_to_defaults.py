@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 r"""
-IFMOS Media Files Migration
+CogniSys Media Files Migration
 Moves image and video files to Windows default locations
 - Images (.jpg, .png, .jpeg, etc.) -> C:\Users\kjfle\Pictures
 - Videos (.mov, .mp4, etc.) -> C:\Users\kjfle\Videos
@@ -276,7 +276,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Move media files to Windows default locations")
-    parser.add_argument('--db', type=str, default='ifmos/data/training/ifmos_ml.db')
+    parser.add_argument('--db', type=str, default='cognisys/data/training/cognisys_ml.db')
     parser.add_argument('--pictures', type=str, default='C:/Users/kjfle/Pictures',
                         help='Destination for image files')
     parser.add_argument('--videos', type=str, default='C:/Users/kjfle/Videos',
