@@ -20,7 +20,7 @@ from sklearn.utils.class_weight import compute_class_weight
 import warnings
 warnings.filterwarnings('ignore')
 
-from ifmos.ml.content_extraction import ContentExtractor
+from cognisys.ml.content_extraction import ContentExtractor
 
 
 class EnsembleTrainer:

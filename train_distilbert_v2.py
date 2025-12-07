@@ -49,7 +49,7 @@ logger = logging.getLogger(__name__)
 
 # Add project root
 sys.path.insert(0, str(Path(__file__).parent))
-from ifmos.ml.content_extraction import ContentExtractor
+from cognisys.ml.content_extraction import ContentExtractor
 
 
 class DocumentDataset(Dataset):

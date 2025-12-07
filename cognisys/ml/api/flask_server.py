@@ -11,12 +11,12 @@ import sys
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from ifmos.ml.ocr import GPUOCREngine, create_ocr_engine
-from ifmos.ml.utils import ContentExtractor, create_extractor
-from ifmos.ml.nlp import TextAnalyzer, create_analyzer
-from ifmos.ml.classification import MLClassifier, create_classifier
-from ifmos.ml.learning import TrainingDatabase, create_database
-from ifmos.ml.api.security import configure_cors, apply_security_headers, rate_limit
+from cognisys.ml.ocr import GPUOCREngine, create_ocr_engine
+from cognisys.ml.utils import ContentExtractor, create_extractor
+from cognisys.ml.nlp import TextAnalyzer, create_analyzer
+from cognisys.ml.classification import MLClassifier, create_classifier
+from cognisys.ml.learning import TrainingDatabase, create_database
+from cognisys.ml.api.security import configure_cors, apply_security_headers, rate_limit
 
 
 # Initialize Flask app

@@ -13,7 +13,7 @@ import logging
 # Add project to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ifmos.commands.register import register_files_from_drop
+from cognisys.commands.register import register_files_from_drop
 from reclassify_null_files import classify_with_patterns, load_ml_model
 
 logging.basicConfig(

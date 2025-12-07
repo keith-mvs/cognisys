@@ -15,8 +15,8 @@ from collections import Counter
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from ifmos.ml.utils.content_extractor import ContentExtractor
-from ifmos.ml.nlp.text_analyzer import TextAnalyzer
+from cognisys.ml.utils.content_extractor import ContentExtractor
+from cognisys.ml.nlp.text_analyzer import TextAnalyzer
 
 # ML imports
 try:

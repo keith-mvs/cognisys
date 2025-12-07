@@ -7,7 +7,7 @@ import pytest
 import tempfile
 import os
 from pathlib import Path
-from ifmos.ml.utils.content_extractor import ContentExtractor
+from cognisys.ml.utils.content_extractor import ContentExtractor
 
 
 class TestContentExtraction:

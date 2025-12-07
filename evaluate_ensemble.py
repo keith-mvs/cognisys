@@ -11,12 +11,12 @@ from datetime import datetime
 import time
 from tqdm import tqdm
 
-from ifmos.ml.classification import (
+from cognisys.ml.classification import (
     create_ensemble_classifier,
     create_distilbert_classifier,
     create_cascade
 )
-from ifmos.ml.content_extraction import ContentExtractor
+from cognisys.ml.content_extraction import ContentExtractor
 
 
 def load_test_data(csv_path: str = ".ifmos/training_data.csv", test_size: int = 500):

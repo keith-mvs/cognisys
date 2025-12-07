@@ -1,8 +1,8 @@
 """
 Quick test script for the ML classifier integration.
 """
-from ifmos.ml.classification import create_distilbert_classifier
-from ifmos.ml.content_extraction import ContentExtractor
+from cognisys.ml.classification import create_distilbert_classifier
+from cognisys.ml.content_extraction import ContentExtractor
 from pathlib import Path
 
 # Test single file classification

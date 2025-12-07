@@ -17,7 +17,7 @@ import logging
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from ifmos.commands import (
+from cognisys.commands import (
     register_files_from_drop,
     classify_pending_files,
     organize_classified_files

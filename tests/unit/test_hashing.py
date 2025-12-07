@@ -7,7 +7,7 @@ import pytest
 import tempfile
 import os
 from pathlib import Path
-from ifmos.utils.hashing import calculate_quick_hash, calculate_full_hash, calculate_adaptive_hash
+from cognisys.utils.hashing import calculate_quick_hash, calculate_full_hash, calculate_adaptive_hash
 
 
 class TestHashing:

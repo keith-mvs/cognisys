@@ -1,4 +1,4 @@
-# IFMOS .gitignore
+# CogniSys .gitignore
 
 # Python
 __pycache__/
@@ -34,12 +34,14 @@ env/
 .vscode/
 *.code-workspace
 
-# IFMOS Specific
+# CogniSys Specific
 db/*.db
 db/*.db-journal
-.ifmos/*.db
-.ifmos/*.db-journal
-.ifmos/training_sample/
+.cognisys/*.db
+.cognisys/*.db-journal
+.cognisys/training_sample/
+.cognisys/backups/
+.cognisys/rollbacks/
 reports/
 !reports/.gitkeep
 logs/
@@ -68,10 +70,10 @@ data/models/**/*.pkl
 data/models/**/*.pt
 data/training/**/*
 data/feedback/**/*
-ifmos/data/training/**/*
-ifmos/data/feedback/**/*
-ifmos/data/models/**/*.pkl
-ifmos/data/models/**/*.pt
+cognisys/data/training/**/*
+cognisys/data/feedback/**/*
+cognisys/data/models/**/*.pkl
+cognisys/data/models/**/*.pt
 mlruns/
 runs/
 cache/
@@ -79,11 +81,9 @@ cache/
 .paddleocr/
 
 # DistilBERT Training - Large model checkpoints
-ifmos/models/distilbert/checkpoint_*/
-!ifmos/models/distilbert/label_mapping.json
-.ifmos/training_data.csv
-.ifmos/backups/
-.ifmos/rollbacks/
+cognisys/models/distilbert/checkpoint_*/
+!cognisys/models/distilbert/label_mapping.json
+.cognisys/training_data.csv
 
 # User organized files (not part of repo)
 Organized/

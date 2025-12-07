@@ -12,7 +12,7 @@ import sys
 # Add ifmos to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ifmos.ml.vision.nvidia_vision import NVIDIAVisionClassifier
+from cognisys.ml.vision.nvidia_vision import NVIDIAVisionClassifier
 
 
 def test_nvidia_vision(sample_size=10):

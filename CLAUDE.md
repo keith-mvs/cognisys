@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code when working with the IFMOS codebase.
+This file provides guidance to Claude Code when working with the CogniSys codebase.
 
 ## Overview
 
-IFMOS (Intelligent File Management and Organization System) is a Python-based CLI tool for scanning, analyzing, deduplicating, and reorganizing large file repositories. The system uses SQLite for persistence and follows a session-based workflow architecture.
+CogniSys (formerly IFMOS - Intelligent File Management and Organization System) is a Python-based CLI tool for scanning, analyzing, deduplicating, and reorganizing large file repositories. The system uses SQLite for persistence and follows a session-based workflow architecture.
 
 ## Quick Start
 
@@ -13,9 +13,9 @@ IFMOS (Intelligent File Management and Organization System) is a Python-based CL
 pip install -e .
 
 # Basic workflow
-ifmos scan --roots <path>
-ifmos analyze --session <session-id>
-ifmos report --session <session-id> --format html
+cognisys scan --roots <path>
+cognisys analyze --session <session-id>
+cognisys report --session <session-id> --format html
 
 # See README.md for full command reference
 ```
@@ -92,8 +92,8 @@ Highest score becomes canonical.
 ## Code Organization
 
 ### Entry Point
-- `ifmos/cli.py`: Click-based CLI with all commands
-- Defined in `setup.py`: `ifmos=ifmos.cli:main`
+- `cognisys/cli.py`: Click-based CLI with all commands
+- Defined in `setup.py`: `cognisys=cognisys.cli:main`
 
 ### Core Engines (~1500 lines)
 - `core/scanner.py` (285 lines): ThreadPoolExecutor-based scanning
@@ -112,7 +112,7 @@ Highest score becomes canonical.
 ## Development Workflow
 
 ### Adding New File Categories
-1. Edit `ifmos/config/new_structure.yml` → add to `classification:`
+1. Edit `cognisys/config/new_structure.yml` → add to `classification:`
 2. Update `FileScanner._categorize_file()` if custom logic needed
 3. Add target path template with variables: `{YYYY}`, `{ProjectName}`
 

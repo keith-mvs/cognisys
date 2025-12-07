@@ -192,7 +192,7 @@ class DistilBERTClassifier:
             Prediction result dict
         """
         try:
-            from ifmos.ml.content_extraction import ContentExtractor
+            from cognisys.ml.content_extraction import ContentExtractor
 
             extractor = ContentExtractor(max_chars=2000)
             result = extractor.extract(Path(file_path))

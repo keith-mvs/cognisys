@@ -36,8 +36,8 @@ def load_test_data():
 
 def evaluate_distilbert(test_df):
     """Evaluate DistilBERT classifier."""
-    from ifmos.ml.classification import create_distilbert_classifier
-    from ifmos.ml.content_extraction import ContentExtractor
+    from cognisys.ml.classification import create_distilbert_classifier
+    from cognisys.ml.content_extraction import ContentExtractor
 
     print("\n" + "="*60)
     print("EVALUATING: DistilBERT v2")
@@ -120,8 +120,8 @@ def evaluate_distilbert(test_df):
 
 def evaluate_rule_based(test_df):
     """Evaluate rule-based classifier."""
-    from ifmos.ml.classification import RuleBasedClassifier
-    from ifmos.ml.content_extraction import ContentExtractor
+    from cognisys.ml.classification import RuleBasedClassifier
+    from cognisys.ml.content_extraction import ContentExtractor
 
     print("\n" + "="*60)
     print("EVALUATING: Rule-Based")
@@ -190,8 +190,8 @@ def evaluate_rule_based(test_df):
 
 def evaluate_cascade(test_df, preset="local_only"):
     """Evaluate cascade classifier."""
-    from ifmos.ml.classification import create_cascade
-    from ifmos.ml.content_extraction import ContentExtractor
+    from cognisys.ml.classification import create_cascade
+    from cognisys.ml.content_extraction import ContentExtractor
 
     print("\n" + "="*60)
     print(f"EVALUATING: Cascade ({preset})")

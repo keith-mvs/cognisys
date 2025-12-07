@@ -67,29 +67,29 @@ class CascadeClassifier:
 
         try:
             if model_type == ModelType.NVIDIA_AI:
-                from ifmos.ml.nvidia_classifier import NvidiaClassifier
+                from cognisys.ml.nvidia_classifier import NvidiaClassifier
                 self.models[model_type] = NvidiaClassifier()
 
             elif model_type in (ModelType.DISTILBERT_V1, ModelType.DISTILBERT_V2):
-                from ifmos.ml.classification.distilbert_classifier import DistilBERTClassifier
+                from cognisys.ml.classification.distilbert_classifier import DistilBERTClassifier
                 version = "v2" if model_type == ModelType.DISTILBERT_V2 else "v1"
                 classifier = DistilBERTClassifier(model_version=version)
                 classifier.load_model()
                 self.models[model_type] = classifier
 
             elif model_type == ModelType.ENSEMBLE_RF:
-                from ifmos.ml.classification.ensemble_classifier import EnsembleClassifier
+                from cognisys.ml.classification.ensemble_classifier import EnsembleClassifier
                 classifier = EnsembleClassifier()
                 self.models[model_type] = classifier
 
             elif model_type == ModelType.ENSEMBLE_ML:
-                from ifmos.ml.classification.ml_classifier import MLClassifier
+                from cognisys.ml.classification.ml_classifier import MLClassifier
                 classifier = MLClassifier()
                 classifier.load_model()
                 self.models[model_type] = classifier
 
             elif model_type == ModelType.RANDOM_FOREST:
-                from ifmos.ml.classification.ml_classifier import MLClassifier
+                from cognisys.ml.classification.ml_classifier import MLClassifier
                 classifier = MLClassifier()
                 classifier.load_model()
                 self.models[model_type] = classifier

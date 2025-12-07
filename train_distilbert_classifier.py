@@ -47,7 +47,7 @@ from tqdm import tqdm
 
 # Import content extraction
 sys.path.insert(0, str(Path(__file__).parent))
-from ifmos.ml.content_extraction import ContentExtractor
+from cognisys.ml.content_extraction import ContentExtractor
 
 # Suppress warnings
 warnings.filterwarnings('ignore')

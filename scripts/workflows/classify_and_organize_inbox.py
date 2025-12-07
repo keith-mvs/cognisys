@@ -13,7 +13,7 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.ml.comprehensive_reclassify import ComprehensiveReclassifier
-from ifmos.core.file_organizer import FileOrganizer
+from cognisys.core.file_organizer import FileOrganizer
 
 logging.basicConfig(
     level=logging.INFO,

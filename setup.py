@@ -1,4 +1,4 @@
-"""Setup script for IFMOS."""
+"""Setup script for CogniSys."""
 
 from setuptools import setup, find_packages
 from pathlib import Path
@@ -8,12 +8,12 @@ readme_file = Path(__file__).parent / 'README.md'
 long_description = readme_file.read_text(encoding='utf-8') if readme_file.exists() else ''
 
 setup(
-    name='ifmos',
+    name='cognisys',
     version='1.0.0',
-    description='Intelligent File Management and Organization System',
+    description='CogniSys - Intelligent File Management and Organization System',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    author='IFMOS Team',
+    author='CogniSys Team',
     python_requires='>=3.10',
     packages=find_packages(),
     include_package_data=True,
@@ -36,7 +36,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'ifmos=ifmos.cli:main',
+            'cognisys=cognisys.cli:main',
         ],
     },
     classifiers=[

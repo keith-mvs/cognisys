@@ -5,12 +5,12 @@ Demonstrates how to use the core components directly in Python scripts.
 
 import yaml
 from pathlib import Path
-from ifmos.models.database import Database
-from ifmos.core.scanner import FileScanner
-from ifmos.core.analyzer import Analyzer
-from ifmos.core.reporter import Reporter
-from ifmos.core.migrator import MigrationPlanner, MigrationExecutor
-from ifmos.utils.logging_config import setup_logging
+from cognisys.models.database import Database
+from cognisys.core.scanner import FileScanner
+from cognisys.core.analyzer import Analyzer
+from cognisys.core.reporter import Reporter
+from cognisys.core.migrator import MigrationPlanner, MigrationExecutor
+from cognisys.utils.logging_config import setup_logging
 
 
 def main():

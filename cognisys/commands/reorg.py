@@ -21,7 +21,7 @@ import sys
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from ifmos.commands.organize import (
+from cognisys.commands.organize import (
     get_domain_for_document_type,
     extract_metadata_from_filename,
     apply_path_template
@@ -42,7 +42,7 @@ def reclassify_organized_files(db_path, config, reclassify_all=False):
     Returns:
         dict with statistics
     """
-    from ifmos.commands.classify import (
+    from cognisys.commands.classify import (
         load_ml_model,
         classify_with_ml,
         classify_with_patterns

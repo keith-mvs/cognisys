@@ -1,16 +1,16 @@
-# IFMOS - Intelligent File Management and Organization System
+# CogniSys - Intelligent File Management and Organization System
 
 A comprehensive, automation-friendly system for analyzing, deduplicating, and reorganizing large-scale file repositories with minimal human intervention and maximum safety.
 
 ## Features
 
-### 🔍 Comprehensive File Analysis
+### Comprehensive File Analysis
 - Multi-threaded scanning of local, network, and cloud-mounted drives
 - Rich metadata extraction (size, timestamps, MIME types, access patterns)
 - Progressive hashing strategy (quick hash for pre-filtering, full hash for verification)
 - SQLite-based indexing for fast queries and analysis
 
-### 🔄 Smart Deduplication
+### Smart Deduplication
 - **Multi-stage detection pipeline:**
   1. Fast pre-filtering by size and extension
   2. Quick hash matching (first 1MB)
@@ -19,21 +19,21 @@ A comprehensive, automation-friendly system for analyzing, deduplicating, and re
 - Intelligent canonical file selection based on configurable priorities
 - Safe quarantine approach (move to staging area, not immediate deletion)
 
-### 📊 Detailed Reporting
+### Detailed Reporting
 - Interactive HTML reports with statistics and insights
 - JSON exports for automation and integration
 - CSV exports for spreadsheet analysis
 - Automatic insight generation and recommendations
 - Visualizations of storage distribution, duplicates, and trends
 
-### 🗂️ Repository Optimization
+### Repository Optimization
 - Template-based target structure design
 - Flexible classification rules by file type
 - Standardized naming conventions
-- Lifecycle management (active → archive → cold storage)
+- Lifecycle management (active -> archive -> cold storage)
 - Backward compatibility with optional symlinks
 
-### 🚀 Safe Migration
+### Safe Migration
 - Dry-run preview before execution
 - Batch processing with progress tracking
 - Checkpoint-based rollback capability
@@ -49,8 +49,8 @@ A comprehensive, automation-friendly system for analyzing, deduplicating, and re
 ### Install from source
 
 ```bash
-git clone https://github.com/FleithFeming/IFMOS.git
-cd IFMOS
+git clone https://github.com/FleithFeming/cognisys-core.git
+cd cognisys-core
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -58,7 +58,7 @@ pip install -e .
 ### Verify installation
 
 ```bash
-ifmos --help
+cognisys --help
 ```
 
 ## Quick Start
@@ -66,7 +66,7 @@ ifmos --help
 ### 1. Scan Your File System
 
 ```bash
-ifmos scan --roots "C:\Users\Documents" --roots "C:\Projects"
+cognisys scan --roots "C:\Users\Documents" --roots "C:\Projects"
 ```
 
 This creates a session and indexes all files with metadata and hashes.
@@ -83,7 +83,7 @@ This creates a session and indexes all files with metadata and hashes.
 ### 2. Analyze for Duplicates
 
 ```bash
-ifmos analyze --session 20251120-143022-a8f3
+cognisys analyze --session 20251120-143022-a8f3
 ```
 
 Runs the deduplication pipeline and identifies patterns.
@@ -99,7 +99,7 @@ Runs the deduplication pipeline and identifies patterns.
 ### 3. Generate Reports
 
 ```bash
-ifmos report --session 20251120-143022-a8f3 --format html --format json --format csv
+cognisys report --session 20251120-143022-a8f3 --format html --format json --format csv
 ```
 
 Creates comprehensive reports in multiple formats.
@@ -112,7 +112,7 @@ Creates comprehensive reports in multiple formats.
 ### 4. Create Migration Plan
 
 ```bash
-ifmos plan --session 20251120-143022-a8f3 --structure ifmos/config/new_structure.yml
+cognisys plan --session 20251120-143022-a8f3 --structure cognisys/config/new_structure.yml
 ```
 
 Generates a migration plan based on target structure.
@@ -130,7 +130,7 @@ Actions by type:
 ### 5. Preview Changes (Dry Run)
 
 ```bash
-ifmos dry-run --plan plan-20251120-150000-x9a2
+cognisys dry-run --plan plan-20251120-150000-x9a2
 ```
 
 Shows sample actions without making any changes.
@@ -155,10 +155,10 @@ Shows sample actions without making any changes.
 
 ```bash
 # Approve the plan
-ifmos approve --plan plan-20251120-150000-x9a2
+cognisys approve --plan plan-20251120-150000-x9a2
 
 # Execute the migration
-ifmos execute --plan plan-20251120-150000-x9a2
+cognisys execute --plan plan-20251120-150000-x9a2
 ```
 
 Executes the migration with full audit logging and rollback capability.
@@ -167,7 +167,7 @@ Executes the migration with full audit logging and rollback capability.
 
 ### Scan Configuration
 
-Edit `ifmos/config/scan_config.yml` to customize:
+Edit `cognisys/config/scan_config.yml` to customize:
 
 - Root paths to scan
 - Exclusion patterns (e.g., `*.tmp`, `node_modules`)
@@ -177,7 +177,7 @@ Edit `ifmos/config/scan_config.yml` to customize:
 
 ### Analysis Rules
 
-Edit `ifmos/config/analysis_rules.yml` to configure:
+Edit `cognisys/config/analysis_rules.yml` to configure:
 
 - Duplicate detection thresholds
 - Canonical file selection priorities
@@ -186,7 +186,7 @@ Edit `ifmos/config/analysis_rules.yml` to configure:
 
 ### Target Structure
 
-Edit `ifmos/config/new_structure.yml` to define:
+Edit `cognisys/config/new_structure.yml` to define:
 
 - Repository organization (Active, Archive, Reference, etc.)
 - File classification rules by type
@@ -198,18 +198,18 @@ Edit `ifmos/config/new_structure.yml` to define:
 ### Scanning
 
 ```bash
-ifmos scan --roots <path1> --roots <path2> [options]
+cognisys scan --roots <path1> --roots <path2> [options]
 
 Options:
   --config PATH        Scan configuration file
-  --db PATH           Database path (default: db/ifmos.db)
+  --db PATH           Database path (default: db/cognisys.db)
   --session-id TEXT   Custom session ID
 ```
 
 ### Analysis
 
 ```bash
-ifmos analyze --session <session-id> [options]
+cognisys analyze --session <session-id> [options]
 
 Options:
   --rules PATH        Analysis rules file
@@ -219,7 +219,7 @@ Options:
 ### Reporting
 
 ```bash
-ifmos report --session <session-id> [options]
+cognisys report --session <session-id> [options]
 
 Options:
   --output PATH       Output directory (default: reports)
@@ -230,7 +230,7 @@ Options:
 ### Migration Planning
 
 ```bash
-ifmos plan --session <session-id> [options]
+cognisys plan --session <session-id> [options]
 
 Options:
   --structure PATH    Target structure config
@@ -242,13 +242,13 @@ Options:
 
 ```bash
 # Preview changes
-ifmos dry-run --plan <plan-id>
+cognisys dry-run --plan <plan-id>
 
 # Approve plan
-ifmos approve --plan <plan-id>
+cognisys approve --plan <plan-id>
 
 # Execute migration
-ifmos execute --plan <plan-id>
+cognisys execute --plan <plan-id>
 
 Options:
   --db PATH           Database path
@@ -258,10 +258,10 @@ Options:
 
 ```bash
 # List all scan sessions
-ifmos list-sessions
+cognisys list-sessions
 
 # Show help for any command
-ifmos <command> --help
+cognisys <command> --help
 ```
 
 ## Architecture
@@ -269,22 +269,22 @@ ifmos <command> --help
 ### Components
 
 ```
-IFMOS
-├─ Scanning Engine     → Multi-threaded file traversal and indexing
-├─ Analysis Engine     → Deduplication and pattern detection
-├─ Reporting Engine    → Statistics, insights, and visualizations
-├─ Migration Planner   → Rule-based reorganization planning
-└─ Migration Executor  → Safe execution with rollback support
+CogniSys
+├─ Scanning Engine     -> Multi-threaded file traversal and indexing
+├─ Analysis Engine     -> Deduplication and pattern detection
+├─ Reporting Engine    -> Statistics, insights, and visualizations
+├─ Migration Planner   -> Rule-based reorganization planning
+└─ Migration Executor  -> Safe execution with rollback support
 ```
 
 ### Data Flow
 
 ```
-1. Scan → Index files with metadata and hashes
-2. Analyze → Detect duplicates and patterns
-3. Report → Generate insights and recommendations
-4. Plan → Create migration strategy
-5. Execute → Apply changes with safety checks
+1. Scan -> Index files with metadata and hashes
+2. Analyze -> Detect duplicates and patterns
+3. Report -> Generate insights and recommendations
+4. Plan -> Create migration strategy
+5. Execute -> Apply changes with safety checks
 ```
 
 ### Database Schema
@@ -353,7 +353,7 @@ Add custom file categories and rules in configuration files.
 Define templates with variables like `{YYYY-MM-DD}_{ProjectName}_{Version}`.
 
 ### Lifecycle Management
-Automate transitions: Active → Archive → Cold Storage based on access patterns.
+Automate transitions: Active -> Archive -> Cold Storage based on access patterns.
 
 ### Integration Ready
 JSON exports and SQLite database enable integration with other tools and scripts.
@@ -409,4 +409,4 @@ Built with Python, SQLite, Click, and PyYAML.
 
 ---
 
-**IFMOS** - Bringing order to digital chaos.
+**CogniSys** - Bringing order to digital chaos.

@@ -14,8 +14,8 @@ import sys
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from ifmos.ml.learning.training_db import TrainingDatabase
-from ifmos.ml.classification.ml_classifier import MLClassifier
+from cognisys.ml.learning.training_db import TrainingDatabase
+from cognisys.ml.classification.ml_classifier import MLClassifier
 
 # Configure logging
 logging.basicConfig(

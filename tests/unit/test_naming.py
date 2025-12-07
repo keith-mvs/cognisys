@@ -4,7 +4,7 @@ Tests filename normalization and sanitization
 """
 
 import pytest
-from ifmos.utils.naming import normalize_filename, sanitize_name
+from cognisys.utils.naming import normalize_filename, sanitize_name
 
 
 class TestNaming:
