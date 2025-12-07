@@ -1,1 +1,1 @@
-"""Unit tests for IFMOS components"""
+"""Unit tests for CogniSys components."""

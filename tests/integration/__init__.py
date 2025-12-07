@@ -1,1 +1,1 @@
-"""Integration tests for IFMOS"""
+"""Integration tests for CogniSys."""

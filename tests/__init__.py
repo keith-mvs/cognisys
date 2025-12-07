@@ -1,6 +1,2 @@
-"""
-IFMOS Test Suite
-Automated tests for the Intelligent File Management and Organization System
-"""
+"""CogniSys Test Suite."""
 
-__version__ = "1.0.0"
