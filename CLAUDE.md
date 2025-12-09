@@ -23,6 +23,11 @@ cognisys cloud detect                    # Find mounted cloud folders
 cognisys source list                     # List configured sources
 cognisys cloud auth --provider onedrive  # Authenticate (requires client ID)
 
+# File reclassification
+cognisys reclassify unknown              # Reclassify 'unknown' files
+cognisys reclassify null --execute       # Reclassify NULL files
+cognisys reclassify stats                # Show classification stats
+
 # See README.md for full command reference
 ```
 
@@ -115,6 +120,7 @@ Highest score becomes canonical.
 - `cognisys/cli.py`: Click-based CLI with all commands
 - `cognisys/commands/source.py`: Source management commands
 - `cognisys/commands/cloud.py`: Cloud integration commands
+- `cognisys/commands/reclassify.py`: File reclassification commands
 - Defined in `setup.py`: `cognisys=cognisys.cli:main`
 
 ### Storage Layer
@@ -148,6 +154,8 @@ Highest score becomes canonical.
 - `utils/hashing.py`: Hash calculation functions
 - `utils/naming.py`: Filename normalization
 - `utils/logging_config.py`: Structured logging
+- `utils/pattern_classifier.py`: Rule-based file classification (40+ rules)
+- `utils/stats_collector.py`: Statistics collection and progress tracking
 
 ## Development Workflow
 
@@ -200,15 +208,30 @@ Highest score becomes canonical.
 
 ## Testing
 
-Testing framework not yet implemented. When adding tests:
-```
-tests/
-  unit/         - Component-level tests
-  integration/  - End-to-end workflows
-  fixtures/     - Sample files and configs
+Comprehensive test suite with 200+ unit tests. Run with:
+```bash
+pytest tests/unit/ -v           # All unit tests
+pytest tests/unit/ --tb=short   # Concise output
+pytest tests/unit/test_scanner.py  # Specific module
 ```
 
-Key areas: Progressive hashing, canonical selection, rollback recovery, config validation, cloud sync.
+Test structure:
+```
+tests/
+  unit/
+    test_scanner.py       # 20 tests - File traversal, hashing, exclusions
+    test_analyzer.py      # 19 tests - Duplicate detection, fuzzy matching
+    test_migrator.py      # 24 tests - Plan creation, actions, rollback
+    test_storage.py       # 27 tests - FileMetadata, SourceRegistry
+    test_pattern_classifier.py  # 62 tests - Pattern-based classification
+    test_stats_collector.py     # 26 tests - Stats collection, progress
+    test_database.py      # 10 tests - Database operations
+    test_hashing.py       # 6 tests - Hash functions
+    test_naming.py        # 6 tests - Filename utilities
+  conftest.py             # Shared fixtures
+```
+
+Key areas covered: Progressive hashing, canonical selection, rollback recovery, pattern classification, cloud storage interfaces.
 
 ## Recent Enhancements (Dec 2024)
 
@@ -218,6 +241,9 @@ Key areas: Progressive hashing, canonical selection, rollback recovery, config v
 - **Two-Way Sync**: Pull from cloud, classify, push organized files back
 - **ML Classification**: DistilBERT v2 with 96.7% accuracy on 77k+ files
 - **Secure Auth**: OAuth 2.0 with encrypted token storage
+- **Comprehensive Test Suite**: 200+ unit tests covering all core modules
+- **Pattern Classifier**: Rule-based file classification with 40+ default rules
+- **CLI Consolidation**: Root scripts consolidated into `cognisys reclassify` commands
 
 ## Future Enhancements
 

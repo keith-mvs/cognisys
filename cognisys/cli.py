@@ -16,6 +16,7 @@ from .core.migrator import MigrationPlanner, MigrationExecutor
 from .core.classifier import MLClassifier
 from .utils.logging_config import setup_logging, get_logger
 from .commands.source import source, cloud
+from .commands.reclassify import reclassify
 
 logger = get_logger(__name__)
 
@@ -489,6 +490,7 @@ def classify_file(file_path, model, cascade):
 # Register command groups
 cli.add_command(source)
 cli.add_command(cloud)
+cli.add_command(reclassify)
 
 
 def main():
