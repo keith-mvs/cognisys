@@ -315,6 +315,38 @@ cognisys cloud sync <source_name> --dry-run
 cognisys cloud logout
 ```
 
+### File Reclassification
+
+```bash
+# Show classification statistics
+cognisys reclassify stats
+
+# Reclassify 'unknown' files using pattern matching
+cognisys reclassify unknown                    # Dry run
+cognisys reclassify unknown --execute          # Apply changes
+cognisys reclassify unknown --verbose          # Show detailed output
+
+# Reclassify NULL document_type files (patterns + ML)
+cognisys reclassify null                       # Dry run
+cognisys reclassify null --execute             # Apply changes
+cognisys reclassify null --no-ml               # Patterns only
+cognisys reclassify null --confidence 0.80     # Higher threshold
+
+# Re-evaluate all files (full reclassification)
+cognisys reclassify all --execute              # Requires confirmation
+
+# Show files with low classification confidence
+cognisys reclassify low-confidence --threshold 0.5 --limit 100
+
+Options:
+  --db PATH           Database path (default: .cognisys/file_registry.db)
+  --execute           Apply changes (default is dry-run)
+  --confidence FLOAT  Confidence threshold (default: 0.70)
+  --use-ml/--no-ml    Enable/disable ML model fallback
+  --batch-size INT    Batch size for updates (default: 100)
+  --verbose, -v       Show detailed output
+```
+
 ### Utilities
 
 ```bash
