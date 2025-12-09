@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Production Reorganization
+CogniSys Production Reorganization
 Moves files to organized structure based on classification
 Includes checkpoint, rollback, and progress tracking
 """
@@ -17,7 +17,7 @@ import argparse
 class ProductionReorganizer:
     """Safe file reorganization with rollback capability"""
 
-    def __init__(self, db_path: str = '.ifmos/file_registry.db', dry_run: bool = True):
+    def __init__(self, db_path: str = '.cognisys/file_registry.db', dry_run: bool = True):
         self.db_path = db_path
         self.dry_run = dry_run
         self.conn = sqlite3.connect(db_path)
@@ -32,8 +32,8 @@ class ProductionReorganizer:
         self.config = self.load_config()
 
     def load_config(self):
-        """Load IFMOS configuration"""
-        with open('.ifmos/config.yml', 'r') as f:
+        """Load CogniSys configuration"""
+        with open('.cognisys/config.yml', 'r') as f:
             return yaml.safe_load(f)
 
     def apply_path_template(self, template: str, metadata: dict) -> str:
@@ -69,7 +69,7 @@ class ProductionReorganizer:
     def create_checkpoint(self):
         """Create rollback checkpoint before reorganization"""
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        self.checkpoint_file = f'.ifmos/checkpoints/reorganization_{timestamp}.json'
+        self.checkpoint_file = f'.cognisys/checkpoints/reorganization_{timestamp}.json'
 
         Path(self.checkpoint_file).parent.mkdir(parents=True, exist_ok=True)
 
@@ -268,15 +268,15 @@ class ProductionReorganizer:
 
 
 def main():
-    parser = argparse.ArgumentParser(description='IFMOS Production Reorganization')
+    parser = argparse.ArgumentParser(description='CogniSys Production Reorganization')
     parser.add_argument('--execute', action='store_true', help='Execute reorganization (default is dry-run)')
     parser.add_argument('--skip-checkpoint', action='store_true', help='Skip checkpoint creation')
     parser.add_argument('--base-dir', default='Organized', help='Base directory for organization')
-    parser.add_argument('--db', default='.ifmos/file_registry.db', help='Database path')
+    parser.add_argument('--db', default='.cognisys/file_registry.db', help='Database path')
     args = parser.parse_args()
 
     print("=" * 80)
-    print("IFMOS PRODUCTION REORGANIZATION")
+    print("COGNISYS PRODUCTION REORGANIZATION")
     print("=" * 80)
     print(f"Mode: {'LIVE REORGANIZATION' if args.execute else 'DRY RUN'}")
     print(f"Database: {args.db}")

@@ -20,7 +20,7 @@ RANDOM_SEED = 42
 
 def load_test_data():
     """Load test files from training data CSV."""
-    df = pd.read_csv('.ifmos/training_data.csv')
+    df = pd.read_csv('.cognisys/training_data.csv')
 
     # Stratified sample
     samples = []

@@ -8,7 +8,7 @@ import sqlite3
 from pathlib import Path
 
 
-def apply_pattern_classifications(db_path: str = '.ifmos/file_registry.db'):
+def apply_pattern_classifications(db_path: str = '.cognisys/file_registry.db'):
     """Apply all discovered pattern-based classifications"""
 
     conn = sqlite3.connect(db_path)

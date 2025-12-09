@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS Duplicate Cleanup
+CogniSys Duplicate Cleanup
 Safely remove duplicate files while preserving canonicals
 Includes checkpoint, rollback, and verification
 """
@@ -17,7 +17,7 @@ import argparse
 class DuplicateCleanup:
     """Safe duplicate file removal with rollback capability"""
 
-    def __init__(self, db_path: str = '.ifmos/file_registry.db', dry_run: bool = True):
+    def __init__(self, db_path: str = '.cognisys/file_registry.db', dry_run: bool = True):
         self.db_path = db_path
         self.dry_run = dry_run
         self.conn = sqlite3.connect(db_path)
@@ -34,7 +34,7 @@ class DuplicateCleanup:
     def create_checkpoint(self):
         """Create rollback checkpoint before deletion"""
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        self.checkpoint_file = f'.ifmos/checkpoints/duplicate_cleanup_{timestamp}.json'
+        self.checkpoint_file = f'.cognisys/checkpoints/duplicate_cleanup_{timestamp}.json'
 
         # Ensure checkpoint directory exists
         Path(self.checkpoint_file).parent.mkdir(parents=True, exist_ok=True)
@@ -271,14 +271,14 @@ class DuplicateCleanup:
 
 
 def main():
-    parser = argparse.ArgumentParser(description='IFMOS Duplicate Cleanup')
+    parser = argparse.ArgumentParser(description='CogniSys Duplicate Cleanup')
     parser.add_argument('--execute', action='store_true', help='Execute deletion (default is dry-run)')
     parser.add_argument('--skip-checkpoint', action='store_true', help='Skip checkpoint creation')
-    parser.add_argument('--db', default='.ifmos/file_registry.db', help='Database path')
+    parser.add_argument('--db', default='.cognisys/file_registry.db', help='Database path')
     args = parser.parse_args()
 
     print("=" * 80)
-    print("IFMOS DUPLICATE CLEANUP")
+    print("COGNISYS DUPLICATE CLEANUP")
     print("=" * 80)
     print(f"Mode: {'LIVE DELETION' if args.execute else 'DRY RUN'}")
     print(f"Database: {args.db}")

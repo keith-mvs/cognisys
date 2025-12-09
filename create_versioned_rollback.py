@@ -22,9 +22,9 @@ import sqlite3
 class VersionedRollbackCreator:
     """Create versioned rollback snapshots of file repository"""
 
-    def __init__(self, db_path: str = '.ifmos/file_registry.db'):
+    def __init__(self, db_path: str = '.cognisys/file_registry.db'):
         self.db_path = Path(db_path)
-        self.rollback_base = Path('.ifmos/rollbacks')
+        self.rollback_base = Path('.cognisys/rollbacks')
         self.rollback_base.mkdir(parents=True, exist_ok=True)
 
     def get_latest_version(self) -> int:
@@ -165,7 +165,7 @@ class VersionedRollbackCreator:
         info_path = version_dir / 'version_info.txt'
         total_size_gb = manifest_data['total_size_bytes'] / (1024**3)
 
-        info_content = f"""IFMOS Rollback Snapshot
+        info_content = f"""CogniSys Rollback Snapshot
 Version: v{next_version:02d}
 Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 Source: {source_path.absolute()}

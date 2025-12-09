@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('ifmos/data/training/ifmos_ml.db')
+conn = sqlite3.connect('cognisys/data/training/cognisys_ml.db')
 cursor = conn.cursor()
 
 # Get table schema
@@ -8,7 +8,7 @@ cursor.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='docum
 schema = cursor.fetchone()
 
 print("=" * 80)
-print("IFMOS DATABASE SCHEMA - Documents Table")
+print("COGNISYS DATABASE SCHEMA - Documents Table")
 print("=" * 80)
 if schema:
     print(schema[0])

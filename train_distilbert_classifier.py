@@ -2,7 +2,7 @@
 """
 Train DistilBERT Document Classifier
 
-Fine-tunes DistilBERT on high-confidence classifications from IFMOS database.
+Fine-tunes DistilBERT on high-confidence classifications from CogniSys database.
 Trains on content extracted from actual files for superior accuracy.
 
 Hardware Requirements:
@@ -126,7 +126,7 @@ class DistilBERTTrainer:
     def __init__(
         self,
         model_name: str = 'distilbert-base-uncased',
-        output_dir: str = 'ifmos/models/distilbert',
+        output_dir: str = 'cognisys/models/distilbert',
         batch_size: int = 16,
         learning_rate: float = 2e-5,
         num_epochs: int = 3,
@@ -447,8 +447,8 @@ def main():
     print(f"\nStarted: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
 
     # Configuration
-    training_csv = '.ifmos/training_data.csv'
-    output_dir = 'ifmos/models/distilbert'
+    training_csv = '.cognisys/training_data.csv'
+    output_dir = 'cognisys/models/distilbert'
     batch_size = 16
     num_epochs = 3
 

@@ -1,7 +1,7 @@
-# IFMOS Configuration
+# CogniSys Configuration
 # Version: 2.0 (Architecture Redesign)
 
-ifmos:
+cognisys:
   version: "2.0"
 
   # ==================================================================
@@ -15,7 +15,7 @@ ifmos:
   canonical_root: "C:\\Users\\kjfle\\Documents\\Organized_Canonical"
 
   # Database path
-  database: ".ifmos/file_registry.db"
+  database: ".cognisys/file_registry.db"
 
   # ==================================================================
   # BEHAVIOR
@@ -36,9 +36,9 @@ ifmos:
   # ==================================================================
 
   # ML model path
-  ml_model_path: "ifmos/models/trained/random_forest_classifier.pkl"
-  tfidf_vectorizer_path: "ifmos/models/trained/tfidf_vectorizer.pkl"
-  label_mappings_path: "ifmos/models/trained/label_mappings.pkl"
+  ml_model_path: "cognisys/models/trained/random_forest_classifier.pkl"
+  tfidf_vectorizer_path: "cognisys/models/trained/tfidf_vectorizer.pkl"
+  label_mappings_path: "cognisys/models/trained/label_mappings.pkl"
 
   # Confidence threshold (below this → requires manual review)
   confidence_threshold: 0.70
@@ -304,7 +304,7 @@ exclusions:
   # Directories to skip during scanning
   exclude_dirs:
     - ".git"
-    - ".ifmos"
+    - ".cognisys"
     - "__pycache__"
     - "node_modules"
     - ".venv"

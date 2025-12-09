@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-IFMOS MCP Server
-Provides Claude Code with direct access to IFMOS ML database and classification system
+CogniSys MCP Server
+Provides Claude Code with direct access to CogniSys ML database and classification system
 """
 
 import json
@@ -11,16 +11,16 @@ from pathlib import Path
 from typing import Dict, List, Any
 import requests
 
-# Add IFMOS to path
+# Add CogniSys to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-DB_PATH = PROJECT_ROOT / "ifmos" / "data" / "training" / "ifmos_ml.db"
+DB_PATH = PROJECT_ROOT / "cognisys" / "data" / "training" / "cognisys_ml.db"
 ML_API_URL = "http://127.0.0.1:5000"
 
 
-class IFMOSMCPServer:
-    """MCP Server for IFMOS integration with Claude Code"""
+class CogniSysMCPServer:
+    """MCP Server for CogniSys integration with Claude Code"""
 
     def __init__(self):
         self.db_path = DB_PATH
@@ -33,7 +33,7 @@ class IFMOSMCPServer:
         """List available tools for Claude Code"""
         return [
             {
-                "name": "ifmos_query_documents",
+                "name": "cognisys_query_documents",
                 "description": "Query classified documents by type, date, or search term",
                 "inputSchema": {
                     "type": "object",
@@ -45,7 +45,7 @@ class IFMOSMCPServer:
                 }
             },
             {
-                "name": "ifmos_get_classification_stats",
+                "name": "cognisys_get_classification_stats",
                 "description": "Get statistics about document classifications",
                 "inputSchema": {
                     "type": "object",
@@ -53,8 +53,8 @@ class IFMOSMCPServer:
                 }
             },
             {
-                "name": "ifmos_classify_document",
-                "description": "Classify a document using the IFMOS ML pipeline",
+                "name": "cognisys_classify_document",
+                "description": "Classify a document using the CogniSys ML pipeline",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
@@ -64,7 +64,7 @@ class IFMOSMCPServer:
                 }
             },
             {
-                "name": "ifmos_submit_feedback",
+                "name": "cognisys_submit_feedback",
                 "description": "Submit classification feedback to improve the model",
                 "inputSchema": {
                     "type": "object",
@@ -77,7 +77,7 @@ class IFMOSMCPServer:
                 }
             },
             {
-                "name": "ifmos_get_categories",
+                "name": "cognisys_get_categories",
                 "description": "List all available document categories",
                 "inputSchema": {
                     "type": "object",
@@ -89,15 +89,15 @@ class IFMOSMCPServer:
     def call_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
         """Execute a tool call"""
         try:
-            if tool_name == "ifmos_query_documents":
+            if tool_name == "cognisys_query_documents":
                 return self._query_documents(**arguments)
-            elif tool_name == "ifmos_get_classification_stats":
+            elif tool_name == "cognisys_get_classification_stats":
                 return self._get_classification_stats()
-            elif tool_name == "ifmos_classify_document":
+            elif tool_name == "cognisys_classify_document":
                 return self._classify_document(**arguments)
-            elif tool_name == "ifmos_submit_feedback":
+            elif tool_name == "cognisys_submit_feedback":
                 return self._submit_feedback(**arguments)
-            elif tool_name == "ifmos_get_categories":
+            elif tool_name == "cognisys_get_categories":
                 return self._get_categories()
             else:
                 return {"error": f"Unknown tool: {tool_name}"}
@@ -220,7 +220,7 @@ class IFMOSMCPServer:
 
 def main():
     """MCP Server main loop"""
-    server = IFMOSMCPServer()
+    server = CogniSysMCPServer()
 
     # Read MCP protocol messages from stdin
     for line in sys.stdin:

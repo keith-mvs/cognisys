@@ -7,9 +7,9 @@ from pathlib import Path
 
 
 def merge_training_data(
-    existing_csv: str = ".ifmos/training_data.csv",
+    existing_csv: str = ".cognisys/training_data.csv",
     synthetic_csv: str = "synthetic_training_data.csv",
-    output_csv: str = ".ifmos/training_data_expanded.csv"
+    output_csv: str = ".cognisys/training_data_expanded.csv"
 ):
     """
     Merge synthetic and existing training data.
@@ -93,8 +93,8 @@ def merge_training_data(
 
 
 def analyze_balance_improvement(
-    original_csv: str = ".ifmos/training_data.csv",
-    expanded_csv: str = ".ifmos/training_data_expanded.csv"
+    original_csv: str = ".cognisys/training_data.csv",
+    expanded_csv: str = ".cognisys/training_data_expanded.csv"
 ):
     """Analyze how synthetic data improved class balance."""
     print("\n" + "="*60)
@@ -162,8 +162,8 @@ def main():
     print("MERGE COMPLETE")
     print("="*60)
     print("\nNext steps:")
-    print("1. Retrain ensemble model: python train_ensemble.py --csv .ifmos/training_data_expanded.csv")
-    print("2. Retrain DistilBERT: python train_distilbert_v2.py --csv .ifmos/training_data_expanded.csv")
+    print("1. Retrain ensemble model: python train_ensemble.py --csv .cognisys/training_data_expanded.csv")
+    print("2. Retrain DistilBERT: python train_distilbert_v2.py --csv .cognisys/training_data_expanded.csv")
     print("3. Compare performance with original models")
 
 

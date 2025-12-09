@@ -35,9 +35,9 @@ def check_version(version_dir, name):
         print("Best model: SAVED")
 
 # Check v1
-check_version(Path("ifmos/models/distilbert"), "v1 (Original - Overfitted)")
+check_version(Path("cognisys/models/distilbert"), "v1 (Original - Overfitted)")
 
 # Check v2
-check_version(Path("ifmos/models/distilbert_v2"), "v2 (With Fixes)")
+check_version(Path("cognisys/models/distilbert_v2"), "v2 (With Fixes)")
 
 print("\n" + "=" * 35)

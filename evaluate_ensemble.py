@@ -19,7 +19,7 @@ from cognisys.ml.classification import (
 from cognisys.ml.content_extraction import ContentExtractor
 
 
-def load_test_data(csv_path: str = ".ifmos/training_data.csv", test_size: int = 500):
+def load_test_data(csv_path: str = ".cognisys/training_data.csv", test_size: int = 500):
     """Load random test samples."""
     print(f"Loading test data from: {csv_path}")
 

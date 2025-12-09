@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IFMOS KPI Calculator
+CogniSys KPI Calculator
 Quantifiable metrics for measuring system success
 """
 
@@ -13,10 +13,10 @@ from datetime import datetime
 import time
 
 
-class IFMOSKPICalculator:
-    """Calculate and track IFMOS Key Performance Indicators"""
+class CogniSysKPICalculator:
+    """Calculate and track CogniSys Key Performance Indicators"""
 
-    def __init__(self, db_path: str = '.ifmos/file_registry.db'):
+    def __init__(self, db_path: str = '.cognisys/file_registry.db'):
         self.db_path = db_path
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
@@ -281,7 +281,7 @@ class IFMOSKPICalculator:
         kpis = self.calculate_all_kpis()
 
         print("=" * 80)
-        print("IFMOS KEY PERFORMANCE INDICATORS (KPIs)")
+        print("COGNISYS KEY PERFORMANCE INDICATORS (KPIs)")
         print("=" * 80)
         print(f"Generated: {kpis['timestamp']}")
         print()
@@ -440,7 +440,7 @@ class IFMOSKPICalculator:
 
 
 def main():
-    calculator = IFMOSKPICalculator()
+    calculator = CogniSysKPICalculator()
     kpis = calculator.generate_kpi_report(save_json=True)
 
     # Calculate benchmark scores

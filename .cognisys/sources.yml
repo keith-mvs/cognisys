@@ -162,7 +162,6 @@ settings:
     - ".venv"
     - "venv"
     - ".cognisys"
-    - ".ifmos"
     - "site-packages"
 
   global_exclude_files:

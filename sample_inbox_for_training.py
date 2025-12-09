@@ -16,7 +16,7 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
 inbox_path = Path(r'C:\Users\kjfle\00_Inbox')
-sample_dir = Path('.ifmos/training_sample')
+sample_dir = Path('.cognisys/training_sample')
 sample_size = 2000
 
 print("=" * 80)
@@ -83,9 +83,9 @@ for file_path in samples:
 print(f"\n✓ Copied {copied} files to {sample_dir}")
 
 # Save file list
-with open('.ifmos/training_sample_files.txt', 'w', encoding='utf-8') as f:
+with open('.cognisys/training_sample_files.txt', 'w', encoding='utf-8') as f:
     for file_path in samples:
         f.write(f"{file_path}\n")
 
-print(f"✓ File list saved to .ifmos/training_sample_files.txt")
+print(f"✓ File list saved to .cognisys/training_sample_files.txt")
 print("=" * 80)

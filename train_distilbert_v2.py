@@ -114,7 +114,7 @@ class DistilBERTTrainerV2:
         weight_decay: float = 0.01,   # L2 regularization
         dropout: float = 0.3,         # Increased dropout
         patience: int = 2,            # Early stopping patience
-        output_dir: str = 'ifmos/models/distilbert_v2'
+        output_dir: str = 'cognisys/models/distilbert_v2'
     ):
         self.model_name = model_name
         self.max_length = max_length
@@ -407,7 +407,7 @@ def main():
 
     # Load data
     train_paths, val_paths, train_labels, val_labels = trainer.load_data(
-        '.ifmos/training_data.csv'
+        '.cognisys/training_data.csv'
     )
 
     # Create dataloaders
@@ -428,7 +428,7 @@ def main():
     final = history[-1]
     print(f"Final Train Acc: {final['train_accuracy']:.2%}")
     print(f"Final Val Acc:   {final['val_accuracy']:.2%}")
-    print(f"Best model at: ifmos/models/distilbert_v2/best_model/")
+    print(f"Best model at: cognisys/models/distilbert_v2/best_model/")
 
 
 if __name__ == '__main__':

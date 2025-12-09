@@ -150,7 +150,7 @@ def classify_with_patterns(filename):
 def classify_sample():
     """Classify the training sample"""
 
-    sample_dir = Path('.ifmos/training_sample')
+    sample_dir = Path('.cognisys/training_sample')
 
     if not sample_dir.exists():
         print("Error: Training sample directory not found")
@@ -219,12 +219,12 @@ def classify_sample():
     print(f"\nHigh-confidence classifications (≥0.90): {len(high_conf):,}")
 
     # Save to CSV
-    with open('.ifmos/training_data.csv', 'w', newline='', encoding='utf-8') as f:
+    with open('.cognisys/training_data.csv', 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=['filename', 'path', 'doc_type', 'confidence', 'method'])
         writer.writeheader()
         writer.writerows(high_conf)
 
-    print(f"✓ Training data saved to .ifmos/training_data.csv")
+    print(f"✓ Training data saved to .cognisys/training_data.csv")
     print("=" * 80)
 
 

@@ -21,10 +21,10 @@ logger = logging.getLogger(__name__)
 def load_training_data():
     """Load training data from CSV"""
 
-    training_csv = Path('.ifmos/training_data.csv')
+    training_csv = Path('.cognisys/training_data.csv')
 
     if not training_csv.exists():
-        logger.error("Training data not found: .ifmos/training_data.csv")
+        logger.error("Training data not found: .cognisys/training_data.csv")
         logger.error("Run classify_training_sample.py first")
         return None
 
@@ -130,7 +130,7 @@ def train_model(filenames, labels, test_size=0.2):
 def save_model(clf, vectorizer, accuracy):
     """Save trained model"""
 
-    model_dir = Path('ifmos/models/trained')
+    model_dir = Path('cognisys/models/trained')
     model_dir.mkdir(parents=True, exist_ok=True)
 
     # Create label mappings
@@ -148,17 +148,17 @@ def save_model(clf, vectorizer, accuracy):
     # Save model
     with open(model_dir / 'random_forest_classifier.pkl', 'wb') as f:
         pickle.dump(clf, f)
-    logger.info("✓ Model saved to ifmos/models/trained/random_forest_classifier.pkl")
+    logger.info("✓ Model saved to cognisys/models/trained/random_forest_classifier.pkl")
 
     # Save vectorizer
     with open(model_dir / 'tfidf_vectorizer.pkl', 'wb') as f:
         pickle.dump(vectorizer, f)
-    logger.info("✓ Vectorizer saved to ifmos/models/trained/tfidf_vectorizer.pkl")
+    logger.info("✓ Vectorizer saved to cognisys/models/trained/tfidf_vectorizer.pkl")
 
     # Save label mappings
     with open(model_dir / 'label_mappings.pkl', 'wb') as f:
         pickle.dump(label_mappings, f)
-    logger.info("✓ Label mappings saved to ifmos/models/trained/label_mappings.pkl")
+    logger.info("✓ Label mappings saved to cognisys/models/trained/label_mappings.pkl")
 
     logger.info(f"\nModel training complete! Test accuracy: {accuracy:.2%}")
 

@@ -164,7 +164,7 @@ def main():
     print("=" * 80)
     print()
 
-    db_path = Path(".ifmos/file_registry.db")
+    db_path = Path(".cognisys/file_registry.db")
 
     if not db_path.exists():
         logger.error(f"Database not found: {db_path}")

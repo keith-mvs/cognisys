@@ -123,7 +123,7 @@ def create_schema(conn):
         CREATE TABLE IF NOT EXISTS manual_corrections (
             correction_id INTEGER PRIMARY KEY AUTOINCREMENT,
             file_id INTEGER NOT NULL,
-            wrong_type TEXT,               -- What IFMOS classified it as
+            wrong_type TEXT,               -- What CogniSys classified it as
             correct_type TEXT,             -- What user corrected it to
             correction_reason TEXT,        -- Why user made this correction
             correction_timestamp TEXT DEFAULT CURRENT_TIMESTAMP,

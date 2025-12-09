@@ -156,7 +156,7 @@ def main():
     print()
 
     inbox_dir = Path(r"C:\Users\kjfle\00_Inbox")
-    db_path = Path(".ifmos/file_registry.db")
+    db_path = Path(".cognisys/file_registry.db")
 
     if not inbox_dir.exists():
         logger.error(f"Inbox directory not found: {inbox_dir}")

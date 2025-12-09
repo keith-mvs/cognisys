@@ -22,9 +22,9 @@ import json
 
 
 class DatabaseCleanup:
-    """Clean up deleted records from IFMOS database"""
+    """Clean up deleted records from CogniSys database"""
 
-    def __init__(self, db_path: str = '.ifmos/file_registry.db'):
+    def __init__(self, db_path: str = '.cognisys/file_registry.db'):
         self.db_path = Path(db_path)
         self.backup_path = None
         self.stats = {
@@ -37,7 +37,7 @@ class DatabaseCleanup:
     def create_backup(self):
         """Create database backup before cleanup"""
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        backup_dir = Path('.ifmos/backups')
+        backup_dir = Path('.cognisys/backups')
         backup_dir.mkdir(parents=True, exist_ok=True)
 
         self.backup_path = backup_dir / f'file_registry_before_cleanup_{timestamp}.db'

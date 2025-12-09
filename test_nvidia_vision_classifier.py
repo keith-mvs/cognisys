@@ -9,7 +9,7 @@ import sqlite3
 from pathlib import Path
 import sys
 
-# Add ifmos to path
+# Add cognisys to path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from cognisys.ml.vision.nvidia_vision import NVIDIAVisionClassifier
@@ -41,7 +41,7 @@ def test_nvidia_vision(sample_size=10):
         return
 
     # Get sample unknown images/PDFs
-    conn = sqlite3.connect('.ifmos/file_registry.db')
+    conn = sqlite3.connect('.cognisys/file_registry.db')
     cursor = conn.cursor()
 
     cursor.execute(f'''

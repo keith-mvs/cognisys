@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 
 
-def classify_cache_files(db_path: str = '.ifmos/file_registry.db'):
+def classify_cache_files(db_path: str = '.cognisys/file_registry.db'):
     """Classify NPM/Yarn/package manager cache files"""
 
     conn = sqlite3.connect(db_path)

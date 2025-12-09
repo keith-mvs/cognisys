@@ -13,8 +13,8 @@ import re
 from datetime import datetime
 
 def load_config():
-    """Load IFMOS configuration"""
-    with open('.ifmos/config.yml', 'r') as f:
+    """Load CogniSys configuration"""
+    with open('.cognisys/config.yml', 'r') as f:
         return yaml.safe_load(f)
 
 def apply_path_template(template: str, metadata: dict) -> str:
@@ -65,7 +65,7 @@ def test_reorganization(db_path: str, config: dict, limit: int = 100):
 
     Args:
         db_path: Path to database
-        config: IFMOS configuration
+        config: CogniSys configuration
         limit: Number of files to test
     """
     print("=" * 80)
@@ -178,7 +178,7 @@ def test_reorganization(db_path: str, config: dict, limit: int = 100):
     print()
     print("Next steps:")
     print("  1. Review target paths above")
-    print("  2. Adjust path templates in .ifmos/config.yml if needed")
+    print("  2. Adjust path templates in .cognisys/config.yml if needed")
     print("  3. Run full reorganization with execute flag")
     print()
     print("To execute reorganization:")
@@ -187,8 +187,8 @@ def test_reorganization(db_path: str, config: dict, limit: int = 100):
 
 
 def main():
-    db_path = Path('.ifmos/file_registry.db')
-    config_path = Path('.ifmos/config.yml')
+    db_path = Path('.cognisys/file_registry.db')
+    config_path = Path('.cognisys/config.yml')
 
     if not db_path.exists():
         print(f"Error: Database not found at {db_path}")

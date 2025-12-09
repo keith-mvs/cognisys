@@ -240,7 +240,7 @@ class EnsembleTrainer:
             'probabilities': y_proba
         }
 
-    def save_model(self, output_dir: str = "ifmos/models/ensemble"):
+    def save_model(self, output_dir: str = "cognisys/models/ensemble"):
         """Save trained model."""
         output_path = Path(output_dir)
         output_path.mkdir(parents=True, exist_ok=True)
@@ -301,7 +301,7 @@ def main():
     )
 
     # Load data
-    df = trainer.load_training_data('.ifmos/training_data.csv')
+    df = trainer.load_training_data('.cognisys/training_data.csv')
 
     # Prepare features
     X_train, X_test, y_train, y_test = trainer.prepare_data(df)

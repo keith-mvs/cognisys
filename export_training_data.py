@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 class TrainingDataExporter:
     """Export high-confidence classifications for ML training"""
 
-    def __init__(self, db_path: str = '.ifmos/file_registry.db'):
+    def __init__(self, db_path: str = '.cognisys/file_registry.db'):
         self.db_path = Path(db_path)
         self.stats = {
             'total_files': 0,
@@ -39,7 +39,7 @@ class TrainingDataExporter:
 
     def export(
         self,
-        output_csv: str = '.ifmos/training_data.csv',
+        output_csv: str = '.cognisys/training_data.csv',
         min_confidence: float = 0.85
     ):
         """
@@ -157,7 +157,7 @@ def main():
 
     # Export with confidence >= 0.85
     output_path = exporter.export(
-        output_csv='.ifmos/training_data.csv',
+        output_csv='.cognisys/training_data.csv',
         min_confidence=0.85
     )
 

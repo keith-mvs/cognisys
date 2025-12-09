@@ -1,9 +1,9 @@
 import sqlite3
 
-conn = sqlite3.connect('.ifmos/file_registry.db')
+conn = sqlite3.connect('.cognisys/file_registry.db')
 
 print("=" * 60)
-print("IFMOS Database Status")
+print("CogniSys Database Status")
 print("=" * 60)
 
 # Check schema first

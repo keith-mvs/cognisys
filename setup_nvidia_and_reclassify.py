@@ -139,7 +139,7 @@ def classify_file_by_extension(filepath: Path) -> tuple:
     return (None, 0.0, None)
 
 
-def reclassify_pending_files(db_path: str = '.ifmos/file_registry.db'):
+def reclassify_pending_files(db_path: str = '.cognisys/file_registry.db'):
     """Reclassify all pending files using enhanced rules"""
 
     print("\n" + "=" * 80)
@@ -228,7 +228,7 @@ def main():
     classified, unknown = reclassify_pending_files()
 
     # Final stats
-    conn = sqlite3.connect('.ifmos/file_registry.db')
+    conn = sqlite3.connect('.cognisys/file_registry.db')
     cursor = conn.cursor()
 
     cursor.execute('SELECT COUNT(*) FROM file_registry')

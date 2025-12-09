@@ -1,5 +1,5 @@
 import sqlite3
-conn = sqlite3.connect('.ifmos/file_registry.db')
+conn = sqlite3.connect('.cognisys/file_registry.db')
 cursor = conn.cursor()
 
 # Count files by classification method
@@ -23,7 +23,7 @@ print('\n')
 
 # Check for existing training data CSV
 from pathlib import Path
-csv_path = Path('.ifmos/training_data.csv')
+csv_path = Path('.cognisys/training_data.csv')
 if csv_path.exists():
     import pandas as pd
     df = pd.read_csv(csv_path)

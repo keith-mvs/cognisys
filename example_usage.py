@@ -1,5 +1,5 @@
 """
-Example usage of IFMOS programmatically (without CLI).
+Example usage of CogniSys programmatically (without CLI).
 Demonstrates how to use the core components directly in Python scripts.
 """
 
@@ -14,19 +14,19 @@ from cognisys.utils.logging_config import setup_logging
 
 
 def main():
-    """Example workflow using IFMOS programmatically."""
+    """Example workflow using CogniSys programmatically."""
 
     # Setup logging
     setup_logging(level='INFO')
 
     # Load configuration
-    with open('ifmos/config/scan_config.yml') as f:
+    with open('cognisys/config/scan_config.yml') as f:
         scan_config = yaml.safe_load(f)
 
-    with open('ifmos/config/analysis_rules.yml') as f:
+    with open('cognisys/config/analysis_rules.yml') as f:
         analysis_config = yaml.safe_load(f)
 
-    with open('ifmos/config/new_structure.yml') as f:
+    with open('cognisys/config/new_structure.yml') as f:
         structure_config = yaml.safe_load(f)
 
     # Initialize database

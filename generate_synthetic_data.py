@@ -1,5 +1,5 @@
 """
-Synthetic Training Data Generator for IFMOS
+Synthetic Training Data Generator for CogniSys
 Generates realistic document files for all 37 categories to address class imbalance.
 """
 
@@ -400,7 +400,7 @@ def main():
     """Generate synthetic training data."""
     import argparse
 
-    parser = argparse.ArgumentParser(description="Generate synthetic training data for IFMOS classifier")
+    parser = argparse.ArgumentParser(description="Generate synthetic training data for CogniSys classifier")
     parser.add_argument('--samples', type=int, default=100, help='Samples per category')
     parser.add_argument('--output-dir', default='synthetic_data', help='Output directory')
     parser.add_argument('--csv', default='synthetic_training_data.csv', help='CSV output file')

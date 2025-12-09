@@ -14,7 +14,7 @@ import json
 class UnknownPatternAnalyzer:
     """Automatically detect patterns in unknown files"""
 
-    def __init__(self, db_path: str = '.ifmos/file_registry.db'):
+    def __init__(self, db_path: str = '.cognisys/file_registry.db'):
         self.db_path = db_path
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
