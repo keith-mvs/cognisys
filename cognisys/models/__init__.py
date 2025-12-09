@@ -1,4 +1,4 @@
-"""Database models and schemas for IFMOS."""
+"""Database models and schemas for CogniSys."""
 
 from .database import Database
 

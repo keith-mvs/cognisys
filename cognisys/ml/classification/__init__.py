@@ -1,5 +1,5 @@
 """
-IFMOS ML - Classification Module
+CogniSys ML - Classification Module
 ML-powered document classification with multiple backends
 """
 

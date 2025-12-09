@@ -10,7 +10,7 @@ import json
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['DATABASE'] = '.ifmos/file_registry.db'
+app.config['DATABASE'] = '.cognisys/file_registry.db'
 
 
 def get_db():
@@ -242,7 +242,7 @@ def export_data():
 
     # Create JSON file
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    filename = f'ifmos_export_{timestamp}.json'
+    filename = f'cognisys_export_{timestamp}.json'
 
     with open(filename, 'w') as f:
         json.dump(files, f, indent=2)
@@ -253,7 +253,7 @@ def export_data():
 def main():
     """Run development server"""
     print("=" * 80)
-    print("IFMOS WEB DASHBOARD")
+    print("COGNISYS WEB DASHBOARD")
     print("=" * 80)
     print()
     print("Starting server at http://localhost:5000")

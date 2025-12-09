@@ -1,5 +1,5 @@
 """
-Migration engine for IFMOS.
+Migration engine for CogniSys.
 Plans and executes file reorganization with safety checks and rollback support.
 """
 

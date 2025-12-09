@@ -1,0 +1,191 @@
+# CogniSys Source Library Configuration
+# =====================================
+# Define all file sources to scan and sync across machines, devices, and cloud storage.
+#
+# Source Types:
+#   - local: Local filesystem path
+#   - network: Network share (SMB/NFS)
+#   - cloud_mounted: Cloud storage mounted locally (OneDrive sync folder, Google Drive)
+#   - cloud_api: Cloud storage via native API (requires authentication)
+#
+# Scan Modes:
+#   - watch: Real-time file watching (requires daemon)
+#   - scheduled: Run on cron schedule
+#   - manual: Only scan when explicitly requested
+#
+# Priority: Higher values preferred when resolving duplicates (0-100)
+
+sources:
+  # ==========================================================================
+  # LOCAL SOURCES
+  # ==========================================================================
+
+  # Example: Local Downloads folder
+  # desktop_downloads:
+  #   type: local
+  #   path: "C:\\Users\\kjfle\\Downloads"
+  #   scan_mode: watch
+  #   priority: 50
+  #   description: "Desktop Downloads folder"
+  #   include_patterns:
+  #     - "*.pdf"
+  #     - "*.docx"
+  #     - "*.xlsx"
+  #   exclude_patterns:
+  #     - "*.tmp"
+  #     - "*.crdownload"
+
+  # Example: Documents folder
+  # desktop_documents:
+  #   type: local
+  #   path: "C:\\Users\\kjfle\\Documents"
+  #   scan_mode: scheduled
+  #   schedule: "0 */4 * * *"  # Every 4 hours
+  #   priority: 60
+  #   description: "Desktop Documents folder"
+  #   exclude_dirs:
+  #     - ".git"
+  #     - "node_modules"
+  #     - "__pycache__"
+
+  # ==========================================================================
+  # NETWORK SOURCES
+  # ==========================================================================
+
+  # Example: NAS Archive
+  # nas_archive:
+  #   type: network
+  #   path: "\\\\NAS\\archive"
+  #   scan_mode: manual
+  #   priority: 30
+  #   description: "NAS archive storage"
+  #   credentials: nas_creds  # Reference to credential in keyring
+
+  # Example: Server share
+  # server_projects:
+  #   type: network
+  #   path: "\\\\SERVER\\projects"
+  #   scan_mode: scheduled
+  #   schedule: "0 2 * * *"  # Daily at 2 AM
+  #   priority: 40
+
+  # ==========================================================================
+  # CLOUD SOURCES (Mounted Folders)
+  # ==========================================================================
+
+  # OneDrive (auto-detected path)
+  onedrive_main:
+    type: cloud_mounted
+    provider: onedrive
+    auto_detect: true  # Auto-detect OneDrive folder location
+    # path: "C:\\Users\\kjfle\\OneDrive"  # Or specify manually
+    scan_mode: watch
+    priority: 80
+    on_demand_behavior: skip  # skip, download, warn
+    description: "OneDrive Personal - Main folder"
+    exclude_dirs:
+      - ".849C9593-D756-4E56-8D6E-42412F2A707B"  # OneDrive system folder
+
+  # Google Drive (mounted as drive letter)
+  # googledrive_main:
+  #   type: cloud_mounted
+  #   provider: googledrive
+  #   auto_detect: true
+  #   # path: "G:\\My Drive"
+  #   scan_mode: watch
+  #   priority: 75
+  #   description: "Google Drive - My Drive"
+
+  # iCloud Drive
+  # icloud_main:
+  #   type: cloud_mounted
+  #   provider: icloud
+  #   auto_detect: true
+  #   # path: "C:\\Users\\kjfle\\iCloudDrive"
+  #   scan_mode: scheduled
+  #   schedule: "0 */6 * * *"  # Every 6 hours
+  #   priority: 70
+  #   description: "iCloud Drive"
+
+  # ==========================================================================
+  # CLOUD SOURCES (API Access)
+  # ==========================================================================
+  # These require authentication via `cognisys cloud auth --provider <name>`
+
+  # OneDrive API - for specific folders or headless access
+  # onedrive_api_photos:
+  #   type: cloud_api
+  #   provider: onedrive
+  #   remote_path: "/Pictures/Camera Roll"
+  #   scan_mode: scheduled
+  #   schedule: "0 3 * * *"  # Daily at 3 AM
+  #   priority: 70
+  #   description: "OneDrive Photos via API"
+  #   sync_direction: pull  # pull, push, bidirectional
+
+  # Google Drive API
+  # googledrive_api_work:
+  #   type: cloud_api
+  #   provider: googledrive
+  #   remote_path: "/Work Projects"
+  #   scan_mode: scheduled
+  #   schedule: "0 4 * * *"  # Daily at 4 AM
+  #   priority: 65
+  #   description: "Google Drive work folder via API"
+  #   sync_direction: bidirectional
+
+# ==========================================================================
+# CANONICAL OUTPUT DESTINATION
+# ==========================================================================
+# Where organized files are stored (single source of truth)
+
+canonical:
+  type: local
+  path: "C:\\Users\\kjfle\\Documents\\Organized_Canonical"
+  # OR use cloud storage:
+  # type: cloud_api
+  # provider: onedrive
+  # remote_path: "/Organized"
+
+# ==========================================================================
+# GLOBAL SETTINGS
+# ==========================================================================
+
+settings:
+  # Default exclusions applied to all sources
+  global_exclude_dirs:
+    - ".git"
+    - ".svn"
+    - ".hg"
+    - "__pycache__"
+    - "node_modules"
+    - ".venv"
+    - "venv"
+    - ".cognisys"
+    - ".ifmos"
+    - "site-packages"
+
+  global_exclude_files:
+    - ".DS_Store"
+    - "Thumbs.db"
+    - "desktop.ini"
+    - "*.tmp"
+    - "*.temp"
+    - "~$*"  # Office temp files
+
+  # Minimum file size to process (bytes)
+  min_file_size: 100
+
+  # Maximum file size to process (0 = no limit)
+  max_file_size: 0
+
+  # Duplicate resolution: use source with highest priority
+  duplicate_resolution: priority
+
+  # Sync settings
+  sync:
+    default_direction: bidirectional
+    conflict_resolution: keep_newest  # keep_newest, keep_largest, keep_local, keep_cloud, ask
+    max_concurrent_transfers: 4
+    retry_attempts: 3
+    retry_delay_seconds: 5

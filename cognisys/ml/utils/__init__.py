@@ -1,5 +1,5 @@
 """
-IFMOS ML - Utilities Module
+CogniSys ML - Utilities Module
 Content extraction, text processing, and helper functions
 """
 

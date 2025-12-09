@@ -1,5 +1,5 @@
 """
-Content Extraction Layer for IFMOS
+Content Extraction Layer for CogniSys
 
 Extracts text content from various file formats to enable content-based classification.
 Supports PDFs, Word documents, Excel spreadsheets, images (OCR), and text files.

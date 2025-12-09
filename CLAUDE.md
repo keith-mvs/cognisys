@@ -11,11 +11,17 @@ CogniSys (formerly IFMOS - Intelligent File Management and Organization System) 
 ```bash
 # Install
 pip install -e .
+pip install msal keyring cryptography  # For cloud support
 
 # Basic workflow
 cognisys scan --roots <path>
 cognisys analyze --session <session-id>
 cognisys report --session <session-id> --format html
+
+# Cloud integration
+cognisys cloud detect                    # Find mounted cloud folders
+cognisys source list                     # List configured sources
+cognisys cloud auth --provider onedrive  # Authenticate (requires client ID)
 
 # See README.md for full command reference
 ```
@@ -25,8 +31,19 @@ cognisys report --session <session-id> --format html
 ### Core Components
 ```
 CLI (cli.py)
+  ├─ Storage Layer (storage/)
+  │     ├─ interfaces.py              - FileSource/FileDestination ABCs
+  │     ├─ local.py                   - LocalFileSource implementation
+  │     └─ onedrive.py                - OneDriveSource (Microsoft Graph API)
+  ├─ Cloud Integration (cloud/)
+  │     ├─ detection.py               - Auto-detect mounted cloud folders
+  │     ├─ sync.py                    - Two-way SyncManager
+  │     └─ auth/                      - OAuth authentication
+  │           ├─ token_storage.py     - Encrypted token storage (keyring)
+  │           └─ onedrive_auth.py     - OneDrive OAuth via MSAL
   ├─ FileScanner (core/scanner.py)    - Multi-threaded file traversal & indexing
   ├─ Analyzer (core/analyzer.py)      - 4-stage deduplication pipeline
+  ├─ ML Classifier (ml/)              - DistilBERT document classification
   ├─ Reporter (core/reporter.py)      - HTML/JSON/CSV report generation
   └─ Migrator (core/migrator.py)      - Safe file reorganization with rollback
 ```
@@ -45,6 +62,9 @@ scan_roots() → Session ID
 ### Database Schema (SQLite)
 - **files**: File metadata, hashes (quick + full), categorization
 - **folders**: Hierarchy and statistics
+- **sources**: Configured source library (local, network, cloud)
+- **cloud_providers**: Authenticated cloud provider credentials
+- **scan_history**: Per-source scan tracking
 - **duplicate_groups**: Canonical file selection
 - **duplicate_members**: Priority scoring
 - **scan_sessions**: Session metadata
@@ -93,16 +113,36 @@ Highest score becomes canonical.
 
 ### Entry Point
 - `cognisys/cli.py`: Click-based CLI with all commands
+- `cognisys/commands/source.py`: Source management commands
+- `cognisys/commands/cloud.py`: Cloud integration commands
 - Defined in `setup.py`: `cognisys=cognisys.cli:main`
 
-### Core Engines (~1500 lines)
-- `core/scanner.py` (285 lines): ThreadPoolExecutor-based scanning
-- `core/analyzer.py` (322 lines): Multi-stage deduplication
-- `core/reporter.py` (398 lines): Report generation
-- `core/migrator.py` (499 lines): Planning and execution
+### Storage Layer
+- `storage/interfaces.py`: FileSource, FileDestination, SyncableSource ABCs
+- `storage/local.py`: LocalFileSource for filesystem operations
+- `storage/onedrive.py`: OneDriveSource with Microsoft Graph API
+
+### Cloud Integration
+- `cloud/detection.py`: CloudFolderDetector for OneDrive, Google Drive, iCloud, Proton
+- `cloud/ondemand.py`: Windows Files On-Demand handling
+- `cloud/sync.py`: SyncManager for bidirectional cloud sync
+- `cloud/auth/token_storage.py`: Secure token storage (keyring + Fernet)
+- `cloud/auth/onedrive_auth.py`: OneDrive OAuth via MSAL
+
+### Core Engines
+- `core/scanner.py`: ThreadPoolExecutor-based scanning
+- `core/analyzer.py`: Multi-stage deduplication
+- `core/reporter.py`: Report generation
+- `core/migrator.py`: Planning and execution
+
+### ML Classification
+- `ml/classifier.py`: DistilBERT-based document classifier
+- `ml/training/`: Model training scripts
+- Models stored in `~/.cognisys/models/`
 
 ### Data Layer
-- `models/database.py` (395 lines): SQLite schema and CRUD operations
+- `models/database.py`: SQLite schema and CRUD operations
+- `models/migrations/`: Database migrations
 
 ### Utilities
 - `utils/hashing.py`: Hash calculation functions
@@ -155,8 +195,8 @@ Highest score becomes canonical.
 - Single-machine only (no distributed scanning)
 - Batch-oriented (no real-time monitoring)
 - Memory scaling: Large file systems (>100k files) may need tuning
-- No tests implemented yet
 - CLI-only (no web UI)
+- OneDrive API requires Azure AD app registration
 
 ## Testing
 
@@ -168,13 +208,22 @@ tests/
   fixtures/     - Sample files and configs
 ```
 
-Key areas: Progressive hashing, canonical selection, rollback recovery, config validation.
+Key areas: Progressive hashing, canonical selection, rollback recovery, config validation, cloud sync.
+
+## Recent Enhancements (Dec 2024)
+
+- **Cloud Storage Integration**: OneDrive, Google Drive, iCloud, Proton Drive detection
+- **Multi-Source Library**: Configure sources across local, network, and cloud storage
+- **OneDrive Native API**: Direct integration via Microsoft Graph API
+- **Two-Way Sync**: Pull from cloud, classify, push organized files back
+- **ML Classification**: DistilBERT v2 with 96.7% accuracy on 77k+ files
+- **Secure Auth**: OAuth 2.0 with encrypted token storage
 
 ## Future Enhancements
 
 See README.md for planned features:
 - Web dashboard
-- Cloud storage integration
-- ML-based classification
+- Google Drive native API support
+- Additional cloud providers (S3, Azure Blob)
 - Distributed scanning
 - Real-time monitoring

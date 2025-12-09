@@ -1,5 +1,5 @@
 """
-ML Classifier Engine for IFMOS.
+ML Classifier Engine for CogniSys.
 Provides content-based document classification using trained ML models.
 """
 
@@ -24,7 +24,7 @@ logger = get_logger(__name__)
 
 class MLClassifier:
     """
-    ML-based document classifier for IFMOS files.
+    ML-based document classifier for CogniSys files.
     Supports multiple classifier backends and batch processing.
     """
 

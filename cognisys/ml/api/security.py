@@ -1,5 +1,5 @@
 """
-Security Middleware for IFMOS ML API
+Security Middleware for CogniSys ML API
 Implements rate limiting and CORS controls
 """
 

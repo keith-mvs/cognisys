@@ -1,4 +1,4 @@
-"""NVIDIA Vision integration for IFMOS"""
+"""NVIDIA Vision integration for CogniSys"""
 
 from .nvidia_vision import NVIDIAVisionClassifier
 

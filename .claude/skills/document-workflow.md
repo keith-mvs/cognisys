@@ -1,4 +1,4 @@
-# IFMOS Document Workflow Skill
+# CogniSys Document Workflow Skill
 
 ## Purpose
 Automate the complete document processing workflow: scan, extract, classify, organize, and track.
@@ -6,12 +6,12 @@ Automate the complete document processing workflow: scan, extract, classify, org
 ## Workflow Steps
 
 ### 1. Initial Assessment
-- Check if the document exists in the IFMOS database
-- Query for similar documents using `ifmos_query_documents`
+- Check if the document exists in the CogniSys database
+- Query for similar documents using `cognisys_query_documents`
 - Review past classifications of similar files
 
 ### 2. Content Extraction
-- Use `ifmos_classify_document` to process the file
+- Use `cognisys_classify_document` to process the file
 - Extract text content, metadata, and entities
 - Determine document structure (pages, sections, tables)
 
@@ -26,7 +26,7 @@ Automate the complete document processing workflow: scan, extract, classify, org
 - Ask if classification is correct
 
 ### 5. Feedback Loop
-- If classification is incorrect, use `ifmos_submit_feedback`
+- If classification is incorrect, use `cognisys_submit_feedback`
 - Store feedback for model retraining
 - Update document metadata
 
@@ -41,7 +41,7 @@ Automate the complete document processing workflow: scan, extract, classify, org
 ```
 User: Process this invoice document
 Assistant:
-1. Checking IFMOS database for existing classification...
+1. Checking CogniSys database for existing classification...
 2. Classifying via ML pipeline...
 3. Result: financial_invoice (confidence: 85%)
 4. Extracted entities: Invoice #12345, $1,250.00, Due: 2025-01-15
@@ -53,11 +53,11 @@ Assistant:
 ```
 
 ## Available Tools
-- `ifmos_query_documents` - Search existing documents
-- `ifmos_classify_document` - Run ML classification
-- `ifmos_submit_feedback` - Correct classifications
-- `ifmos_get_categories` - List all document types
-- `ifmos_get_classification_stats` - View statistics
+- `cognisys_query_documents` - Search existing documents
+- `cognisys_classify_document` - Run ML classification
+- `cognisys_submit_feedback` - Correct classifications
+- `cognisys_get_categories` - List all document types
+- `cognisys_get_classification_stats` - View statistics
 
 ## Best Practices
 - Always verify high-value documents (financial, legal)

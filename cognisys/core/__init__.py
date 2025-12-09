@@ -1,4 +1,4 @@
-"""Core engines for IFMOS."""
+"""Core engines for CogniSys."""
 
 from .scanner import FileScanner
 from .analyzer import Analyzer

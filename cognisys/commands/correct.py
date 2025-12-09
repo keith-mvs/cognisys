@@ -1,5 +1,5 @@
 """
-IFMOS Correct Command
+CogniSys Correct Command
 Log manual corrections for accuracy tracking and ML model improvement
 """
 

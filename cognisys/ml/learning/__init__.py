@@ -1,5 +1,5 @@
 """
-IFMOS ML - Learning Module
+CogniSys ML - Learning Module
 Continuous learning system with training database and feedback loops
 """
 

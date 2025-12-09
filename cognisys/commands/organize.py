@@ -1,5 +1,5 @@
 """
-IFMOS Organize Command
+CogniSys Organize Command
 Moves classified files to their canonical locations based on domain mapping
 """
 
@@ -153,7 +153,7 @@ def organize_classified_files(db_path, config, dry_run=False):
         'errors': 0
     }
 
-    canonical_root = Path(config['ifmos']['canonical_root'])
+    canonical_root = Path(config['cognisys']['canonical_root'])
     domain_mapping = config.get('domain_mapping', {})
     template_defaults = config.get('template_defaults', {})
 

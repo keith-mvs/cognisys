@@ -1,22 +1,25 @@
-# IFMOS Quick Start Guide
+# CogniSys Quick Start Guide
 
-Get started with IFMOS in 5 minutes!
+Get started with CogniSys in 5 minutes!
 
 ## Installation
 
 ```bash
 # Clone and navigate to project directory
-git clone https://github.com/FleithFeming/IFMOS.git
-cd IFMOS
+git clone https://github.com/FleithFeming/cognisys-core.git
+cd cognisys-core
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Install IFMOS in development mode
+# Install CogniSys in development mode
 pip install -e .
 
+# Install cloud storage support (optional)
+pip install msal keyring cryptography
+
 # Verify installation
-ifmos --help
+cognisys --help
 ```
 
 ## Your First Workflow
@@ -25,10 +28,10 @@ ifmos --help
 
 ```bash
 # Scan your Downloads folder
-ifmos scan --roots "C:\Users\YourName\Downloads"
+cognisys scan --roots "C:\Users\YourName\Downloads"
 
 # Or scan multiple directories
-ifmos scan --roots "C:\Users\YourName\Documents" --roots "C:\Users\YourName\Downloads"
+cognisys scan --roots "C:\Users\YourName\Documents" --roots "C:\Users\YourName\Downloads"
 ```
 
 **Output:** You'll get a session ID like `20251120-143022-a8f3`
@@ -37,7 +40,7 @@ ifmos scan --roots "C:\Users\YourName\Documents" --roots "C:\Users\YourName\Down
 
 ```bash
 # Replace SESSION_ID with your actual session ID
-ifmos analyze --session SESSION_ID
+cognisys analyze --session SESSION_ID
 ```
 
 **Output:** Shows how many duplicate groups and wasted space found
@@ -46,7 +49,7 @@ ifmos analyze --session SESSION_ID
 
 ```bash
 # Generate HTML, JSON, and CSV reports
-ifmos report --session SESSION_ID --format html --format json --format csv
+cognisys report --session SESSION_ID --format html --format json --format csv
 
 # Open the HTML report in your browser
 # reports/SESSION_ID_report.html
@@ -65,33 +68,80 @@ Open `reports/SESSION_ID_report.html` in your browser to see:
 If you want to reorganize files:
 
 ```bash
-# Edit ifmos/config/new_structure.yml first to define your target structure
+# Edit cognisys/config/new_structure.yml first to define your target structure
 # Then create the plan
-ifmos plan --session SESSION_ID --structure ifmos/config/new_structure.yml
+cognisys plan --session SESSION_ID --structure cognisys/config/new_structure.yml
 ```
 
 ### Step 6: Preview Changes
 
 ```bash
 # Dry run to see what would happen (no actual changes)
-ifmos dry-run --plan PLAN_ID
+cognisys dry-run --plan PLAN_ID
 ```
 
 ### Step 7: Execute (If Satisfied)
 
 ```bash
 # Approve the plan
-ifmos approve --plan PLAN_ID
+cognisys approve --plan PLAN_ID
 
 # Execute migration
-ifmos execute --plan PLAN_ID
+cognisys execute --plan PLAN_ID
+```
+
+## Cloud Storage Quick Start (Optional)
+
+CogniSys can scan and organize files from cloud storage providers.
+
+### Detect Mounted Cloud Folders
+
+```bash
+# Auto-detect OneDrive, Google Drive, iCloud folders
+cognisys cloud detect
+
+# Add detected folders as sources
+cognisys cloud detect --add
+```
+
+### Authenticate with OneDrive API
+
+```bash
+# For direct API access (headless/server environments)
+cognisys cloud auth --provider onedrive --client-id YOUR_CLIENT_ID
+
+# Check connection status
+cognisys cloud status
+```
+
+### Scan Cloud Sources
+
+```bash
+# Scan a specific cloud source
+cognisys scan --source onedrive_mounted
+
+# Scan all configured sources
+cognisys scan --all
+```
+
+### Sync Files with Cloud
+
+```bash
+# Pull files from cloud
+cognisys cloud sync onedrive_docs --direction pull
+
+# Push organized files back
+cognisys cloud sync onedrive_docs --direction push
+
+# Preview without making changes
+cognisys cloud sync onedrive_docs --dry-run
 ```
 
 ## Configuration Tips
 
 ### Customize What Gets Scanned
 
-Edit `ifmos/config/scan_config.yml`:
+Edit `cognisys/config/scan_config.yml`:
 
 ```yaml
 scanning:
@@ -110,7 +160,7 @@ scanning:
 
 ### Customize Duplicate Detection
 
-Edit `ifmos/config/analysis_rules.yml`:
+Edit `cognisys/config/analysis_rules.yml`:
 
 ```yaml
 deduplication:
@@ -124,7 +174,7 @@ deduplication:
 
 ### Customize Target Structure
 
-Edit `ifmos/config/new_structure.yml`:
+Edit `cognisys/config/new_structure.yml`:
 
 ```yaml
 repository_root: "C:\\MyOrganizedFiles"
@@ -139,27 +189,27 @@ classification:
 
 ```bash
 # List all scan sessions
-ifmos list-sessions
+cognisys list-sessions
 
 # Get help for any command
-ifmos scan --help
-ifmos analyze --help
+cognisys scan --help
+cognisys analyze --help
 
 # Specify custom database location
-ifmos scan --roots "C:\Path" --db "custom/path/db.sqlite"
+cognisys scan --roots "C:\Path" --db "custom/path/db.sqlite"
 ```
 
 ## Programmatic Usage
 
-Use IFMOS in your Python scripts:
+Use CogniSys in your Python scripts:
 
 ```python
-from ifmos.models.database import Database
-from ifmos.core.scanner import FileScanner
+from cognisys.models.database import Database
+from cognisys.core.scanner import FileScanner
 import yaml
 
 # Load config
-with open('ifmos/config/scan_config.yml') as f:
+with open('cognisys/config/scan_config.yml') as f:
     config = yaml.safe_load(f)
 
 # Scan
@@ -210,7 +260,7 @@ performance:
 
 - Read [README.md](README.md) for detailed documentation
 - Review [ARCHITECTURE.md](ARCHITECTURE.md) for system design
-- Customize configurations in `ifmos/config/`
+- Customize configurations in `cognisys/config/`
 - Check logs in `logs/` directory if issues occur
 
 ## Support

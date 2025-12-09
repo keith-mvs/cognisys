@@ -15,6 +15,7 @@ from .core.structure_generator import StructureProposalGenerator
 from .core.migrator import MigrationPlanner, MigrationExecutor
 from .core.classifier import MLClassifier
 from .utils.logging_config import setup_logging, get_logger
+from .commands.source import source, cloud
 
 logger = get_logger(__name__)
 
@@ -483,6 +484,11 @@ def classify_file(file_path, model, cascade):
             click.echo(f"\n  Model used: {pred['model_used']}")
     else:
         click.echo(f"[ERROR] Classification failed: {pred.get('error', 'Unknown error')}", err=True)
+
+
+# Register command groups
+cli.add_command(source)
+cli.add_command(cloud)
 
 
 def main():

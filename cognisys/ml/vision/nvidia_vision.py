@@ -1,5 +1,5 @@
 """
-NVIDIA Vision Integration for IFMOS
+NVIDIA Vision Integration for CogniSys
 Uses NVIDIA NIM APIs for image-to-text and content understanding
 """
 

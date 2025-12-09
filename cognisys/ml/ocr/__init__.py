@@ -1,5 +1,5 @@
 """
-IFMOS ML - OCR Module
+CogniSys ML - OCR Module
 GPU-accelerated OCR for document processing
 """
 

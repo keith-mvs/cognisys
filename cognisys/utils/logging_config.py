@@ -32,7 +32,7 @@ def setup_logging(log_dir: str = "logs", level: str = "INFO") -> None:
     )
 
     # File handler with rotation
-    log_file = log_path / f"ifmos_{datetime.now().strftime('%Y%m%d')}.log"
+    log_file = log_path / f"cognisys_{datetime.now().strftime('%Y%m%d')}.log"
     file_handler = RotatingFileHandler(
         log_file,
         maxBytes=10_485_760,  # 10MB

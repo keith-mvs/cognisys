@@ -1,39 +1,201 @@
-# IFMOS Architecture Documentation
-## Intelligent File Management and Organization System
+# CogniSys Architecture Documentation
+## Cognitive File Organization System
 
-**Last Updated**: 2025-11-30
-**Version**: 0.2.0 (NVIDIA AI Integration)
+**Last Updated**: 2025-12-08
+**Version**: 0.3.0 (Cloud Storage Integration)
 
 ---
 
 ## Table of Contents
 
 1. [System Overview](#system-overview)
-2. [Current ML Classification System](#current-ml-classification-system)
-3. [NVIDIA AI Integration (Planned)](#nvidia-ai-integration-planned)
-4. [PyTorch Fallback System](#pytorch-fallback-system)
-5. [Data Flow Architecture](#data-flow-architecture)
-6. [File Organization Structure](#file-organization-structure)
-7. [Rollback & Version Control](#rollback--version-control)
-8. [Performance Benchmarks](#performance-benchmarks)
+2. [Storage Layer & Cloud Integration](#storage-layer--cloud-integration)
+3. [Current ML Classification System](#current-ml-classification-system)
+4. [NVIDIA AI Integration (Planned)](#nvidia-ai-integration-planned)
+5. [PyTorch Fallback System](#pytorch-fallback-system)
+6. [Data Flow Architecture](#data-flow-architecture)
+7. [File Organization Structure](#file-organization-structure)
+8. [Rollback & Version Control](#rollback--version-control)
+9. [Performance Benchmarks](#performance-benchmarks)
 
 ---
 
 ## System Overview
 
-IFMOS is a multi-tiered intelligent file management system that:
+CogniSys is a multi-tiered intelligent file management system that:
 - **Scans** large file repositories (100k+ files)
 - **Classifies** files by content and type (54+ document categories)
 - **Organizes** files into structured hierarchies
 - **Deduplicates** to save storage space
 - **Tracks** file history and transformations
 
-### Current State (v0.2.0)
+### Current State (v0.3.0 - Cloud Storage Integration)
 - **104,863 files** indexed
 - **54 document types** recognized
 - **99.49% space efficiency** (27.35 GB duplicates removed)
 - **1.07% unknown rate** (EXCELLENT benchmark)
 - **2 rollback versions** maintained (18.41 GB each)
+- **Multi-source library** architecture for cloud and local storage
+
+---
+
+## Storage Layer & Cloud Integration
+
+### Multi-Source Library Architecture
+
+CogniSys v0.3.0 introduces a unified storage layer that treats all file sources (local, network, cloud) through a common abstraction:
+
+```
++------------------------------------------------------------------+
+|                      CogniSys Source Library                      |
++------------------------------------------------------------------+
+|                                                                    |
+|  LOCAL SOURCES              CLOUD SOURCES (Mounted)               |
+|  +----------------+         +----------------+                    |
+|  | Downloads      |         | OneDrive       |                    |
+|  | Documents      |         | Google Drive   |                    |
+|  | Projects       |         | iCloud         |                    |
+|  +----------------+         +----------------+                    |
+|                                                                    |
+|  CLOUD SOURCES (API)        NETWORK SOURCES                       |
+|  +----------------+         +----------------+                    |
+|  | OneDrive API   |         | NAS/SMB        |                    |
+|  | (MS Graph)     |         | Network Share  |                    |
+|  +----------------+         +----------------+                    |
+|                                                                    |
++------------------------------------------------------------------+
+                              |
+                              v
+                   +--------------------+
+                   |  Unified Registry  |
+                   |  (file_registry.db)|
+                   +--------------------+
+```
+
+### Storage Layer Abstractions
+
+Located in `cognisys/storage/`:
+
+```python
+# interfaces.py - Abstract base classes
+class FileSource(ABC):
+    """Read-only file source abstraction."""
+    def walk(self, root: str) -> Iterator[Tuple[str, List[str], List[str]]]
+    def read_stream(self, path: str) -> BinaryIO
+    def get_metadata(self, path: str) -> FileMetadata
+    def exists(self, path: str) -> bool
+
+class FileDestination(ABC):
+    """Writable file destination."""
+    def write_stream(self, path: str, stream: BinaryIO) -> bool
+    def mkdir(self, path: str) -> bool
+    def move(self, source: str, dest: str) -> bool
+    def copy(self, source: str, dest: str) -> bool
+
+class SyncableSource(FileSource, FileDestination):
+    """Source that supports two-way sync."""
+    def get_changes_since(self, timestamp: datetime) -> List[ChangeRecord]
+    def get_delta_link(self) -> str
+```
+
+### Implementations
+
+| Class | Location | Description |
+|-------|----------|-------------|
+| `LocalFileSource` | `storage/local.py` | Standard filesystem operations |
+| `OneDriveSource` | `storage/onedrive.py` | Microsoft Graph API integration |
+
+### Cloud Integration Components
+
+Located in `cognisys/cloud/`:
+
+| Module | Purpose |
+|--------|---------|
+| `detection.py` | Auto-detect mounted OneDrive, Google Drive, iCloud, Proton Drive |
+| `sync.py` | Two-way `SyncManager` for pull/push operations |
+| `auth/onedrive_auth.py` | Microsoft Graph OAuth 2.0 with PKCE |
+| `auth/token_storage.py` | Secure token storage (keyring + Fernet encryption) |
+
+### OneDrive Integration
+
+**Authentication Flow:**
+```
+User                    CogniSys                  Microsoft
+  |                         |                         |
+  |-- cognisys cloud auth -->                         |
+  |                         |-- OAuth request ------->|
+  |                         |                         |
+  |<-- Browser opens -------|                         |
+  |-- User consents ------------------------------->|
+  |                         |<-- Auth code ----------|
+  |                         |-- Token exchange ----->|
+  |                         |<-- Access + Refresh ---|
+  |                         |                         |
+  |                    [Tokens stored in keyring]     |
+```
+
+**Supported Scopes:**
+- `Files.Read` / `Files.ReadWrite` - File access
+- `offline_access` - Refresh tokens for background sync
+
+### Database Schema (Cloud Extensions)
+
+```sql
+-- Source library configuration
+CREATE TABLE sources (
+    source_id TEXT PRIMARY KEY,
+    source_name TEXT NOT NULL UNIQUE,
+    source_type TEXT NOT NULL,      -- 'local', 'network', 'cloud_mounted', 'cloud_api'
+    provider TEXT,                  -- 'onedrive', 'googledrive', 'icloud'
+    path TEXT NOT NULL,
+    scan_mode TEXT DEFAULT 'manual',
+    priority INTEGER DEFAULT 50,
+    is_active BOOLEAN DEFAULT 1,
+    last_scan_at DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Cloud provider credentials
+CREATE TABLE cloud_providers (
+    provider_id TEXT PRIMARY KEY,
+    provider_type TEXT NOT NULL,
+    account_name TEXT,
+    account_email TEXT,
+    last_auth_at DATETIME,
+    is_active BOOLEAN DEFAULT 1
+);
+
+-- Scan history per source
+CREATE TABLE scan_history (
+    scan_id TEXT PRIMARY KEY,
+    source_id TEXT NOT NULL,
+    started_at DATETIME NOT NULL,
+    completed_at DATETIME,
+    files_scanned INTEGER DEFAULT 0,
+    status TEXT,
+    FOREIGN KEY (source_id) REFERENCES sources(source_id)
+);
+```
+
+### CLI Commands
+
+**Source Management:**
+```bash
+cognisys source list                    # List configured sources
+cognisys source add <name> --type local --path "C:\..."
+cognisys source add <name> --type cloud_api --provider onedrive --path /Documents
+cognisys source status                  # Show scan status
+```
+
+**Cloud Operations:**
+```bash
+cognisys cloud detect                   # Find mounted cloud folders
+cognisys cloud detect --add             # Add as sources
+cognisys cloud auth --provider onedrive --client-id <id>
+cognisys cloud status                   # Connection status
+cognisys cloud sync <source> --direction pull|push|bidirectional
+cognisys cloud logout                   # Clear credentials
+```
 
 ---
 
@@ -259,7 +421,7 @@ similar_docs = find_by_cosine_similarity(embedding, all_docs)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     IFMOS FILE INGESTION                     │
+│                    COGNISYS FILE INGESTION                    │
 │  (Scan directories, index files, extract metadata)          │
 └──────────────────────┬──────────────────────────────────────┘
                        │
@@ -577,7 +739,7 @@ model = DistilBertForSequenceClassification.from_pretrained(
 
 # Training configuration
 training_args = TrainingArguments(
-    output_dir='./ifmos_distilbert',
+    output_dir='./cognisys_distilbert',
     num_train_epochs=3,           # Train for 3 passes through data
     per_device_train_batch_size=16,  # 16 documents at a time
     learning_rate=2e-5,            # Small learning rate (fine-tuning)
@@ -900,7 +1062,7 @@ Organized/
 
 ### Path Templates
 
-Defined in `ifmos/config/new_structure.yml`:
+Defined in `cognisys/config/new_structure.yml`:
 
 ```yaml
 classification:
@@ -940,11 +1102,11 @@ classification:
 2. **ML training**: Track file history and evolution
 3. **Audit trail**: Understand how files changed over time
 
-**Location**: `.ifmos/rollbacks/v01/`, `v02/`, etc.
+**Location**: `.cognisys/rollbacks/v01/`, `v02/`, etc.
 
 **Structure**:
 ```
-.ifmos/rollbacks/
+.cognisys/rollbacks/
 ├── v01/                        # First snapshot (2024-11-30)
 │   ├── files_flat/             # All 54,357 files flattened
 │   │   ├── invoice_12345.pdf
@@ -1007,7 +1169,7 @@ python restore_from_rollback.py --version v01 --target ~/00_Inbox/
 ```
 
 **What it does**:
-1. Reads `manifest.json` from `.ifmos/rollbacks/v01/`
+1. Reads `manifest.json` from `.cognisys/rollbacks/v01/`
 2. For each file in `files_flat/`:
    - Looks up `original_path` in manifest
    - Copies file to original location
@@ -1092,6 +1254,6 @@ python restore_from_rollback.py \
 
 **Questions?** See CLAUDE.md for project-specific details or README.md for usage instructions.
 
-**Version**: 0.2.0
-**Last Updated**: 2025-11-30
+**Version**: 0.3.0
+**Last Updated**: 2025-12-08
 **Author**: Claude Code + User Collaboration

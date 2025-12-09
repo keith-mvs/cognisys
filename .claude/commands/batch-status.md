@@ -1,4 +1,4 @@
-Check the status of the current IFMOS batch processing job.
+Check the status of the current CogniSys batch processing job.
 
 Steps:
 1. Check for running PowerShell batch processes

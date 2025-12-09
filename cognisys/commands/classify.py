@@ -121,9 +121,9 @@ def classify_pending_files(db_path, config, dry_run=False):
 
     # Load ML model
     model, vectorizer, label_mappings = load_ml_model(
-        config['ifmos']['ml_model_path'],
-        config['ifmos']['tfidf_vectorizer_path'],
-        config['ifmos']['label_mappings_path']
+        config['cognisys']['ml_model_path'],
+        config['cognisys']['tfidf_vectorizer_path'],
+        config['cognisys']['label_mappings_path']
     )
 
     if model is None:
@@ -156,7 +156,7 @@ def classify_pending_files(db_path, config, dry_run=False):
         'errors': 0
     }
 
-    confidence_threshold = config['ifmos'].get('confidence_threshold', 0.70)
+    confidence_threshold = config['cognisys'].get('confidence_threshold', 0.70)
 
     for file_id, original_path, canonical_path in pending_files:
         stats['processed'] += 1

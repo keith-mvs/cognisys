@@ -1,5 +1,5 @@
 """
-Reporting engine for IFMOS.
+Reporting engine for CogniSys.
 Generates comprehensive reports with statistics, visualizations, and insights.
 """
 

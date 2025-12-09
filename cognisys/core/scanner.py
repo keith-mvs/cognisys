@@ -1,5 +1,5 @@
 """
-File scanning engine for IFMOS.
+File scanning engine for CogniSys.
 Traverses directories, extracts metadata, and indexes files with multi-threading support.
 """
 

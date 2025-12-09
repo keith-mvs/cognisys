@@ -1,5 +1,5 @@
 """
-IFMOS File Organizer
+CogniSys File Organizer
 Automatically organizes classified documents based on domain mapping
 """
 
@@ -25,7 +25,7 @@ class FileOrganizer:
 
         Args:
             config_path: Path to domain_mapping.yml
-            db_path: Path to IFMOS database
+            db_path: Path to CogniSys database
         """
         self.config_path = Path(config_path)
         self.db_path = Path(db_path)
@@ -465,9 +465,9 @@ def main():
     import sys
     import argparse
 
-    parser = argparse.ArgumentParser(description='IFMOS File Organizer')
-    parser.add_argument('--config', default='ifmos/config/domain_mapping.yml')
-    parser.add_argument('--db', default='ifmos/data/training/ifmos_ml.db')
+    parser = argparse.ArgumentParser(description='CogniSys File Organizer')
+    parser.add_argument('--config', default='cognisys/config/domain_mapping.yml')
+    parser.add_argument('--db', default='cognisys/data/training/cognisys_ml.db')
     parser.add_argument('--doc-id', type=int, help='Organize specific document')
     parser.add_argument('--batch', action='store_true', help='Organize all classified documents')
     parser.add_argument('--dry-run', action='store_true', help='Simulate without moving files')

@@ -1,5 +1,5 @@
 """
-NVIDIA AI Classifier for IFMOS
+NVIDIA AI Classifier for CogniSys
 
 Uses NVIDIA NIM (NVIDIA Inference Microservices) for intelligent document classification
 based on actual content, not just filenames.
@@ -50,7 +50,7 @@ class NVIDIAClassifier:
         # Check if API is available
         self.available = self._check_availability()
 
-        # Document categories (from IFMOS)
+        # Document categories (from CogniSys)
         self.categories = [
             'archive', 'automotive_technical', 'backup_versioned',
             'business_presentation', 'business_spreadsheet',

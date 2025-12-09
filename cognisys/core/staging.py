@@ -1,5 +1,5 @@
 """
-Staging system for IFMOS - Preview organization before commit.
+Staging system for CogniSys - Preview organization before commit.
 Implements Inbox → Staging → Current workflow with full rollback support.
 """
 
@@ -63,7 +63,7 @@ class StagingManager:
         """
         self.db = database
         self.config = config
-        self.staging_root = Path(config.get('staging_root', '.ifmos/staging'))
+        self.staging_root = Path(config.get('staging_root', '.cognisys/staging'))
         self.staging_root.mkdir(parents=True, exist_ok=True)
 
     def create_staging_plan(

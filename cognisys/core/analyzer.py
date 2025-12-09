@@ -1,5 +1,5 @@
 """
-Analysis engine for IFMOS.
+Analysis engine for CogniSys.
 Implements multi-stage deduplication pipeline and pattern detection.
 """
 

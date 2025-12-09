@@ -1,6 +1,6 @@
 """
-IFMOS Metrics Command
-Compute and track accuracy metrics for IFMOS pipeline
+CogniSys Metrics Command
+Compute and track accuracy metrics for CogniSys pipeline
 """
 
 import sqlite3
@@ -158,7 +158,7 @@ def compute_deduplication_rate(db_path):
 
 def compute_all_metrics(db_path):
     """
-    Compute all IFMOS metrics.
+    Compute all CogniSys metrics.
 
     Args:
         db_path: Path to SQLite database
@@ -166,7 +166,7 @@ def compute_all_metrics(db_path):
     Returns:
         dict with all metrics
     """
-    logger.info("Computing IFMOS metrics...")
+    logger.info("Computing CogniSys metrics...")
 
     classification_metrics = compute_classification_accuracy(db_path)
     stability_metrics = compute_stability_metric(db_path)
@@ -240,7 +240,7 @@ def print_metrics_report(metrics):
     """
     print()
     print("="*80)
-    print("IFMOS METRICS REPORT")
+    print("COGNISYS METRICS REPORT")
     print("="*80)
     print(f"Generated: {metrics['timestamp']}")
     print()

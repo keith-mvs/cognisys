@@ -1,5 +1,5 @@
 """
-IFMOS ML - API Module
+CogniSys ML - API Module
 Flask REST API for PowerShell integration
 """
 

@@ -1,6 +1,6 @@
-# IFMOS Claude Code Integration
+# CogniSys Claude Code Integration
 
-This directory contains Claude Code extensions for IFMOS: MCP servers, hooks, skills, and slash commands that enhance the document classification workflow.
+This directory contains Claude Code extensions for CogniSys: MCP servers, hooks, skills, and slash commands that enhance the document classification workflow.
 
 ## 📁 Directory Structure
 
@@ -8,7 +8,7 @@ This directory contains Claude Code extensions for IFMOS: MCP servers, hooks, sk
 .claude/
 ├── mcp-servers/          # Model Context Protocol servers
 │   ├── config.json       # MCP server configuration
-│   └── ifmos_server.py   # Custom IFMOS MCP server
+│   └── cognisys_server.py   # Custom CogniSys MCP server
 ├── hooks/                # Event-triggered scripts
 │   ├── post-file-read.sh     # Bash version
 │   ├── post-file-read.ps1    # PowerShell version
@@ -29,37 +29,37 @@ This directory contains Claude Code extensions for IFMOS: MCP servers, hooks, sk
 
 1. **Filesystem MCP** (`@modelcontextprotocol/server-filesystem`)
    - Provides file system operations
-   - Access to: IFMOS project, inbox, Documents
+   - Access to: CogniSys project, inbox, Documents
    - Use for: Reading, writing, searching files
 
 2. **SQLite MCP** (`@modelcontextprotocol/server-sqlite`)
-   - Direct SQL access to IFMOS ML database
-   - Database: `ifmos/data/training/ifmos_ml.db`
+   - Direct SQL access to CogniSys ML database
+   - Database: `cognisys/data/training/cognisys_ml.db`
    - Use for: Complex queries, data analysis
 
-3. **IFMOS Custom MCP** (`ifmos_server.py`)
-   - Specialized IFMOS operations
+3. **CogniSys Custom MCP** (`cognisys_server.py`)
+   - Specialized CogniSys operations
    - Tools:
-     - `ifmos_query_documents` - Search classified documents
-     - `ifmos_classify_document` - Run ML classification
-     - `ifmos_get_classification_stats` - View statistics
-     - `ifmos_submit_feedback` - Correct classifications
-     - `ifmos_get_categories` - List document types
+     - `cognisys_query_documents` - Search classified documents
+     - `cognisys_classify_document` - Run ML classification
+     - `cognisys_get_classification_stats` - View statistics
+     - `cognisys_submit_feedback` - Correct classifications
+     - `cognisys_get_categories` - List document types
 
 ### Using MCP Servers
 
 ```javascript
 // Query documents by type
-ifmos_query_documents({ doc_type: "financial_invoice", limit: 10 })
+cognisys_query_documents({ doc_type: "financial_invoice", limit: 10 })
 
 // Classify a new document
-ifmos_classify_document({ file_path: "C:\\path\\to\\document.pdf" })
+cognisys_classify_document({ file_path: "C:\\path\\to\\document.pdf" })
 
 // Get classification statistics
-ifmos_get_classification_stats({})
+cognisys_get_classification_stats({})
 
 // Submit feedback
-ifmos_submit_feedback({
+cognisys_submit_feedback({
   doc_id: 123,
   correct_type: "legal_contract",
   user_notes: "This is actually a lease agreement"
@@ -83,7 +83,7 @@ Hooks automatically trigger on specific events to enhance the workflow.
    - Provides contextual information
 
 3. **tool-call** - Triggers before tool execution
-   - Logs IFMOS tool usage
+   - Logs CogniSys tool usage
    - Provides operation context
    - Tracks feedback submissions
 
@@ -91,7 +91,7 @@ Hooks automatically trigger on specific events to enhance the workflow.
 
 ```
 User: Read the file in my inbox
-[IFMOS] This document appears to be unclassified. Would you like me to:
+[CogniSys] This document appears to be unclassified. Would you like me to:
   1. Classify it using the ML pipeline
   2. Query similar documents in the database
   3. Show classification statistics
@@ -115,7 +115,7 @@ Complete workflow for processing documents:
 
 ### /classify
 
-Classify a document using IFMOS ML pipeline.
+Classify a document using CogniSys ML pipeline.
 
 **Usage**: `/classify C:\path\to\document.pdf`
 
@@ -127,7 +127,7 @@ Classify a document using IFMOS ML pipeline.
 
 ### /stats
 
-Show IFMOS classification statistics.
+Show CogniSys classification statistics.
 
 **Usage**: `/stats`
 
@@ -163,11 +163,11 @@ node --version
 # If not installed, download from: https://nodejs.org/
 ```
 
-### 2. Test IFMOS MCP Server
+### 2. Test CogniSys MCP Server
 
 ```bash
 cd .claude/mcp-servers
-python ifmos_server.py
+python cognisys_server.py
 # Should start the MCP server and wait for JSON-RPC messages
 ```
 
@@ -175,10 +175,10 @@ python ifmos_server.py
 
 ```
 User: Show me the latest classified invoices
-Assistant: [Uses ifmos_query_documents with doc_type="financial_invoice"]
+Assistant: [Uses cognisys_query_documents with doc_type="financial_invoice"]
 
 User: Classify this document: C:\inbox\report.pdf
-Assistant: [Uses ifmos_classify_document]
+Assistant: [Uses cognisys_classify_document]
 
 User: Show classification stats
 Assistant: [Uses /stats command]
@@ -210,7 +210,7 @@ Checks if model should be retrained based on:
 
 ### Scheduled Automation
 ```powershell
-.\scripts\schedule\ifmos_automation.ps1 -Task all -Verbose
+.\scripts\schedule\cognisys_automation.ps1 -Task all -Verbose
 ```
 Runs all maintenance tasks:
 - Pattern detection
@@ -243,7 +243,7 @@ npx -y @modelcontextprotocol/server-filesystem --help
 
 ### Python Import Errors
 ```
-ModuleNotFoundError: No module named 'ifmos'
+ModuleNotFoundError: No module named 'cognisys'
 ```
 **Solution**: Activate virtual environment:
 ```bash
@@ -272,8 +272,8 @@ Based on the integration plan:
 2. **Test Hooks** - Read an inbox file to trigger classification offer
 3. **Try Slash Commands** - Use `/stats` to view current data
 4. **Run Automation** - Schedule weekly pattern detection
-5. **Collect Feedback** - Use `ifmos_submit_feedback` regularly
+5. **Collect Feedback** - Use `cognisys_submit_feedback` regularly
 
 ---
 
-For questions or issues, see the main IFMOS README or documentation in `docs/`.
+For questions or issues, see the main CogniSys README or documentation in `docs/`.

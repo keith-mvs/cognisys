@@ -1,5 +1,5 @@
 """
-IFMOS ML - NLP Module
+CogniSys ML - NLP Module
 Text analysis, entity recognition, and document understanding
 """
 

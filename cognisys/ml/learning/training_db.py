@@ -27,7 +27,7 @@ class TrainingDatabase:
 
         # Database path
         if db_path is None:
-            db_path = Path(__file__).parent.parent.parent / 'data' / 'training' / 'ifmos_ml.db'
+            db_path = Path(__file__).parent.parent.parent / 'data' / 'training' / 'cognisys_ml.db'
 
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)

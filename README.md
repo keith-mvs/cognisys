@@ -40,6 +40,19 @@ A comprehensive, automation-friendly system for analyzing, deduplicating, and re
 - Full audit trail with detailed logging
 - Conflict resolution and error handling
 
+### Cloud Storage Integration
+- **Multi-source library architecture:** Manage files across local drives, network shares, and cloud storage
+- **Auto-detection:** Automatically find mounted OneDrive, Google Drive, iCloud, and Proton Drive folders
+- **Native API support:** Direct integration with OneDrive via Microsoft Graph API
+- **Two-way sync:** Pull files from cloud, classify them, push organized files back
+- **Secure authentication:** OAuth 2.0 with encrypted token storage using system keyring
+
+### ML-Powered Classification
+- **DistilBERT v2 classifier:** Trained on 77k+ files with 96.7% accuracy
+- **Automatic document classification:** Categorize files by content type
+- **Confidence scoring:** Know when to trust automated decisions
+- **Incremental learning:** Improve classification with user feedback
+
 ## Installation
 
 ### Requirements
@@ -53,6 +66,12 @@ git clone https://github.com/FleithFeming/cognisys-core.git
 cd cognisys-core
 pip install -r requirements.txt
 pip install -e .
+```
+
+### Install cloud storage support (optional)
+
+```bash
+pip install msal keyring cryptography
 ```
 
 ### Verify installation
@@ -254,6 +273,48 @@ Options:
   --db PATH           Database path
 ```
 
+### Source Management
+
+```bash
+# List all configured sources
+cognisys source list
+
+# Add a local source
+cognisys source add my_docs --type local --path "C:\Users\Documents"
+
+# Add a cloud API source (requires authentication)
+cognisys source add onedrive_docs --type cloud_api --provider onedrive --path /Documents
+
+# Detect cloud folders automatically
+cognisys source detect
+cognisys source detect --add  # Add detected folders as sources
+
+# Show source status
+cognisys source status
+```
+
+### Cloud Integration
+
+```bash
+# Detect mounted cloud folders
+cognisys cloud detect
+
+# Authenticate with OneDrive
+cognisys cloud auth --provider onedrive --client-id <your-client-id>
+cognisys cloud auth --provider onedrive --device-code  # For headless environments
+
+# Check cloud connection status
+cognisys cloud status
+
+# Sync files with cloud source
+cognisys cloud sync <source_name> --direction pull
+cognisys cloud sync <source_name> --direction push
+cognisys cloud sync <source_name> --dry-run
+
+# Log out from cloud providers
+cognisys cloud logout
+```
+
 ### Utilities
 
 ```bash
@@ -270,21 +331,61 @@ cognisys <command> --help
 
 ```
 CogniSys
+├─ Storage Layer       -> Multi-source abstraction (local, network, cloud)
+│   ├─ LocalFileSource     -> Local filesystem operations
+│   ├─ OneDriveSource      -> Microsoft Graph API integration
+│   └─ SyncManager         -> Two-way cloud synchronization
+├─ Cloud Integration   -> Provider detection and authentication
+│   ├─ CloudFolderDetector -> Auto-detect mounted cloud folders
+│   └─ OAuth Authenticator -> Secure token management
 ├─ Scanning Engine     -> Multi-threaded file traversal and indexing
 ├─ Analysis Engine     -> Deduplication and pattern detection
+├─ ML Classifier       -> DistilBERT-based document classification
 ├─ Reporting Engine    -> Statistics, insights, and visualizations
 ├─ Migration Planner   -> Rule-based reorganization planning
 └─ Migration Executor  -> Safe execution with rollback support
 ```
 
+### Multi-Source Architecture
+
+```
++------------------------------------------------------------------+
+|                      CogniSys Source Library                      |
++------------------------------------------------------------------+
+|                                                                    |
+|  LOCAL SOURCES              CLOUD SOURCES (Mounted)               |
+|  +----------------+         +----------------+                    |
+|  | Downloads      |         | OneDrive       |                    |
+|  | Documents      |         | Google Drive   |                    |
+|  | Projects       |         | iCloud         |                    |
+|  +----------------+         +----------------+                    |
+|                                                                    |
+|  CLOUD SOURCES (API)        NETWORK SOURCES                       |
+|  +----------------+         +----------------+                    |
+|  | OneDrive API   |         | NAS/SMB        |                    |
+|  | (coming soon)  |         | Network Share  |                    |
+|  +----------------+         +----------------+                    |
+|                                                                    |
++------------------------------------------------------------------+
+                              |
+                              v
+                   +--------------------+
+                   |  Unified Registry  |
+                   |  (file_registry.db)|
+                   +--------------------+
+```
+
 ### Data Flow
 
 ```
-1. Scan -> Index files with metadata and hashes
-2. Analyze -> Detect duplicates and patterns
-3. Report -> Generate insights and recommendations
-4. Plan -> Create migration strategy
-5. Execute -> Apply changes with safety checks
+1. Source Library -> Configure local, network, and cloud sources
+2. Scan -> Index files with metadata and hashes from all sources
+3. Analyze -> Detect duplicates and patterns across sources
+4. Classify -> ML-powered document categorization
+5. Report -> Generate insights and recommendations
+6. Plan -> Create migration strategy
+7. Execute -> Apply changes with safety checks
+8. Sync -> Push organized files back to cloud (optional)
 ```
 
 ### Database Schema
@@ -292,6 +393,9 @@ CogniSys
 SQLite database with tables for:
 - **files** - File metadata and hashes
 - **folders** - Folder hierarchy and stats
+- **sources** - Configured source library (local, network, cloud)
+- **cloud_providers** - Authenticated cloud provider credentials
+- **scan_history** - Per-source scan tracking
 - **duplicate_groups** - Duplicate sets with canonical selection
 - **duplicate_members** - Individual duplicates with priority scores
 - **scan_sessions** - Scan metadata and configuration
@@ -387,10 +491,12 @@ JSON exports and SQLite database enable integration with other tools and scripts
 Contributions are welcome! Areas for enhancement:
 
 - [ ] Web-based dashboard UI
-- [ ] Cloud storage integration (S3, Azure, GCP)
-- [ ] Machine learning for smarter classification
+- [x] Cloud storage integration (OneDrive, Google Drive, iCloud - mounted folder support)
+- [x] Machine learning for smarter classification (DistilBERT v2 - 96.7% accuracy)
+- [ ] Additional cloud providers (S3, Azure Blob, GCP)
 - [ ] Multi-user collaboration features
 - [ ] Real-time monitoring and alerting
+- [ ] Google Drive native API support
 
 ## License
 

@@ -1,5 +1,5 @@
 """
-Structure Proposal Generator for IFMOS.
+Structure Proposal Generator for CogniSys.
 Analyzes scan results and generates recommended repository structure.
 """
 
@@ -415,7 +415,7 @@ class StructureProposalGenerator:
         """Save proposal to YAML file."""
         # Add helpful comments
         commented_proposal = {
-            '# IFMOS Structure Proposal': None,
+            '# CogniSys Structure Proposal': None,
             '# Generated': proposal['generated_at'],
             '# Review and customize before using for migration': None,
             **proposal
@@ -425,7 +425,7 @@ class StructureProposalGenerator:
         yaml_proposal = {k: v for k, v in proposal.items() if k != 'session_stats'}
 
         with open(output_path, 'w') as f:
-            f.write(f"# IFMOS Structure Proposal\n")
+            f.write(f"# CogniSys Structure Proposal\n")
             f.write(f"# Generated: {proposal['generated_at']}\n")
             f.write(f"# Based on session with {proposal['session_stats']['total_files']} files ")
             f.write(f"({proposal['session_stats']['total_size_gb']} GB)\n")

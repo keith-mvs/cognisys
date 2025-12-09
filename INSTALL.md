@@ -1,6 +1,6 @@
-# IFMOS Installation Guide
+# CogniSys Installation Guide
 
-Complete installation instructions for the Intelligent File Management and Organization System with ML capabilities.
+Complete installation instructions for CogniSys (Cognitive File Organization System) with ML capabilities and cloud storage integration.
 
 ## System Requirements
 
@@ -36,7 +36,7 @@ cd intelligent-file-management-system
 
 ### Step 2: Create Virtual Environment
 
-#### Option A: Core IFMOS Only (No ML)
+#### Option A: Core CogniSys Only (No ML)
 
 ```powershell
 # Create virtual environment
@@ -48,7 +48,7 @@ python -m venv venv
 # Install core dependencies
 pip install -r requirements.txt
 
-# Install IFMOS in development mode
+# Install CogniSys in development mode
 pip install -e .
 ```
 
@@ -73,7 +73,7 @@ pip install -r requirements-ml.txt
 # Download spaCy language model
 python -m spacy download en_core_web_sm
 
-# Install IFMOS in development mode
+# Install CogniSys in development mode
 pip install -e .
 ```
 
@@ -82,8 +82,8 @@ pip install -e .
 ### Step 3: Verify Installation
 
 ```powershell
-# Check IFMOS CLI
-ifmos --help
+# Check CogniSys CLI
+cognisys --help
 
 # Verify GPU detection (if using ML features)
 python -c "import torch; print(f'CUDA Available: {torch.cuda.is_available()}'); print(f'GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"None\"}')"
@@ -95,12 +95,25 @@ CUDA Available: True
 GPU: NVIDIA GeForce RTX 2080 Ti
 ```
 
-###  Step 4: Initialize Databases
+### Step 4: Initialize Databases
 
 ```powershell
 # The database will be created automatically on first run
 # Optionally, you can create it manually:
-python -c "from ifmos.models.database import Database; Database('db/ifmos.db').initialize()"
+python -c "from cognisys.models.database import Database; db = Database('.cognisys/file_registry.db')"
+```
+
+### Step 5: Detect Cloud Storage (Optional)
+
+```powershell
+# Auto-detect mounted cloud folders (OneDrive, Google Drive, iCloud)
+cognisys cloud detect
+
+# Add detected folders as sources
+cognisys cloud detect --add
+
+# Authenticate with OneDrive API (requires Azure AD client ID)
+cognisys cloud auth --provider onedrive --client-id <your-client-id>
 ```
 
 ---
@@ -109,7 +122,7 @@ python -c "from ifmos.models.database import Database; Database('db/ifmos.db').i
 
 ### Basic Configuration
 
-Edit configuration files in `ifmos/config/`:
+Edit configuration files in `cognisys/config/`:
 
 1. **scan_config.yml** - Scanning behavior
 2. **analysis_rules.yml** - Deduplication rules
@@ -125,25 +138,43 @@ Edit configuration files in `ifmos/config/`:
 
 ## Quick Start
 
-### Core IFMOS Workflow
+### Core CogniSys Workflow
 
 ```bash
 # 1. Scan your file system
-ifmos scan --roots "C:\Users\Documents" --roots "C:\Projects"
+cognisys scan --roots "C:\Users\Documents" --roots "C:\Projects"
 
 # 2. Analyze for duplicates
-ifmos analyze --session <session-id-from-step-1>
+cognisys analyze --session <session-id-from-step-1>
 
 # 3. Generate reports
-ifmos report --session <session-id> --format html --format json
+cognisys report --session <session-id> --format html --format json
 
 # 4. Create migration plan
-ifmos plan --session <session-id> --structure ifmos/config/new_structure.yml
+cognisys plan --session <session-id> --structure cognisys/config/new_structure.yml
 
 # 5. Preview and execute
-ifmos dry-run --plan <plan-id>
-ifmos approve --plan <plan-id>
-ifmos execute --plan <plan-id>
+cognisys dry-run --plan <plan-id>
+cognisys approve --plan <plan-id>
+cognisys execute --plan <plan-id>
+```
+
+### Cloud Storage Workflow
+
+```bash
+# 1. Detect and add cloud sources
+cognisys cloud detect --add
+
+# 2. Configure additional sources
+cognisys source add my_nas --type network --path "\\\\NAS\\files"
+cognisys source list
+
+# 3. Scan all sources
+cognisys scan --source onedrive_mounted
+cognisys scan --all  # Scan all configured sources
+
+# 4. Sync organized files back to cloud
+cognisys cloud sync onedrive_docs --direction push
 ```
 
 ### ML Document Classification Workflow
@@ -156,7 +187,7 @@ cd scripts\powershell
 .\utilities\check_health.ps1
 
 # 2. Run complete ML workflow
-.\workflows\ifmos_ml_workflow.ps1 -Stage Complete
+.\workflows\cognisys_ml_workflow.ps1 -Stage Complete
 ```
 
 This will:
@@ -171,7 +202,7 @@ This will:
 
 ### Import Errors After Installation
 
-**Problem**: `ModuleNotFoundError: No module named 'ifmos'`
+**Problem**: `ModuleNotFoundError: No module named 'cognisys'`
 
 **Solution**:
 ```powershell
@@ -221,7 +252,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ---
 
-## Updating IFMOS
+## Updating CogniSys
 
 ```bash
 # Pull latest changes
@@ -254,7 +285,7 @@ Remove-Item -Recurse -Force db, data, logs, reports
 
 ## Next Steps
 
-- **Core IFMOS**: Read [QUICKSTART.md](docs/QUICKSTART.md) for usage examples
+- **Core CogniSys**: Read [QUICKSTART.md](docs/QUICKSTART.md) for usage examples
 - **ML Features**: Read [ML_WORKFLOW_GUIDE.md](docs/ML_WORKFLOW_GUIDE.md) for ML training workflow
 - **Architecture**: See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for system design
 

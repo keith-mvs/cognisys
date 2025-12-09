@@ -1,4 +1,4 @@
-# IFMOS Domain-Based Organization Mapping v2
+# CogniSys Domain-Based Organization Mapping v2
 # Function/Form/Fit Structure (No Chronological Organization)
 # Structure: Domain / Function / Form / [Fit]
 
@@ -447,7 +447,7 @@ operations:
   create_missing_dirs: true
   conflict_resolution: "rename"  # Options: rename, skip, overwrite, ask
   backup_before_move: true
-  backup_location: "C:\\Users\\kjfle\\Documents\\IFMOS_Backups"
+  backup_location: "C:\\Users\\kjfle\\Documents\\CogniSys_Backups"
 
 # ============================================================================
 # NAMING CONVENTIONS

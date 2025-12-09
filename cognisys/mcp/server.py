@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-IFMOS Custom MCP Server
-Exposes IFMOS classification and organization operations via MCP protocol
+CogniSys Custom MCP Server
+Exposes CogniSys classification and organization operations via MCP protocol
 """
 
 import asyncio
@@ -20,20 +20,20 @@ import mcp.types as types
 
 
 # Initialize MCP Server
-app = Server("ifmos")
+app = Server("cognisys")
 
 # Database path
-DB_PATH = Path(__file__).parent.parent.parent / 'ifmos' / 'data' / 'training' / 'ifmos_ml.db'
+DB_PATH = Path(__file__).parent.parent.parent / 'cognisys' / 'data' / 'training' / 'cognisys_ml.db'
 ORGANIZED_ROOT = Path("C:/Users/kjfle/Documents/Organized_V2")
 
 
 @app.list_tools()
 async def list_tools() -> list[Tool]:
-    """List available IFMOS tools"""
+    """List available CogniSys tools"""
     return [
         Tool(
             name="classify_file",
-            description="Classify a file using IFMOS ML pipeline. Returns document type and confidence score.",
+            description="Classify a file using CogniSys ML pipeline. Returns document type and confidence score.",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -47,7 +47,7 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="get_statistics",
-            description="Get IFMOS classification statistics including document counts, confidence scores, and domain distribution.",
+            description="Get CogniSys classification statistics including document counts, confidence scores, and domain distribution.",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -61,7 +61,7 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="query_documents",
-            description="Query IFMOS database with filters. Search by document type, confidence, date range, or filename pattern.",
+            description="Query CogniSys database with filters. Search by document type, confidence, date range, or filename pattern.",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -189,7 +189,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
 
 
 async def get_statistics(detailed: bool = False) -> list[TextContent]:
-    """Get IFMOS classification statistics"""
+    """Get CogniSys classification statistics"""
     try:
         conn = sqlite3.connect(str(DB_PATH))
         cursor = conn.cursor()
@@ -231,7 +231,7 @@ async def get_statistics(detailed: bool = False) -> list[TextContent]:
         conn.close()
 
         # Format response
-        response = f"""IFMOS Classification Statistics
+        response = f"""CogniSys Classification Statistics
 {'=' * 50}
 
 Total Documents: {total_count:,}
@@ -317,7 +317,7 @@ async def query_documents(
 
 
 async def classify_file(file_path: str) -> list[TextContent]:
-    """Classify a file using IFMOS"""
+    """Classify a file using CogniSys"""
     try:
         # Check if file exists
         if not os.path.exists(file_path):
@@ -331,7 +331,7 @@ async def classify_file(file_path: str) -> list[TextContent]:
 File: {file_path}
 Status: Classification pipeline integration pending
 
-Note: This tool will be connected to the IFMOS ML pipeline
+Note: This tool will be connected to the CogniSys ML pipeline
 to provide real-time file classification. Currently in development.
 
 To classify files now, use:
