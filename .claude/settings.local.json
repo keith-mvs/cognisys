@@ -8,7 +8,10 @@
       "Bash(pwsh:*)",
       "Bash(ls:*)",
       "Bash(head:*)",
-      "Bash(.venvScriptspython.exe -m pytest tests/ -v --tb=short)"
+      "Bash(.venvScriptspython.exe -m pytest tests/ -v --tb=short)",
+      "Bash(for dir in */)",
+      "Bash(robocopy:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

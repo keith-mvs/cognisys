@@ -532,12 +532,22 @@ Contributions are welcome! Areas for enhancement:
 
 ## License
 
-[Add your license here]
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## Documentation
+
+Full documentation is available in the [docs/](docs/) directory:
+
+- [Quick Start Guide](docs/getting-started/QUICKSTART.md) - Get started in 5 minutes
+- [Architecture Overview](docs/architecture/OVERVIEW.md) - System design and components
+- [CLI Reference](docs/reference/CLI_COMMANDS.md) - Complete command reference
+- [Workflow Guide](docs/guides/WORKFLOW.md) - End-to-end processing
 
 ## Support
 
 For issues, questions, or feature requests:
 - Create an issue in the repository
+- Review [documentation](docs/INDEX.md) for guides and references
 - Review logs in `logs/` directory
 - Check configuration files for syntax errors
 
