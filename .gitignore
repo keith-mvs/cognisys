@@ -82,7 +82,9 @@ cache/
 
 # DistilBERT Training - Large model checkpoints
 cognisys/models/distilbert/checkpoint_*/
+cognisys/models/distilbert_v2/
 !cognisys/models/distilbert/label_mapping.json
+!cognisys/models/distilbert_v2/label_mapping.json
 .cognisys/training_data.csv
 
 # User organized files (not part of repo)
